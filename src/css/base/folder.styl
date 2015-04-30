@@ -1,0 +1,52 @@
+.guigui
+  .folder
+    background backgroundDarkColor
+    position relative
+    margin 3px 0
+    
+    .head
+      padding 3px
+      cursor pointer
+      user-select none
+    
+      .title
+        text-align center
+        font-size 1em
+        color white
+    
+    .open-indicator
+      position absolute
+      right 11px
+      height 12px
+      width 12px
+      top 9px
+      
+    .vertical, .horizontal
+      background highlightColor
+      position absolute
+      
+    .vertical
+      width 2px
+      height 100%
+      left 50%
+      transform translateX(-50%)
+      
+    .horizontal
+      height 2px
+      width 100%
+      top 50%
+      transform translateY(-50%)
+      
+    .component
+      width 340px
+    
+    .content
+      margin-top 5px
+      display none
+      
+    &.opened
+      .vertical
+        display none
+      .content
+        display block
+    

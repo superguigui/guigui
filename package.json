@@ -1,0 +1,56 @@
+{
+  "name": "gui-gui",
+  "version": "0.0.1",
+  "description": "GUI tool for tweaking stuff in common.js",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "npm run example & npm run css:watch",
+    "example": "budo example/example.js:example-build.js --live --dir example -t browserify-css | garnish",
+    "build": "npm run css & npm run js",
+    "css": "stylus -u autoprefixer-stylus src/css",
+    "css:watch": "stylus -u autoprefixer-stylus src/css -w ",
+    "js": "browserify src/index.js -t browserify-css -o build/guigui.js",
+    "js:min": "browserify src/index.js -t browserify-css | uglifyjs -nm > build/guigui.min.js",
+    "test": "browserify test/test.js -t browserify-css | tap-closer | smokestack | faucet"
+  },
+  "keywords": [
+    "gui",
+    "guigui",
+    "ui",
+    "interface",
+    "kit",
+    "slider",
+    "knobs"
+  ],
+  "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer-stylus": "^0.5.0",
+    "browserify": "^9.0.8",
+    "browserify-css": "^0.6.1",
+    "budo": "^3.1.1",
+    "domready": "^1.0.7",
+    "faucet": "0.0.1",
+    "garnish": "^2.1.3",
+    "raf": "^2.0.4",
+    "smokestack": "^3.2.2",
+    "stylus": "^0.50.0",
+    "tap-closer": "^1.0.0",
+    "tape": "^4.0.0",
+    "testling": "^1.7.1",
+    "uglify-js": "^2.4.20",
+    "watchify": "^3.1.2"
+  },
+  "dependencies": {
+    "color": "^0.8.0",
+    "component-emitter": "^1.2.0",
+    "dom-classes": "0.0.1",
+    "dom-transform": "^1.0.1",
+    "is-boolean": "0.0.1",
+    "is-function": "^1.0.1",
+    "is-number": "^1.1.2",
+    "lodash.bindall": "^3.1.0",
+    "numeral": "^1.5.3",
+    "simple-color-picker": "0.0.3"
+  }
+}
