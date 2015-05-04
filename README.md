@@ -1,12 +1,13 @@
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-# guigui
+# gui-gui
 
 GUI tool in commonjs for creative coding projects. 
 Inspired from dat.GUI.
 Development in progress.
 
 ![Snapshot](example/snapshot.png)
+[demo](https://superguigui.github.io/gui-gui)
 
 ## Install
 From npm but not yet.

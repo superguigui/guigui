@@ -4,11 +4,10 @@
   "description": "GUI tools in commonjs",
   "main": "./src/index.js",
   "scripts": {
-    "start": "npm run example & npm run css:watch",
-    "example": "budo example/example.js:example-build.js --live --dir example -t browserify-css | garnish",
-    "build": "npm run css & npm run js",
-    "css": "stylus -u autoprefixer-stylus src/css",
-    "css:watch": "stylus -u autoprefixer-stylus src/css -w ",
+    "start": "npm run dev & npm run css",
+    "dev": "budo example/example.js:example/example-build.js --live -t browserify-css | garnish",
+    "build":  "browserify example/example.js -t browserify-css | uglifyjs -nm > example/example-build.js",
+    "css": "stylus -u autoprefixer-stylus src/css -w ",
     "test": "browserify test/test.js -t browserify-css | tap-closer | smokestack | faucet"
   },
   "keywords": [
