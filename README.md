@@ -5,7 +5,7 @@
 GUI tool in commonjs for creative coding projects. 
 Inspired from dat.GUI.
 Development in progress.
-!Check out the [demo](https://superguigui.github.io/gui-gui).
+Check out the [demo](https://superguigui.github.io/gui-gui).
 
 ![Snapshot](example/snapshot.png)
 
