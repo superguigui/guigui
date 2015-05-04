@@ -1,7 +1,6 @@
-// What we need for this test
-var test = require('tape');
+'use strict';
 
-// The stuff i'm testing
+var test = require('tape');
 var Guigui = require('../../src');
 
 var gui = new Guigui();
@@ -11,9 +10,5 @@ test('Folder', function(t) {
 
   var folder = gui.addFolder('myFolder');
 
-  t.ok(folder.$el.parentNode, 'folder add to stage');
-
-  // folder.remove();
-  
-  // t.notOk(folder.$el.parentNode, 'folder remove to stage');
+  t.ok(folder.$el.parentNode, 'folder added to stage');
 });

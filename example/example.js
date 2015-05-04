@@ -31,22 +31,9 @@ domready(function() {
   */
   var gui = new Guigui();
 
-  gui.add(myObject, 'x', {
-    min: -200,
-    max: 200
-  });
-
-  gui.add(myObject, 'y', {
-    min: -200,
-    max: 200,
-    step: 1
-  });
-
-  gui.add(myObject, 'scale', {
-    min: 0,
-    max: 3,
-    step: 0.1
-  });
+  gui.add(myObject, 'x', { min: -200, max: 200 });
+  gui.add(myObject, 'y', { min: -200, max: 200, step: 1 });
+  gui.add(myObject, 'scale', { min: 0, max: 3, step: 0.1});
 
   gui.addColorPicker($marker.style, 'background', {
     label: 'Square Color'

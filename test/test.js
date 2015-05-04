@@ -1,6 +1,8 @@
+'use strict';
+
 // Previous tests
-var maths = require('./utils/maths');
-var maths = require('./base/folder');
+require('./utils/maths');
+require('./base/folder');
 
 // What we need for this test
 var test = require('tape');
@@ -16,9 +18,9 @@ var gui = new Guigui();
 
 test('Guigui.add', function(t) {
   t.plan(3);
-  
+
   var myObject = {
-    x: 0, 
+    x: 0,
     visible: false,
     complete: function() {}
   };

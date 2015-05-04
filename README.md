@@ -50,3 +50,12 @@ To handle colors.
 
 ### Folder
 A folder to put other components in.
+
+
+## Motivations
+This library was mainly made as an exercise, and also to fill my need for a GUI tool for creative development.
+
+## What's next
+* Select component
+* Resize
+* Scrolling

@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('tape');
 var clamp = require('../../src/utils/maths/clamp');
 var toPrecision = require('../../src/utils/maths/toPrecision');
