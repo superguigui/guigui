@@ -1,8 +1,8 @@
-.guigui > .head 
+.Guigui > .head 
   height 38px
 
   .close-button
-    background backgroundDarkColor
+    background backgroundMainColor
     width 30px
     height 30px
     position absolute
@@ -16,6 +16,7 @@
       top 20%
       left 20%
       position absolute
+      transition transform 0.5s easeOutExpo
     
     .vertical, .horizontal
       position absolute
@@ -33,5 +34,5 @@
       top 50%
       transform translateY(-50%)
       
-.guigui.opened > .head .content
+.Guigui.opened > .head .content
   transform rotate(45deg)

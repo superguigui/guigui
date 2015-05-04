@@ -1,7 +1,7 @@
 {
-  "name": "gui-gui",
+  "name": "guigui",
   "version": "0.0.1",
-  "description": "GUI tool for tweaking stuff in common.js",
+  "description": "GUI tools in commonjs",
   "main": "./src/index.js",
   "scripts": {
     "start": "npm run example & npm run css:watch",
@@ -13,14 +13,6 @@
     "js:min": "browserify src/index.js -t browserify-css | uglifyjs -nm > build/guigui.min.js",
     "test": "browserify test/test.js -t browserify-css | tap-closer | smokestack | faucet"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/superguigui/gui-gui.git"
-  },
-  "homepage": "http://superguigui.github.io/gui-gui",
-  "bugs": {
-    "url": "https://github.com/superguigui/gui-gui/issues"
-  },
   "keywords": [
     "gui",
     "guigui",
@@ -28,8 +20,7 @@
     "interface",
     "kit",
     "slider",
-    "colorpicker",
-    "toggle"
+    "knobs"
   ],
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com>",
   "license": "MIT",
@@ -60,6 +51,6 @@
     "is-number": "^1.1.2",
     "lodash.bindall": "^3.1.0",
     "numeral": "^1.5.3",
-    "simple-color-picker": "0.0.3"
+    "simple-color-picker": "0.0.6"
   }
 }

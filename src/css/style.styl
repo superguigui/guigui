@@ -22,12 +22,18 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
   box-shadow inset 0 1px 1px rgba(255, 255, 255, 0.06)
   background-image linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0))
   border 1px solid borderColor
-  // border-radius 3px
+
+.label
+  text-align center
+  overflow hidden
+  text-overflow ellipsis
+  font-style italic
+  padding 0 5px
 
 /* ================================================================================
   MAIN
 =================================================================================*/
-.guigui
+.Guigui
   position fixed
   top 10px
   right 10px
@@ -37,7 +43,7 @@ background-linear-gradient(startPoint, startColor, startInterval, endColor, endI
   .main-content
     display none
     
-.guigui.opened .main-content
+.Guigui.opened .main-content
       display block
 /* ================================================================================
   Globals

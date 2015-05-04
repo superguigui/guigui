@@ -1,13 +1,13 @@
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-# gui-gui
+# guigui
 
-GUI tool in commonjs for tweaking stuff. Inspired from dat.GUI, made mainly as an exercise and to answer my needs.
-
-Development in progress, go away!
+GUI tool in commonjs for creative coding projects. 
+Inspired from dat.GUI.
+Development in progress.
 
 ## Install
-From npm but not yet, I told you to go away!
+From npm but not yet.
 
 ## Getting started
 ```javascript
@@ -30,14 +30,19 @@ gui.add(someObject, 'x', {
 ```
 
 ## Available components
+Here's a list of the components you can use 
 
 ### Slider
 A slider to manipulate numerical values
 
 ### Toggler
+A button with a truthy and a falsy state to handle booleans. Equivalent to checkbox.
 
 ### Launcher
+A button to launch a function.
 
-### ColorPicker
+### Colorpicker
+To handle colors.
 
-### Select
+### Folder
+A folder to put other components in.

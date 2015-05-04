@@ -2,16 +2,11 @@
 
 var bindAll = require('lodash.bindall');
 var Component = require('../base/Component');
-var offset = require('../utils/dom/offset');
-var clamp = require('../utils/maths/clamp');
 var classes = require('dom-classes');
-var transform = require('dom-transform');
-var Color = require('color');
 var SimpleColorPicker = require('simple-color-picker');
 
 function ColorPicker(object, property, options) {
   Component.call(this);
-
 
   // options
   options = options || {};
@@ -20,33 +15,32 @@ function ColorPicker(object, property, options) {
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
 
-
   // bind methods to scope (only if needed)
   bindAll(this, 'onColorPickerClick', 'onColorPickerUpdate', 'onPickerMouseLeave', 'onFinishedInteracting');
 
   // dom template of the component
   this.template = [
-    '<div class="label">' + this.labelText + '</div>',
-    '<div class="state">',
-      '<div class="text">#FF0000</div>',
+    '<div class="gg-ColorPicker-label">' + this.labelText + '</div>',
+    '<div class="gg-ColorPicker-state">',
+      '<div class="gg-ColorPicker-text">#FF0000</div>',
     '</div>'
   ].join('\n');
 
-
   // manage dom
-  classes.add(this.$el, 'color-picker');
+  classes.add(this.$el, 'gg-ColorPicker');
   this.$el.innerHTML = this.template;
-  
+
+  this.$text = this.$el.querySelector('.gg-ColorPicker-text');
+  this.$state = this.$el.querySelector('.gg-ColorPicker-state');
+
   this.colorPicker = new SimpleColorPicker({
     el: this.$el,
     color: this.targetObject[this.targetProperty],
     background: '#30343c'
   });
+  this.$picker = this.colorPicker.$el;
   this.colorPicker.onChange(this.onColorPickerUpdate);
 
-  this.$picker = this.$el.querySelector('.scp');
-  this.$text = this.$el.querySelector('.text');
-  this.$state = this.$el.querySelector('.state');
 
   // create event listeners
   this.$state.addEventListener('click', this.onColorPickerClick);
@@ -68,15 +62,15 @@ ColorPicker.prototype.getColor = function() {
 };
 
 ColorPicker.prototype._closePicker = function() {
-  classes.remove(this.$picker, 'opened');
+  classes.remove(this.$picker, 'isOpened');
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Events
 ============================================================================= */
-ColorPicker.prototype.onColorPickerClick = function(e) {
-  classes.toggle(this.$picker, 'opened');
-  if(classes.has(this.$picker, 'opened')) {
+ColorPicker.prototype.onColorPickerClick = function() {
+  classes.toggle(this.$picker, 'isOpened');
+  if(classes.has(this.$picker, 'isOpened')) {
     this.$picker.addEventListener('mouseleave', this.onPickerMouseLeave);
   }
   else {
@@ -84,7 +78,7 @@ ColorPicker.prototype.onColorPickerClick = function(e) {
   }
 };
 
-ColorPicker.prototype.onPickerMouseLeave = function(e) {
+ColorPicker.prototype.onPickerMouseLeave = function() {
   this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave);
   if(this.colorPicker.choosing) {
     window.addEventListener('mouseup', this.onFinishedInteracting);
@@ -94,18 +88,18 @@ ColorPicker.prototype.onPickerMouseLeave = function(e) {
   }
 };
 
-ColorPicker.prototype.onFinishedInteracting = function(e) {
+ColorPicker.prototype.onFinishedInteracting = function() {
   window.removeEventListener('mouseup', this.onFinishedInteracting);
   this._closePicker();
 };
 
-ColorPicker.prototype.onColorPickerUpdate = function(e) {
+ColorPicker.prototype.onColorPickerUpdate = function() {
   var hexString = this.colorPicker.getHexString();
   this.$state.style.background = hexString;
   this.$text.innerHTML = hexString;
-  this.$text.style.color = this.colorPicker.color.dark() ? 'white' : 'black';
+  this.$text.style.color = this.colorPicker.isDark() ? 'white' : 'black';
   this.targetObject[this.targetProperty] = hexString;
-  this.emit('update', hexString)
+  this.emit('update', hexString);
 };
 
 module.exports = ColorPicker;

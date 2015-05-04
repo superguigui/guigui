@@ -1,7 +1,8 @@
 'use strict';
 
+require('./css/style.css');
+
 var bindAll = require('lodash.bindall');
-var css = require('./css/style.css');
 var ComponentContainer = require('./base/ComponentContainer');
 var Folder = require('./base/Folder');
 var classes = require('dom-classes');
@@ -24,7 +25,7 @@ function Guigui() {
   ].join('\n');
 
   this.$el.innerHTML = this.template;
-  classes.add(this.$el, 'guigui');
+  classes.add(this.$el, 'Guigui');
   classes.add(this.$el, 'opened');
   document.body.appendChild(this.$el);
 
