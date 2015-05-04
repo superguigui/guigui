@@ -6,6 +6,8 @@ GUI tool in commonjs for creative coding projects.
 Inspired from dat.GUI.
 Development in progress.
 
+![Snapshot](example/snapshot.png)
+
 ## Install
 From npm but not yet.
 

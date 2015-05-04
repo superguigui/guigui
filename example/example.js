@@ -54,7 +54,7 @@ domready(function() {
     $marker.style.background = color;
   });
 
-  var folder = gui.addFolder('Toto');
+  var folder = gui.addFolder('Some Folder');
   folder.add(myObject, 'a', {
     label: 'alpha',
     min: 0,

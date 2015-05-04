@@ -9,8 +9,6 @@
     "build": "npm run css & npm run js",
     "css": "stylus -u autoprefixer-stylus src/css",
     "css:watch": "stylus -u autoprefixer-stylus src/css -w ",
-    "js": "browserify src/index.js -t browserify-css -o build/guigui.js",
-    "js:min": "browserify src/index.js -t browserify-css | uglifyjs -nm > build/guigui.min.js",
     "test": "browserify test/test.js -t browserify-css | tap-closer | smokestack | faucet"
   },
   "keywords": [
