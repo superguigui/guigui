@@ -10,7 +10,9 @@ var classes = require('dom-classes');
 function Guigui() {
   ComponentContainer.call(this);
 
-  bindAll(this, 'onToggleClick');
+  this.minWidth = 210;
+
+  bindAll(this, 'onToggleClick', 'onResizeStartDrag', 'onResizeStopDrag', 'onResizeDrag');
 
   this.template = [
     '<div class="head">',
@@ -21,7 +23,8 @@ function Guigui() {
         '</div>',
       '</div>',
     '</div>',
-    '<div class="main-content"></div>'
+    '<div class="main-content"></div>',
+    '<div class="resize-zone"></div>'
   ].join('\n');
 
   this.$el.innerHTML = this.template;
@@ -31,8 +34,10 @@ function Guigui() {
 
   this.$closeButton = this.$el.querySelector('.close-button');
   this.$content = this.$el.querySelector('.main-content');
+  this.$resize = this.$el.querySelector('.resize-zone');
 
   this.$closeButton.addEventListener('click', this.onToggleClick);
+  this.$resize.addEventListener('mousedown', this.onResizeStartDrag);
 
 }
 
@@ -43,6 +48,26 @@ Guigui.prototype.addFolder = function(name) {
   var folder = new Folder(name);
   this.$content.appendChild(folder.$el);
   return folder;
+};
+
+Guigui.prototype.onResizeStartDrag = function(e) {
+  this.resizeStartX = e.clientX;
+  this.resizeWidth = this.$el.offsetWidth;
+  window.addEventListener('mouseup', this.onResizeStopDrag);
+  window.addEventListener('mousemove', this.onResizeDrag);
+  e.preventDefault();
+};
+
+Guigui.prototype.onResizeStopDrag = function() {
+  window.removeEventListener('mouseup', this.onResizeStopDrag);
+  window.removeEventListener('mousemove', this.onResizeDrag);
+};
+
+Guigui.prototype.onResizeDrag = function(e) {
+  var delta = this.resizeStartX - e.clientX;
+  var width = this.resizeWidth + delta;
+
+  this.$el.style.width = Math.max(this.minWidth, width) + 'px';
 };
 
 Guigui.prototype.addComponent = function(component) {
