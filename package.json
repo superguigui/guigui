@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev & npm run css",
     "dev": "budo example/example.js:example/example-build.js --live -t browserify-css | garnish",
-    "build":  "browserify example/example.js -t browserify-css | uglifyjs -nm > example/example-build.js",
+    "build": "browserify example/example.js -t browserify-css | uglifyjs -nm > example/example-build.js",
     "css": "stylus -u autoprefixer-stylus src/css -w ",
     "test": "browserify test/test.js -t browserify-css | tap-closer | smokestack | faucet"
   },
@@ -48,6 +48,7 @@
     "is-number": "^1.1.2",
     "lodash.bindall": "^3.1.0",
     "numeral": "^1.5.3",
-    "simple-color-picker": "0.0.6"
+    "simple-color-picker": "0.0.6",
+    "tinycolor2": "^1.1.2"
   }
 }

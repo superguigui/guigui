@@ -19,6 +19,7 @@ domready(function() {
     scale: 1,
     a: 1,
     visible: true,
+    hexColor: 0xFF0000,
     doSomething: function() {
       console.log('your clicked on doSomething you rascal');
     }
@@ -31,14 +32,15 @@ domready(function() {
   */
   var gui = new Guigui();
 
-  gui.add(myObject, 'x', { min: -200, max: 200 });
-  gui.add(myObject, 'y', { min: -200, max: 200, step: 1 });
-  gui.add(myObject, 'scale', { min: 0, max: 3, step: 0.1});
+  gui.add(myObject, 'x', {min: -200, max: 200});
+  gui.add(myObject, 'y', {min: -200, max: 200, step: 1});
+  gui.add(myObject, 'scale', {min: 0, max: 3, step: 0.1});
 
-  gui.addColorPicker($marker.style, 'background', {
-    label: 'Square Color'
+  gui.addColorPicker(myObject, 'hexColor', {
+    label: 'Hex Color'
   }).on('update', function(color) {
-    $marker.style.background = color;
+    console.log('color', color, myObject.hexColor);
+    // $marker.style.background = color;
   });
 
   var folder = gui.addFolder('Some Folder');

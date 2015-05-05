@@ -4,7 +4,6 @@ var bindAll = require('lodash.bindall');
 var transform = require('dom-transform');
 var numeral = require('numeral');
 var classes = require('dom-classes');
-
 var Component = require('../base/Component');
 var offset = require('../utils/dom/offset');
 var clamp = require('../utils/maths/clamp');
@@ -74,7 +73,7 @@ Slider.prototype.remove = function() {
   Component.prototype.remove.call(this);
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Slider Dragging
 ============================================================================= */
 Slider.prototype.onSliderStartDrag = function(e) {
@@ -83,7 +82,7 @@ Slider.prototype.onSliderStartDrag = function(e) {
   window.addEventListener('mousemove', this.onSliderDrag);
 };
 
-Slider.prototype.onSliderStopDrag = function(e) {
+Slider.prototype.onSliderStopDrag = function() {
   window.removeEventListener('mouseup', this.onSliderStopDrag);
   window.removeEventListener('mousemove', this.onSliderDrag);
 };
@@ -94,7 +93,7 @@ Slider.prototype.onSliderDrag = function(e) {
   e.preventDefault();
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Text Dragging
 ============================================================================= */
 Slider.prototype.onTextStartDrag = function(e) {
@@ -105,7 +104,7 @@ Slider.prototype.onTextStartDrag = function(e) {
   // e.preventDefault(); // necessary for firefox
 };
 
-Slider.prototype.onTextStopDrag = function(e) {
+Slider.prototype.onTextStopDrag = function() {
   window.removeEventListener('mouseup', this.onTextStopDrag);
   window.removeEventListener('mousemove', this.onTextDrag);
 };
@@ -117,20 +116,20 @@ Slider.prototype.onTextDrag = function(e) {
 };
 
 Slider.prototype.onTextKeyDown = function(e) {
-  if(e.keyCode === 38) {
+  if (e.keyCode === 38) {
     this.value += this.step;
   }
-  else if(e.keyCode === 40) {
+  else if (e.keyCode === 40) {
     this.value -= this.step;
   }
   else {
-    return
+    return;
   }
   e.preventDefault();
 };
 
-Slider.prototype.onTextChange = function(e) {
-  if(this.$value.value.match(/^[+-]?\d+(\.\d+)?$/g)) {
+Slider.prototype.onTextChange = function() {
+  if (this.$value.value.match(/^[+-]?\d+(\.\d+)?$/g)) {
     this.value = Number(this.$value.value);
   }
   else {
@@ -138,7 +137,7 @@ Slider.prototype.onTextChange = function(e) {
   }
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Updaters
 ============================================================================= */
 Slider.prototype.updateTarget = function() {
@@ -158,13 +157,13 @@ Slider.prototype.updateSlider = function() {
   return this;
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Getters Setters
 ============================================================================= */
 Object.defineProperties(Slider.prototype, {
   value: {
     get: function() {
-      return  this.sliderValue;
+      return this.sliderValue;
     },
     set: function(value) {
       this.sliderValue = clamp(toPrecision(value, this.step), this.min, this.max);

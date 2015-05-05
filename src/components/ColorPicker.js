@@ -4,6 +4,7 @@ var bindAll = require('lodash.bindall');
 var Component = require('../base/Component');
 var classes = require('dom-classes');
 var SimpleColorPicker = require('simple-color-picker');
+var tinyColor = require('tinycolor2');
 
 function ColorPicker(object, property, options) {
   Component.call(this);
@@ -16,13 +17,13 @@ function ColorPicker(object, property, options) {
   this.callbackScope = options.scope || this.targetObject;
 
   // bind methods to scope (only if needed)
-  bindAll(this, 'onColorPickerClick', 'onColorPickerUpdate', 'onPickerMouseLeave', 'onFinishedInteracting');
+  bindAll(this, 'onColorPickerClick', 'onColorPickerUpdate', 'onPickerMouseLeave', 'onFinishedInteracting', 'onTextChange');
 
   // dom template of the component
   this.template = [
     '<div class="gg-ColorPicker-label">' + this.labelText + '</div>',
     '<div class="gg-ColorPicker-state">',
-      '<div class="gg-ColorPicker-text">#FF0000</div>',
+      '<input type="text" class="gg-ColorPicker-text" value="#FF0000"/>',
     '</div>'
   ].join('\n');
 
@@ -41,9 +42,14 @@ function ColorPicker(object, property, options) {
   this.$picker = this.colorPicker.$el;
   this.colorPicker.onChange(this.onColorPickerUpdate);
 
+  this.initialColorFormat = this.colorPicker.color.getFormat();
+  console.log('initialColorFormat', this.initialColorFormat);
+
+  this.$text.value = this.colorPicker.color.toHexString();
 
   // create event listeners
   this.$state.addEventListener('click', this.onColorPickerClick);
+  this.$text.addEventListener('change', this.onTextChange);
 }
 
 ColorPicker.prototype = Object.create(Component.prototype);
@@ -58,7 +64,11 @@ ColorPicker.prototype.remove = function() {
 };
 
 ColorPicker.prototype.getColor = function() {
-  return this.colorPicker.color;
+  console.log('getColor', this.initialColorFormat);
+  if (this.initialColorFormat === 'hex') {
+    this.colorPicker.getHexNumber();
+  }
+  return this.colorPicker.getHexString();
 };
 
 ColorPicker.prototype._closePicker = function() {
@@ -68,9 +78,13 @@ ColorPicker.prototype._closePicker = function() {
 /* =============================================================================
   Events
 ============================================================================= */
+ColorPicker.prototype.onTextChange = function() {
+  this.colorPicker.setColor(tinyColor(this.$text.value).toHexString());
+};
+
 ColorPicker.prototype.onColorPickerClick = function() {
   classes.toggle(this.$picker, 'isOpened');
-  if(classes.has(this.$picker, 'isOpened')) {
+  if (classes.has(this.$picker, 'isOpened')) {
     this.$picker.addEventListener('mouseleave', this.onPickerMouseLeave);
   }
   else {
@@ -80,7 +94,7 @@ ColorPicker.prototype.onColorPickerClick = function() {
 
 ColorPicker.prototype.onPickerMouseLeave = function() {
   this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave);
-  if(this.colorPicker.choosing) {
+  if (this.colorPicker.choosing) {
     window.addEventListener('mouseup', this.onFinishedInteracting);
   }
   else {
@@ -95,11 +109,12 @@ ColorPicker.prototype.onFinishedInteracting = function() {
 
 ColorPicker.prototype.onColorPickerUpdate = function() {
   var hexString = this.colorPicker.getHexString();
+  var formatedColor = this.getColor();
   this.$state.style.background = hexString;
-  this.$text.innerHTML = hexString;
+  this.$text.value = hexString;
   this.$text.style.color = this.colorPicker.isDark() ? 'white' : 'black';
-  this.targetObject[this.targetProperty] = hexString;
-  this.emit('update', hexString);
+  this.targetObject[this.targetProperty] = formatedColor;
+  this.emit('update', formatedColor);
 };
 
 module.exports = ColorPicker;
