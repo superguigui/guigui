@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var Guigui = require('../src');
 var classes = require('dom-classes');
 
+require('./utils/maths');
 require('./base/ComponentContainer');
 require('./base/Folder');
 require('./components/Slider');
