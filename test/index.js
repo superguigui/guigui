@@ -3,9 +3,11 @@ var Guigui = require('../src');
 var classes = require('dom-classes');
 
 require('./base/ComponentContainer');
+require('./base/Folder');
 require('./components/Slider');
 require('./components/Launcher');
 require('./components/Toggler');
+require('./components/ColorPicker');
 
 describe('Guigui', function() {
   var gui = new Guigui();

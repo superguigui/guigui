@@ -30,7 +30,7 @@ function Guigui() {
   this.$el.innerHTML = this.template;
   classes.add(this.$el, 'Guigui');
   classes.add(this.$el, 'opened');
-  document.body.appendChild(this.$el);
+  this.appendTo(document.body);
 
   this.$closeButton = this.$el.querySelector('.close-button');
   this.$content = this.$el.querySelector('.main-content');
@@ -46,7 +46,7 @@ Guigui.prototype.constructor = Guigui;
 
 Guigui.prototype.addFolder = function(name) {
   var folder = new Folder(name);
-  this.$content.appendChild(folder.$el);
+  folder.appendTo(this.$content);
   return folder;
 };
 

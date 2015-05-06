@@ -78,9 +78,9 @@ function sliderDragX(slider, deltas) {
 }
 
 function textDragY(slider, deltas) {
-  slider.onTextStartDrag({clientY: deltas[0], preventDefault: function() {}});
+  slider.onTextStartDrag({clientY: deltas[0]});
   for (var i = 1, l = deltas.length; i < l; i++) {
-    slider.onTextDrag({clientY: deltas[i]});
+    slider.onTextDrag({clientY: deltas[i], preventDefault: function() {}});
   }
   slider.onTextStopDrag();
 }

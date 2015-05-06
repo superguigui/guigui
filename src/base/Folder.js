@@ -5,11 +5,11 @@ var ComponentContainer = require('./ComponentContainer');
 var classes = require('dom-classes');
 
 function Folder(labelText, autoOpen) {
+  ComponentContainer.call(this);
 
   // options
   this.labelText = labelText;
 
-  ComponentContainer.call(this);
   classes.add(this.$el, 'folder');
   classes.add(this.$el, 'component');
 

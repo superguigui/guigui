@@ -62,4 +62,8 @@ ComponentContainer.prototype.remove = function() {
   }
 };
 
+ComponentContainer.prototype.appendTo = function($element) {
+  $element.appendChild(this.$el);
+};
+
 module.exports = ComponentContainer;

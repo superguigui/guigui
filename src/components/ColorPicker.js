@@ -5,6 +5,7 @@ var Component = require('../base/Component');
 var classes = require('dom-classes');
 var SimpleColorPicker = require('simple-color-picker');
 var tinyColor = require('tinycolor2');
+var isNumber = require('is-number');
 
 function ColorPicker(object, property, options) {
   Component.call(this);
@@ -15,6 +16,7 @@ function ColorPicker(object, property, options) {
   this.targetProperty = property;
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
+  this.initialColorFormat = isNumber(this.targetObject[this.targetProperty]) ? 'number' : 'string';
 
   // bind methods to scope (only if needed)
   bindAll(this, 'onColorPickerClick', 'onColorPickerUpdate', 'onPickerMouseLeave', 'onFinishedInteracting', 'onTextChange');
@@ -42,8 +44,6 @@ function ColorPicker(object, property, options) {
   this.$picker = this.colorPicker.$el;
   this.colorPicker.onChange(this.onColorPickerUpdate);
 
-  this.initialColorFormat = this.colorPicker.color.getFormat();
-
   this.$text.value = this.colorPicker.color.toHexString();
 
   // create event listeners
@@ -63,8 +63,8 @@ ColorPicker.prototype.remove = function() {
 };
 
 ColorPicker.prototype.getColor = function() {
-  if (this.initialColorFormat === 'hex') {
-    this.colorPicker.getHexNumber();
+  if (this.initialColorFormat === 'number') {
+    return this.colorPicker.getHexNumber();
   }
   return this.colorPicker.getHexString();
 };

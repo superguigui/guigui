@@ -7,6 +7,8 @@
 * Figure browser compatibility out
 * Change styles to use BEM syntax
 * Stop all wars in the world
+* Check that all components with a value have a getter / setter for it
+* Check all variable names to be consistent "isOpen / isOpened etc"
 
 ## Gui
 * Add jsdoc comments
@@ -23,3 +25,7 @@
 
 ### ColorPicker
 * Handle color format input / output
+* value getter / setter
+
+### Folder 
+* Check all variable names to be consistent "isOpen / isOpened etc"
