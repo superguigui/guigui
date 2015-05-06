@@ -9,6 +9,7 @@
 * Stop all wars in the world
 * Check that all components with a value have a getter / setter for it
 * Check all variable names to be consistent "isOpen / isOpened etc"
+* Move index.js to root rather than `src`
 
 ## Gui
 * Add jsdoc comments

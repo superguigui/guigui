@@ -24,7 +24,7 @@ var someObject = {
 var gui = new Gui();
 
 gui.add(someObject, 'x', {
-  label: 'x', 
+  label: 'position', 
   min: -200, 
   max: 200, 
   step: 1
@@ -54,8 +54,13 @@ A folder to put other components in.
 
 ## Motivations
 This library was mainly made as an exercise, and also to fill my need for a GUI tool for creative development.
+I also encountered various annoying behaviors with dat.GUI that i wished to avoid here :
+* Slider value representation should ALWAYS be based on the `step` param.
+* Sometimes the colorPicker of dat.GUI will become black when trying to edit the text input.
+* Min and Max of slider should be displayed.
 
 ## What's next
+* ~Resize~
 * Select component
-* Resize
 * Scrolling
+* New positionnings (other than top right)

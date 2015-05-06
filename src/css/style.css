@@ -171,8 +171,8 @@ input:focus {
 }
 .Guigui .folder .head .title {
   text-align: center;
-  font-size: 1em;
-  color: #fff;
+  font-size: 0.9em;
+  color: #dfdfdf;
 }
 .Guigui .folder .open-indicator {
   position: absolute;
