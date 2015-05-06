@@ -34,15 +34,15 @@ ComponentContainer.prototype.addSlider = function(object, property, options) {
 };
 
 ComponentContainer.prototype.addLauncher = function(object, property, options) {
-  var button = new Launcher(object, property, options);
-  this.addComponent(button);
-  return button;
+  var launcher = new Launcher(object, property, options);
+  this.addComponent(launcher);
+  return launcher;
 };
 
 ComponentContainer.prototype.addToggler = function(object, property, options) {
-  var toggle = new Toggler(object, property, options);
-  this.addComponent(toggle);
-  return toggle;
+  var toggler = new Toggler(object, property, options);
+  this.addComponent(toggler);
+  return toggler;
 };
 
 ComponentContainer.prototype.addColorPicker = function(object, property, options) {

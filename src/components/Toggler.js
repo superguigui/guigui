@@ -54,8 +54,32 @@ Toggler.prototype.remove = function() {
   Events
 ============================================================================= */
 Toggler.prototype.onTogglerClick = function(e) {
-  classes.toggle(this.$el, 'on');
-  this.emit('update', classes.has(this.$el, 'on'));
+  this.toggleValue();
 };
+
+Toggler.prototype.toggleValue = function() {
+  this.value = !this.value;
+};
+
+/* =============================================================================
+  Getters Setters
+============================================================================= */
+Object.defineProperties(Toggler.prototype, {
+  value: {
+    get: function() {
+      return classes.has(this.$el, 'on');
+    },
+    set: function(value) {
+      if(value) {
+        classes.add(this.$el, 'on')
+      }
+      else {
+        classes.remove(this.$el, 'on') 
+      }
+      this.targetObject[this.targetProperty] = value;
+      this.emit('update', value);
+    }
+  }
+});
 
 module.exports = Toggler;

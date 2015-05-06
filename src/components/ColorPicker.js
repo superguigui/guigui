@@ -43,7 +43,6 @@ function ColorPicker(object, property, options) {
   this.colorPicker.onChange(this.onColorPickerUpdate);
 
   this.initialColorFormat = this.colorPicker.color.getFormat();
-  console.log('initialColorFormat', this.initialColorFormat);
 
   this.$text.value = this.colorPicker.color.toHexString();
 
@@ -64,7 +63,6 @@ ColorPicker.prototype.remove = function() {
 };
 
 ColorPicker.prototype.getColor = function() {
-  console.log('getColor', this.initialColorFormat);
   if (this.initialColorFormat === 'hex') {
     this.colorPicker.getHexNumber();
   }

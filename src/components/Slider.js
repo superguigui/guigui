@@ -80,6 +80,7 @@ Slider.prototype.onSliderStartDrag = function(e) {
   this.onSliderDrag(e);
   window.addEventListener('mouseup', this.onSliderStopDrag);
   window.addEventListener('mousemove', this.onSliderDrag);
+  e.preventDefault();
 };
 
 Slider.prototype.onSliderStopDrag = function() {
@@ -90,7 +91,6 @@ Slider.prototype.onSliderStopDrag = function() {
 Slider.prototype.onSliderDrag = function(e) {
   var ratio = (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth;
   this.value = this.min + (this.max - this.min) * ratio;
-  e.preventDefault();
 };
 
 /* =============================================================================
@@ -101,7 +101,7 @@ Slider.prototype.onTextStartDrag = function(e) {
   this.startValue = this.value;
   window.addEventListener('mouseup', this.onTextStopDrag);
   window.addEventListener('mousemove', this.onTextDrag);
-  // e.preventDefault(); // necessary for firefox
+  e.preventDefault();
 };
 
 Slider.prototype.onTextStopDrag = function() {
@@ -112,7 +112,6 @@ Slider.prototype.onTextStopDrag = function() {
 Slider.prototype.onTextDrag = function(e) {
   var delta = this.startY - e.clientY;
   this.value = this.startValue + delta * this.step * this.textValueSlowingFactor;
-  e.preventDefault();
 };
 
 Slider.prototype.onTextKeyDown = function(e) {
