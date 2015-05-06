@@ -19,7 +19,7 @@ domready(function() {
     scale: 1,
     a: 1,
     visible: true,
-    hexColor: 0xFF0000,
+    hexColor: 0x3d77eb,
     doSomething: function() {
       console.log('your clicked on doSomething you rascal');
     }
@@ -39,8 +39,7 @@ domready(function() {
   gui.addColorPicker(myObject, 'hexColor', {
     label: 'Hex Color'
   }).on('update', function(color) {
-    console.log('color', color, myObject.hexColor);
-    // $marker.style.background = color;
+    $marker.style.background = color;
   });
 
   var folder = gui.addFolder('Some Folder');

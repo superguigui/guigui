@@ -101,7 +101,6 @@ Slider.prototype.onTextStartDrag = function(e) {
   this.startValue = this.value;
   window.addEventListener('mouseup', this.onTextStopDrag);
   window.addEventListener('mousemove', this.onTextDrag);
-  e.preventDefault();
 };
 
 Slider.prototype.onTextStopDrag = function() {
@@ -112,6 +111,7 @@ Slider.prototype.onTextStopDrag = function() {
 Slider.prototype.onTextDrag = function(e) {
   var delta = this.startY - e.clientY;
   this.value = this.startValue + delta * this.step * this.textValueSlowingFactor;
+  e.preventDefault();
 };
 
 Slider.prototype.onTextKeyDown = function(e) {
