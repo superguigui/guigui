@@ -3,6 +3,8 @@
 var bindAll = require('lodash.bindall');
 var Component = require('../base/Component');
 var classes = require('dom-classes');
+var css = require('../utils/styles/css');
+var togglerStyle = require('../styles/components/toggler');
 
 
 function Toggler(object, property, options) {
@@ -38,6 +40,13 @@ function Toggler(object, property, options) {
     classes.add(this.$el, 'on');
   }
 
+  this.$handle = this.$el.querySelector('.handle');
+
+  css(this.$el, togglerStyle.main);
+  css(this.$el, '.label', togglerStyle.label);
+  css(this.$el, '.state', togglerStyle.state);
+  css(this.$handle, togglerStyle.handle);
+
   // create event listeners
   this.$el.addEventListener('click', this.onTogglerClick);
 }
@@ -50,7 +59,7 @@ Toggler.prototype.remove = function() {
   Component.prototype.remove.call(this);
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Events
 ============================================================================= */
 Toggler.prototype.onTogglerClick = function(e) {
@@ -71,10 +80,12 @@ Object.defineProperties(Toggler.prototype, {
     },
     set: function(value) {
       if(value) {
-        classes.add(this.$el, 'on')
+        classes.add(this.$el, 'on');
+        this.$handle.style.display = 'block';
       }
       else {
-        classes.remove(this.$el, 'on') 
+        classes.remove(this.$el, 'on');
+        this.$handle.style.display = 'none';
       }
       this.targetObject[this.targetProperty] = value;
       this.emit('update', value);

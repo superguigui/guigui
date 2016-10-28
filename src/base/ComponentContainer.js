@@ -1,5 +1,3 @@
-'use strict';
-
 /* Components */
 var Slider = require('../components/Slider');
 var Launcher = require('../components/Launcher');

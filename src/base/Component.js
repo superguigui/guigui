@@ -1,10 +1,11 @@
-'use strict';
-
+var css = require('../utils/styles/css');
+var componentStyle = require('../styles/component');
 var Emitter = require('component-emitter')
 
 function Component() {
   this.$el = document.createElement('div');
   this.$el.className = 'component';
+  css(this.$el, componentStyle);
 }
 
 Emitter(Component.prototype);

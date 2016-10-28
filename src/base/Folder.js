@@ -1,8 +1,10 @@
-'use strict';
-
 var bindAll = require('lodash.bindall');
 var ComponentContainer = require('./ComponentContainer');
 var classes = require('dom-classes');
+var css = require('../utils/styles/css');
+var folderStyle = require('../styles/folder');
+// var closeStyle = require('../styles/close');
+// var resizeStyle = require('../styles/resize');
 
 function Folder(labelText, autoOpen) {
   ComponentContainer.call(this);
@@ -33,6 +35,15 @@ function Folder(labelText, autoOpen) {
   this.$head = this.$el.querySelector('.head');
   this.$content = this.$el.querySelector('.content');
 
+  css(this.$el, folderStyle.main);
+  css(this.$head, folderStyle.head);
+  css(this.$head, '.title', folderStyle.title);
+  css(this.$content, folderStyle.content);
+  css(this.$el, '.open-indicator', folderStyle.indicator);
+  css(this.$el, '.vertical', folderStyle.vertical);
+  css(this.$el, '.horizontal', folderStyle.horizontal);
+  css(this.$el, '.component', folderStyle.component);
+
   this.$head.addEventListener('click', this.toggle);
 }
 
@@ -47,11 +58,13 @@ Folder.prototype.toggle = function(e) {
 Folder.prototype.open = function() {
   this.isOpen = true;
   classes.add(this.$el, 'opened');
+  this.$content.style.display = 'block';
 };
 
 Folder.prototype.close = function() {
   this.isOpen = false;
   classes.remove(this.$el, 'opened');
+  this.$content.style.display = 'none';
 };
 
 Folder.prototype.addComponent = function(component) {

@@ -6,6 +6,8 @@ var classes = require('dom-classes');
 var SimpleColorPicker = require('simple-color-picker');
 var tinyColor = require('tinycolor2');
 var isNumber = require('is-number');
+var css = require('../utils/styles/css');
+var colorpickerStyle = require('../styles/components/colorpicker');
 
 function ColorPicker(object, property, options) {
   Component.call(this);
@@ -46,6 +48,18 @@ function ColorPicker(object, property, options) {
 
   this.$text.value = this.colorPicker.color.toHexString();
 
+
+  css(this.$el, colorpickerStyle.main);
+  css(this.$el, '.gg-ColorPicker-label', colorpickerStyle.label);
+  css(this.$state, colorpickerStyle.state);
+  css(this.$text, colorpickerStyle.text);
+  css(this.$el, '.Scp', colorpickerStyle.scp.main);
+  css(this.$el, '.Scp-saturation', colorpickerStyle.scp.saturation);
+  css(this.$el, '.Scp-brightness', colorpickerStyle.scp.brightness);
+  css(this.$el, '.Scp-sbSelector', colorpickerStyle.scp.sbSelector);
+  css(this.$el, '.Scp-hue', colorpickerStyle.scp.hue);
+  css(this.$el, '.Scp-hSelector', colorpickerStyle.scp.hSelector);
+
   // create event listeners
   this.$state.addEventListener('click', this.onColorPickerClick);
   this.$text.addEventListener('change', this.onTextChange);
@@ -83,9 +97,11 @@ ColorPicker.prototype.onTextChange = function() {
 ColorPicker.prototype.onColorPickerClick = function() {
   classes.toggle(this.$picker, 'isOpened');
   if (classes.has(this.$picker, 'isOpened')) {
+    this.$picker.style.display = 'block';
     this.$picker.addEventListener('mouseleave', this.onPickerMouseLeave);
   }
   else {
+    this.$picker.style.display = 'none';
     this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave);
   }
 };

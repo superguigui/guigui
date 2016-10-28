@@ -1,5 +1,3 @@
-'use strict';
-
 var bindAll = require('lodash.bindall');
 var transform = require('dom-transform');
 var numeral = require('numeral');
@@ -8,6 +6,8 @@ var Component = require('../base/Component');
 var offset = require('../utils/dom/offset');
 var clamp = require('../utils/maths/clamp');
 var toPrecision = require('../utils/maths/toPrecision');
+var css = require('../utils/styles/css');
+var sliderStyle = require('../styles/components/slider');
 
 
 function Slider(object, property, options) {
@@ -48,6 +48,15 @@ function Slider(object, property, options) {
   this.$handle = this.$el.querySelector('.handle');
   this.$background = this.$el.querySelector('.background');
   this.$value = this.$el.querySelector('.value');
+
+  css(this.$el, sliderStyle.main);
+  css(this.$el, '.label', sliderStyle.label);
+  css(this.$container, sliderStyle.container);
+  css(this.$value, sliderStyle.value);
+  css(this.$background, sliderStyle.background);
+  css(this.$container, '.handle', sliderStyle.handle);
+  css(this.$container, '.min', sliderStyle.min);
+  css(this.$container, '.max', sliderStyle.max);
 
   // create event listeners
   this.$container.addEventListener('mousedown', this.onSliderStartDrag);

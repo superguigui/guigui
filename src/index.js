@@ -1,11 +1,11 @@
-'use strict';
-
-require('./css/style.css');
-
 var bindAll = require('lodash.bindall');
 var ComponentContainer = require('./base/ComponentContainer');
 var Folder = require('./base/Folder');
 var classes = require('dom-classes');
+var css = require('./utils/styles/css');
+var guiguiStyle = require('./styles/guigui');
+var closeStyle = require('./styles/close');
+var resizeStyle = require('./styles/resize');
 
 function Guigui() {
   ComponentContainer.call(this);
@@ -27,6 +27,7 @@ function Guigui() {
     '<div class="resize-zone"></div>'
   ].join('\n');
 
+
   this.$el.innerHTML = this.template;
   classes.add(this.$el, 'Guigui');
   classes.add(this.$el, 'opened');
@@ -35,6 +36,16 @@ function Guigui() {
   this.$closeButton = this.$el.querySelector('.close-button');
   this.$content = this.$el.querySelector('.main-content');
   this.$resize = this.$el.querySelector('.resize-zone');
+
+  css(this.$el, guiguiStyle);
+  css(this.$resize, resizeStyle);
+  css(this.$el, '.head', {height: '38px'});
+  css(this.$closeButton, closeStyle.main);
+  css(this.$closeButton, '.content', closeStyle.content);
+  css(this.$closeButton, '.vertical', closeStyle.vertical);
+  css(this.$closeButton, '.horizontal', closeStyle.horizontal);
+
+
 
   this.$closeButton.addEventListener('click', this.onToggleClick);
   this.$resize.addEventListener('mousedown', this.onResizeStartDrag);
@@ -76,6 +87,12 @@ Guigui.prototype.addComponent = function(component) {
 
 Guigui.prototype.onToggleClick = function() {
   classes.toggle(this.$el, 'opened');
+  if (classes.has(this.$el, 'opened')) {
+    this.$content.style.display = 'block';
+  }
+  else {
+    this.$content.style.display = 'none';
+  }
 };
 
 Guigui.prototype.remove = function() {
