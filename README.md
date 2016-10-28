@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/superguigui/gui-gui.svg?branch=master)](https://travis-ci.org/superguigui/gui-gui) [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+[![Build Status](https://travis-ci.org/superguigui/guigui.svg?branch=master)](https://travis-ci.org/superguigui/guigui) [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-# gui-gui
+# guigui
 
 GUI tool in commonjs for creative coding projects. 
 Inspired from dat.GUI.
 Development in progress.
-Check out the [demo](https://superguigui.github.io/gui-gui).
+Check out the [demo](https://superguigui.github.io/guigui).
 
 ![Snapshot](example/snapshot.png)
 
@@ -17,7 +17,7 @@ npm install guigui --save
 
 ## Getting started
 ```javascript
-var Gui = require('gui-gui');
+var Gui = require('guigui');
 
 var someObject = {
   x: 0
