@@ -62,7 +62,7 @@ I also encountered various annoying behaviors with dat.GUI that i wished to avoi
 * Min and Max of slider should be displayed.
 
 ## What's next
-[x] Resize
-[ ] Select component
-[ ] Scrolling
-[ ] New positionnings (other than top right)
+- [x] Resize
+- [ ] Select component
+- [ ] Scrolling
+- [ ] New positionnings (other than top right)
