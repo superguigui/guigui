@@ -11,7 +11,9 @@ Check out the [demo](https://superguigui.github.io/gui-gui).
 
 
 ## Install
-From npm but not yet.
+```bash
+npm install guigui --save
+```
 
 ## Getting started
 ```javascript
