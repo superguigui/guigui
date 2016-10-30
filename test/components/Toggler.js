@@ -30,4 +30,15 @@ describe('Toggler', function() {
     expect(tg.$el.parentNode).to.not.be.ok;
   });
 
+  it('can watch for value and update properly', function(done) {
+    var myObject = {visible: true};
+    var tg = new Toggler(myObject, 'visible', {watch: true});
+    myObject.visible = false;
+    setTimeout(function() {
+      expect(tg._value).to.not.be.ok;
+      tg.remove();
+      done();
+    });
+  });
+
 });

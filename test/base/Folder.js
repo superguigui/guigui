@@ -11,19 +11,19 @@ describe('Folder', function() {
 
   it('can be opened', function() {
     fd.open();
-    expect(fd.isOpen).to.be.ok;
+    expect(fd.isOpened).to.be.ok;
   });
 
   it('can be closed', function() {
     fd.close();
-    expect(fd.isOpen).to.not.be.ok;
+    expect(fd.isOpened).to.not.be.ok;
   });
 
   it('can be toggled', function() {
     fd.toggle({});
-    expect(fd.isOpen).to.be.ok;
+    expect(fd.isOpened).to.be.ok;
     fd.toggle({});
-    expect(fd.isOpen).to.not.be.ok;
+    expect(fd.isOpened).to.not.be.ok;
   });
 
   it('adds its component to `.content` rather than in itself', function() {

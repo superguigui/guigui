@@ -1,5 +1,3 @@
-'use strict';
-
 /* Components */
 var Slider = require('../components/Slider');
 var Launcher = require('../components/Launcher');
@@ -7,9 +5,9 @@ var Toggler = require('../components/Toggler');
 var ColorPicker = require('../components/ColorPicker');
 
 /* Type checkers */
-var isNumber = require('is-number');
-var isFunction = require('is-function');
-var isBoolean = require('is-boolean');
+var isNumber = require('../utils/is-number');
+var isFunction = require('../utils/is-function');
+var isBoolean = require('../utils/is-boolean');
 
 function ComponentContainer() {
   this.$el = document.createElement('div');

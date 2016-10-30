@@ -1,5 +1,3 @@
-'use strict';
-
 var expect = require('chai').expect;
 var clamp = require('../../src/utils/maths/clamp');
 var toPrecision = require('../../src/utils/maths/toPrecision');

@@ -1,15 +1,12 @@
-'use strict';
-
-var bindAll = require('lodash.bindall');
 var Component = require('../base/Component');
-var classes = require('dom-classes');
+var css = require('../utils/styles/css');
+var togglerStyle = require('../styles/components/toggler');
 
 
 function Toggler(object, property, options) {
-  Component.call(this);
+  Component.call(this, object, property, options);
 
-
-  // TODO check that object.property is a function
+  this.onTogglerClick = this.onTogglerClick.bind(this);
 
   // options
   options = options || {};
@@ -18,24 +15,30 @@ function Toggler(object, property, options) {
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
 
-
-  // bind methods to scope (only if needed)
-  bindAll(this, 'onTogglerClick');
+  this.isSelected = false;
 
   // dom template of the component
   this.template = [
-    '<div class="label">' + this.labelText + '</div>',
-    '<div class="state">',
-      '<div class="handle"></div>',
+    '<div class="gg-toggler-label">' + this.labelText + '</div>',
+    '<div class="gg-toggler-state">',
+      '<div class="gg-toggler-handle"></div>',
     '</div>',
   ].join('\n');
 
   // manage dom
-  classes.add(this.$el, 'toggler');
+  this.$el.className = 'gg-toggler';
   this.$el.innerHTML = this.template;
 
+  this.$handle = this.$el.querySelector('.gg-toggler-handle');
+
+  css(this.$el, togglerStyle.main);
+  css(this.$el, '.gg-toggler-label', togglerStyle.label);
+  css(this.$el, '.gg-toggler-state', togglerStyle.state);
+  css(this.$handle, togglerStyle.handle);
+
   if(this.targetObject[this.targetProperty] === true) {
-    classes.add(this.$el, 'on');
+    this.isSelected = true;
+    css(this.$handle, {display: 'block'});
   }
 
   // create event listeners
@@ -50,15 +53,18 @@ Toggler.prototype.remove = function() {
   Component.prototype.remove.call(this);
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Events
 ============================================================================= */
 Toggler.prototype.onTogglerClick = function(e) {
-  this.toggleValue();
+  this.onStartInteraction();
+  this.value = !this.value;
+  this.onEndInteraction();
 };
 
-Toggler.prototype.toggleValue = function() {
-  this.value = !this.value;
+Toggler.prototype.invalidate = function() {
+  Component.prototype.invalidate.call(this);
+  this.value = this._value;
 };
 
 /* =============================================================================
@@ -67,14 +73,16 @@ Toggler.prototype.toggleValue = function() {
 Object.defineProperties(Toggler.prototype, {
   value: {
     get: function() {
-      return classes.has(this.$el, 'on');
+      return this.isSelected;
     },
     set: function(value) {
       if(value) {
-        classes.add(this.$el, 'on')
+        this.isSelected = true;
+        css(this.$handle, {display: 'block'});
       }
       else {
-        classes.remove(this.$el, 'on') 
+        this.isSelected = false;
+        css(this.$handle, {display: 'none'});
       }
       this.targetObject[this.targetProperty] = value;
       this.emit('update', value);
