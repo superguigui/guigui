@@ -61,10 +61,6 @@ Folder.prototype.close = function() {
   css(this.$vertical, {display: 'block'});
 };
 
-Folder.prototype.addComponent = function(component) {
-  component.appendTo(this.$content);
-};
-
 Folder.prototype.remove = function() {
   this.$head.removeEventListener('click', this.toggle);
   this.$head = null;

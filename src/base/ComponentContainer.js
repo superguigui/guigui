@@ -11,6 +11,8 @@ var isBoolean = require('../utils/is-boolean');
 
 function ComponentContainer() {
   this.$el = document.createElement('div');
+  this.$content = this.$el;
+  this.childComponents = [];
 }
 
 ComponentContainer.prototype.add = function(object, property, options) {
@@ -50,7 +52,8 @@ ComponentContainer.prototype.addColorPicker = function(object, property, options
 };
 
 ComponentContainer.prototype.addComponent = function(component) {
-  component.appendTo(this.$el);
+  component.appendTo(this.$content);
+  this.childComponents.push(component);
 };
 
 ComponentContainer.prototype.remove = function() {

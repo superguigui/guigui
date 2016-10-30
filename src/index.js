@@ -5,17 +5,20 @@ var guiguiStyle = require('./styles/guigui');
 var closeStyle = require('./styles/close');
 var resizeStyle = require('./styles/resize');
 
-function Guigui(options) {
+/**
+ * Creates a gui container that you can add components and folders to
+ */
+function Guigui() {
   ComponentContainer.call(this);
 
-  options = options || {};
+  this.toggle = this.toggle.bind(this);
+  this._onResizeStartDrag = this._onResizeStartDrag.bind(this);
+  this._onResizeStopDrag = this._onResizeStopDrag.bind(this);
+  this._onResizeDrag = this._onResizeDrag.bind(this);
 
   this.minWidth = 210;
-
-  this.toggle = this.toggle.bind(this);
-  this.onResizeStartDrag = this.onResizeStartDrag.bind(this);
-  this.onResizeStopDrag = this.onResizeStopDrag.bind(this);
-  this.onResizeDrag = this.onResizeDrag.bind(this);
+  this.isOpened = false;
+  this.folders = [];
 
   this.template = [
     '<div class="gg-head">',
@@ -48,7 +51,7 @@ function Guigui(options) {
   css(this.$closeButton, '.gg-closebutton-content--horizontal', closeStyle.horizontal);
 
   this.$closeButton.addEventListener('click', this.toggle);
-  this.$resize.addEventListener('mousedown', this.onResizeStartDrag);
+  this.$resize.addEventListener('mousedown', this._onResizeStartDrag);
 
   this.open();
 }
@@ -56,59 +59,79 @@ function Guigui(options) {
 Guigui.prototype = Object.create(ComponentContainer.prototype);
 Guigui.prototype.constructor = Guigui;
 
+/**
+ * Add a folder to main gui
+ * @param {string} name label for this folder
+ * @return {Folder} returns the folder just created
+ */
 Guigui.prototype.addFolder = function(name) {
   var folder = new Folder(name);
   folder.appendTo(this.$content);
+  this.folders.push(folder);
   return folder;
 };
 
-Guigui.prototype.onResizeStartDrag = function(e) {
+Guigui.prototype._onResizeStartDrag = function(e) {
   this.resizeStartX = e.clientX;
   this.resizeWidth = this.$el.offsetWidth;
-  window.addEventListener('mouseup', this.onResizeStopDrag);
-  window.addEventListener('mousemove', this.onResizeDrag);
+  window.addEventListener('mouseup', this._onResizeStopDrag);
+  window.addEventListener('mousemove', this._onResizeDrag);
   e.preventDefault();
 };
 
-Guigui.prototype.onResizeStopDrag = function() {
-  window.removeEventListener('mouseup', this.onResizeStopDrag);
-  window.removeEventListener('mousemove', this.onResizeDrag);
+Guigui.prototype._onResizeStopDrag = function() {
+  window.removeEventListener('mouseup', this._onResizeStopDrag);
+  window.removeEventListener('mousemove', this._onResizeDrag);
 };
 
-Guigui.prototype.onResizeDrag = function(e) {
+Guigui.prototype._onResizeDrag = function(e) {
   var delta = this.resizeStartX - e.clientX;
   var width = this.resizeWidth + delta;
 
   this.$el.style.width = Math.max(this.minWidth, width) + 'px';
 };
 
-Guigui.prototype.addComponent = function(component) {
-  component.appendTo(this.$content);
-};
-
-Guigui.prototype.open = function(component) {
+/**
+ * Opens the main gui
+ */
+Guigui.prototype.open = function() {
   this.isOpened = true;
   css(this.$content, {display: 'block'});
   css(this.$closeButtonCross, {transform: 'rotate(45deg)'});
 };
 
-Guigui.prototype.close = function(component) {
+/**
+ * Closes the main gui
+ */
+Guigui.prototype.close = function() {
   this.isOpened = false;
   css(this.$content, {display: 'none'});
   css(this.$closeButtonCross, {transform: 'rotate(0deg)'});
 };
 
+/**
+ * Either closes or opens the main gui depending on current state
+ */
 Guigui.prototype.toggle = function() {
   if(this.isOpened) this.close();
   else this.open();
 };
 
+/**
+ * Removes main gui from DOM and proceeds to destroy its child components and folders
+ */
 Guigui.prototype.remove = function() {
+  for (let i = 0, l = this.childComponents.length; i < l; i++) {
+    this.childComponents[i].remove();
+  }
+  for (let i = 0, l = this.folders.length; i < l; i++) {
+    this.folders[i].remove();
+  }
   this.$el.parentNode.removeChild(this.$el);
   this.$closeButton.removeEventListener('click', this.toggle);
-  this.$resize.removeEventListener('mousedown', this.onResizeStartDrag);
-  window.removeEventListener('mouseup', this.onResizeStopDrag);
-  window.removeEventListener('mousemove', this.onResizeDrag);
+  this.$resize.removeEventListener('mousedown', this._onResizeStartDrag);
+  window.removeEventListener('mouseup', this._onResizeStopDrag);
+  window.removeEventListener('mousemove', this._onResizeDrag);
 };
 
 module.exports = Guigui;

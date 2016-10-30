@@ -2,7 +2,7 @@
 
 # guigui
 
-GUI tool in commonjs for creative coding projects. 
+GUI tool in commonjs for creative coding projects.
 Inspired from dat.GUI.
 Development in progress.
 Check out the [demo](https://superguigui.github.io/guigui).
@@ -25,18 +25,14 @@ var someObject = {
 
 var gui = new Gui();
 
-gui.add(someObject, 'x', {
-  label: 'position', 
-  min: -200, 
-  max: 200, 
-  step: 1
-}).on('update', function(value) {
-  // some stuff when slider value is updated
-});
+gui.add(someObject, 'x', {label: 'position', min: -200, max: 200, step: 1})
+  .on('update', function(value) {
+    // some stuff when slider value is updated
+  });
 ```
 
 ## Available components
-Here's a list of the components you can use 
+Here's a list of the components you can use
 
 ### Slider
 A slider to manipulate numerical values
