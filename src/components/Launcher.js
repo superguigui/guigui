@@ -1,7 +1,3 @@
-'use strict';
-
-var bindAll = require('lodash.bindall');
-var classes = require('dom-classes');
 var Component = require('../base/Component');
 var css = require('../utils/styles/css');
 var launcherStyle = require('../styles/components/launcher');
@@ -9,10 +5,11 @@ var variables = require('../styles/variables');
 
 
 function Launcher(object, property, options) {
-  Component.call(this);
+  Component.call(this, object, property, options);
 
-
-  // TODO check that object.property is a function
+  this.onButtonClick = this.onButtonClick.bind(this);
+  this.onMouseDown = this.onMouseDown.bind(this);
+  this.onMouseUp = this.onMouseUp.bind(this);
 
   // options
   options = options || {};
@@ -21,21 +18,17 @@ function Launcher(object, property, options) {
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
 
-
-  // bind methods to scope (only if needed)
-  bindAll(this, 'onButtonClick', 'onMouseDown', 'onMouseUp');
-
   // dom template of the component
   this.template = [
-    '<div class="label">' + this.labelText + '<span>()</span></div>'
+    '<div class="gg-launcher-label">' + this.labelText + '<span>()</span></div>'
   ].join('\n');
 
   // manage dom
-  classes.add(this.$el, 'launcher');
+  this.$el.className = 'gg-launcher';
   this.$el.innerHTML = this.template;
 
   css(this.$el, launcherStyle.main);
-  css(this.$el, '.label', launcherStyle.label);
+  css(this.$el, '.gg-launcher-label', launcherStyle.label);
   css(this.$el, 'span', launcherStyle.span);
 
   // create event listeners
@@ -63,11 +56,11 @@ Launcher.prototype.onButtonClick = function(e) {
 };
 
 Launcher.prototype.onMouseDown = function(e) {
-  this.$el.style.background = variables.lightColor;
+  css(this.$el, {background: variables.lightColor});
 };
 
 Launcher.prototype.onMouseUp = function(e) {
-  this.$el.style.background = variables.backgroundMainColor;
+  css(this.$el, {background: variables.backgroundMainColor});
 };
 
 module.exports = Launcher;

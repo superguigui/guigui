@@ -4,11 +4,9 @@
   "description": "GUI tools in commonjs",
   "main": "./src/index.js",
   "scripts": {
-    "start": "npm run dev & npm run css",
-    "dev": "budo example/example.js:example/example-build.js --live --open -- -t browserify-css",
-    "build": "browserify example/example.js -t browserify-css | uglifyjs -nm > example/example-build.js",
-    "css": "stylus -u autoprefixer-stylus src/css -w ",
-    "test": "mochify --transform browserify-css --cover"
+    "start": "budo example/example.js:example/example-build.js --live --open",
+    "build": "browserify example/example.js | uglifyjs -nm > example/example-build.js",
+    "test": "mochify --cover"
   },
   "keywords": [
     "gui",
@@ -22,31 +20,20 @@
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer-stylus": "*",
     "browserify": "*",
-    "browserify-css": "*",
     "budo": "*",
     "chai": "*",
-    "domready": "*",
+    "color": "*",
     "mochify": "*",
     "raf": "*",
-    "stylus": "*",
     "uglify-js": "*",
     "watchify": "*"
   },
   "dependencies": {
-    "color": "^0.8.0",
     "component-emitter": "^1.2.0",
-    "dom-classes": "0.0.1",
-    "dom-transform": "^1.0.1",
     "inline-style-prefixer": "^2.0.4",
-    "is-boolean": "0.0.1",
-    "is-function": "^1.0.1",
-    "is-number": "^1.1.2",
-    "lodash.bindall": "^3.1.0",
-    "numeral": "^1.5.3",
     "object-assign": "^4.1.0",
-    "simple-color-picker": "0.0.6",
-    "tinycolor2": "^1.1.2"
+    "observe-js": "^0.5.7",
+    "simple-color-picker": "0.0.6"
   }
 }

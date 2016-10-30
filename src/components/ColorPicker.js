@@ -1,16 +1,17 @@
-'use strict';
-
-var bindAll = require('lodash.bindall');
-var Component = require('../base/Component');
-var classes = require('dom-classes');
 var SimpleColorPicker = require('simple-color-picker');
-var tinyColor = require('tinycolor2');
-var isNumber = require('is-number');
+var Component = require('../base/Component');
+var isNumber = require('../utils/is-number');
 var css = require('../utils/styles/css');
 var colorpickerStyle = require('../styles/components/colorpicker');
 
 function ColorPicker(object, property, options) {
-  Component.call(this);
+  Component.call(this, object, property, options);
+
+  this.onColorPickerClick = this.onColorPickerClick.bind(this);
+  this.onColorPickerUpdate = this.onColorPickerUpdate.bind(this);
+  this.onPickerMouseLeave = this.onPickerMouseLeave.bind(this);
+  this.onFinishedInteracting = this.onFinishedInteracting.bind(this);
+  this.onTextChange = this.onTextChange.bind(this);
 
   // options
   options = options || {};
@@ -20,8 +21,7 @@ function ColorPicker(object, property, options) {
   this.callbackScope = options.scope || this.targetObject;
   this.initialColorFormat = isNumber(this.targetObject[this.targetProperty]) ? 'number' : 'string';
 
-  // bind methods to scope (only if needed)
-  bindAll(this, 'onColorPickerClick', 'onColorPickerUpdate', 'onPickerMouseLeave', 'onFinishedInteracting', 'onTextChange');
+  this.isOpened = false;
 
   // dom template of the component
   this.template = [
@@ -32,7 +32,7 @@ function ColorPicker(object, property, options) {
   ].join('\n');
 
   // manage dom
-  classes.add(this.$el, 'gg-ColorPicker');
+  this.$el.className = 'gg-ColorPicker';
   this.$el.innerHTML = this.template;
 
   this.$text = this.$el.querySelector('.gg-ColorPicker-text');
@@ -60,6 +60,8 @@ function ColorPicker(object, property, options) {
   css(this.$el, '.Scp-hue', colorpickerStyle.scp.hue);
   css(this.$el, '.Scp-hSelector', colorpickerStyle.scp.hSelector);
 
+  this.onTextChange();
+
   // create event listeners
   this.$state.addEventListener('click', this.onColorPickerClick);
   this.$text.addEventListener('change', this.onTextChange);
@@ -84,25 +86,33 @@ ColorPicker.prototype.getColor = function() {
 };
 
 ColorPicker.prototype._closePicker = function() {
-  classes.remove(this.$picker, 'isOpened');
+  this.isOpened = false;
+  css(this.$picker, {display: 'none'});
+  this.onEndInteraction();
+};
+
+ColorPicker.prototype.invalidate = function() {
+  Component.prototype.invalidate.call(this);
+  this.colorPicker.setColor(this._value);
+  this.onColorPickerUpdate();
 };
 
 /* =============================================================================
   Events
 ============================================================================= */
 ColorPicker.prototype.onTextChange = function() {
-  this.colorPicker.setColor(tinyColor(this.$text.value).toHexString());
+  this.colorPicker.setColor(this.$text.value);
 };
 
 ColorPicker.prototype.onColorPickerClick = function() {
-  classes.toggle(this.$picker, 'isOpened');
-  if (classes.has(this.$picker, 'isOpened')) {
-    this.$picker.style.display = 'block';
+  this.isOpened = !this.isOpened;
+  if (this.isOpened) {
+    this.onStartInteraction();
+    css(this.$picker, {display: 'block'});
     this.$picker.addEventListener('mouseleave', this.onPickerMouseLeave);
   }
   else {
-    this.$picker.style.display = 'none';
-    this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave);
+    this._closePicker();
   }
 };
 
@@ -124,6 +134,7 @@ ColorPicker.prototype.onFinishedInteracting = function() {
 ColorPicker.prototype.onColorPickerUpdate = function() {
   var hexString = this.colorPicker.getHexString();
   var formatedColor = this.getColor();
+  this._value = formatedColor;
   this.$state.style.background = hexString;
   this.$text.value = hexString;
   this.$text.style.color = this.colorPicker.isDark() ? 'white' : 'black';

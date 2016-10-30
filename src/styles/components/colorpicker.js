@@ -25,7 +25,9 @@ module.exports = {
   },
   text: assign({
     color: 'white',
-    background: 'none'
+    background: 'none',
+    fontSize: '13px',
+    fontFamily: 'Arial',
   }, defaults.input),
   scp: {
     main: assign({

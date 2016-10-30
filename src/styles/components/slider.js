@@ -16,7 +16,8 @@ var backgroundHandle = {
 var indice = assign({
   color: variables.textSecondaryColor,
   fontSize: '0.7em',
-  bottom: '10%'
+  bottom: '10%',
+  userSelect: 'none'
 }, backgroundHandleIndice);
 
 module.exports = {

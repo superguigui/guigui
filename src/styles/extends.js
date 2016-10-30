@@ -11,7 +11,8 @@ module.exports = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontStyle: 'italic',
-    padding: '0 5px'
+    padding: '0 5px',
+    userSelect: 'none'
   },
   input: {
     margin: '0',

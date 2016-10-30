@@ -63,9 +63,27 @@ describe('Slider', function() {
     expect(slider.$el.parentNode).to.not.be.ok;
   });
 
+  it('can watch for value and update properly', function(done) {
+    var slider = new Slider(myObject, 'x', {watch: true});
+    myObject.x = 100;
+    setTimeout(function() {
+      expect(slider._value).to.equal(100);
+      slider.remove();
+      done();
+    });
+  });
+
+  it('stops listening for changes when in use', function() {
+    var slider = new Slider(myObject, 'x', {watch: true});
+    slider.onStartInteraction();
+    expect(slider.engine.running).to.not.be.ok;
+    slider.onEndInteraction();
+    expect(slider.engine.running).to.be.ok;
+  });
+
 });
 
-/* ================================================================================ 
+/* ================================================================================
   Utils
 ================================================================================ */
 function sliderDragX(slider, deltas) {

@@ -1,8 +1,8 @@
 var expect = require('chai').expect;
 var Guigui = require('../src');
-var classes = require('dom-classes');
 
 require('./utils/maths');
+require('./utils/css');
 require('./base/ComponentContainer');
 require('./base/Folder');
 require('./components/Slider');
@@ -12,7 +12,7 @@ require('./components/ColorPicker');
 
 describe('Guigui', function() {
   var gui = new Guigui();
-  var $el = document.querySelector('.Guigui');
+  var $el = document.querySelector('.gg');
 
   it('is in the DOM', function() {
     expect($el).to.equal(gui.$el);
@@ -39,7 +39,7 @@ describe('Guigui', function() {
   it('can contain folders', function() {
     var folder1 = gui.addFolder('my first folder');
     var folder2 = gui.addFolder('my second folder');
-    var $folders = $el.querySelectorAll('.Guigui .folder');
+    var $folders = $el.querySelectorAll('.gg-folder');
     expect($folders[0]).to.equal(folder1.$el);
     expect($folders[1]).to.equal(folder2.$el);
   });
@@ -47,15 +47,15 @@ describe('Guigui', function() {
   it('adds its component to `.main-content` rather than in itself', function() {
     var myObject = {x: 0};
     var component = gui.add(myObject, 'x');
-    var $component = $el.querySelector('.Guigui .slider');
+    var $component = $el.querySelector('.gg-slider');
     expect($component.parentNode).to.equal(gui.$content);
   });
 
   it('is hideable', function() {
-    gui.onToggleClick();
-    expect(classes.has($el, 'opened')).to.equal(false);
-    gui.onToggleClick();
-    expect(classes.has($el, 'opened')).to.equal(true);
+    gui.toggle();
+    expect(gui.isOpened).to.equal(false);
+    gui.toggle();
+    expect(gui.isOpened).to.equal(true);
   });
 
   it('can be removed', function() {
@@ -64,7 +64,7 @@ describe('Guigui', function() {
   });
 });
 
-/* ================================================================================ 
+/* ================================================================================
   Utils
 ================================================================================ */
 function resizeX(gui, deltas) {

@@ -42,9 +42,6 @@ module.exports = {
     top: '50%',
     transform: 'translateY(-50%)'
   }, verticalHorizontal),
-  component: {
-    width: 'calc(100% - 12px)'
-  },
   content: {
     marginTop: '5px',
     display: 'none'

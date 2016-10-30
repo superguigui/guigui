@@ -9,12 +9,9 @@ module.exports = {
   textMainColor: '#BBBDC0',
   textHighlightColor: '#6490cf',
   textSecondaryColor: '#6b6b6b',
-
   highlightColor: '#3d77eb',
-  
   primaryValidColor: '#3d77eb',
   secondaryValidColor: '#00d2da',
-
   primaryInvalidColor: '#a56262',
   secondaryInvalidColor: '#ba5185'
-}
+};

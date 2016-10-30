@@ -22,7 +22,7 @@ module.exports = {
     top: '20%',
     left: '20%',
     position: 'absolute',
-    transition: 'transform 0.5s easeOutExpo'
+    transition: 'transform 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)'
   },
   vertical: assign({
     width: '2px',

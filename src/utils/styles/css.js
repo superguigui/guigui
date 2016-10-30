@@ -1,8 +1,9 @@
 var Prefixer = require('inline-style-prefixer');
+var isString = require('../is-string');
 var prefixer = new Prefixer();
 
 var css = function($element, querySelector, styles) {
-  if (typeof querySelector === 'string' || querySelector instanceof String) {
+  if (isString(querySelector)) {
     $element = $element.querySelector(querySelector);
   }
   else {
@@ -10,12 +11,14 @@ var css = function($element, querySelector, styles) {
     querySelector = null;
   }
 
-  if (!$element) return;
+  if (!$element) return null;
 
   const prefixedStyles = prefixer.prefix(styles);
   for (var prop in prefixedStyles) {
     $element.style[prop] = prefixedStyles[prop];
   }
+
+  return $element;
 }
 
 module.exports = css;

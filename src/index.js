@@ -1,55 +1,56 @@
-var bindAll = require('lodash.bindall');
 var ComponentContainer = require('./base/ComponentContainer');
 var Folder = require('./base/Folder');
-var classes = require('dom-classes');
 var css = require('./utils/styles/css');
 var guiguiStyle = require('./styles/guigui');
 var closeStyle = require('./styles/close');
 var resizeStyle = require('./styles/resize');
 
-function Guigui() {
+function Guigui(options) {
   ComponentContainer.call(this);
+
+  options = options || {};
 
   this.minWidth = 210;
 
-  bindAll(this, 'onToggleClick', 'onResizeStartDrag', 'onResizeStopDrag', 'onResizeDrag');
+  this.toggle = this.toggle.bind(this);
+  this.onResizeStartDrag = this.onResizeStartDrag.bind(this);
+  this.onResizeStopDrag = this.onResizeStopDrag.bind(this);
+  this.onResizeDrag = this.onResizeDrag.bind(this);
 
   this.template = [
-    '<div class="head">',
-      '<div class="close-button">',
-        '<div class="content">',
-          '<div class="vertical"></div>',
-          '<div class="horizontal"></div>',
+    '<div class="gg-head">',
+      '<div class="gg-closebutton">',
+        '<div class="gg-closebutton-content">',
+          '<div class="gg-closebutton-content--vertical"></div>',
+          '<div class="gg-closebutton-content--horizontal"></div>',
         '</div>',
       '</div>',
     '</div>',
-    '<div class="main-content"></div>',
-    '<div class="resize-zone"></div>'
+    '<div class="gg-maincontent"></div>',
+    '<div class="gg-resizezone"></div>'
   ].join('\n');
 
-
   this.$el.innerHTML = this.template;
-  classes.add(this.$el, 'Guigui');
-  classes.add(this.$el, 'opened');
+  this.$el.className = 'gg';
   this.appendTo(document.body);
 
-  this.$closeButton = this.$el.querySelector('.close-button');
-  this.$content = this.$el.querySelector('.main-content');
-  this.$resize = this.$el.querySelector('.resize-zone');
+  this.$closeButton = this.$el.querySelector('.gg-closebutton');
+  this.$closeButtonCross = this.$el.querySelector('.gg-closebutton-content');
+  this.$content = this.$el.querySelector('.gg-maincontent');
+  this.$resize = this.$el.querySelector('.gg-resizezone');
 
   css(this.$el, guiguiStyle);
   css(this.$resize, resizeStyle);
-  css(this.$el, '.head', {height: '38px'});
+  css(this.$el, '.gg-head', {height: '38px'});
   css(this.$closeButton, closeStyle.main);
-  css(this.$closeButton, '.content', closeStyle.content);
-  css(this.$closeButton, '.vertical', closeStyle.vertical);
-  css(this.$closeButton, '.horizontal', closeStyle.horizontal);
+  css(this.$closeButton, '.gg-closebutton-content', closeStyle.content);
+  css(this.$closeButton, '.gg-closebutton-content--vertical', closeStyle.vertical);
+  css(this.$closeButton, '.gg-closebutton-content--horizontal', closeStyle.horizontal);
 
-
-
-  this.$closeButton.addEventListener('click', this.onToggleClick);
+  this.$closeButton.addEventListener('click', this.toggle);
   this.$resize.addEventListener('mousedown', this.onResizeStartDrag);
 
+  this.open();
 }
 
 Guigui.prototype = Object.create(ComponentContainer.prototype);
@@ -85,18 +86,29 @@ Guigui.prototype.addComponent = function(component) {
   component.appendTo(this.$content);
 };
 
-Guigui.prototype.onToggleClick = function() {
-  classes.toggle(this.$el, 'opened');
-  if (classes.has(this.$el, 'opened')) {
-    this.$content.style.display = 'block';
-  }
-  else {
-    this.$content.style.display = 'none';
-  }
+Guigui.prototype.open = function(component) {
+  this.isOpened = true;
+  css(this.$content, {display: 'block'});
+  css(this.$closeButtonCross, {transform: 'rotate(45deg)'});
+};
+
+Guigui.prototype.close = function(component) {
+  this.isOpened = false;
+  css(this.$content, {display: 'none'});
+  css(this.$closeButtonCross, {transform: 'rotate(0deg)'});
+};
+
+Guigui.prototype.toggle = function() {
+  if(this.isOpened) this.close();
+  else this.open();
 };
 
 Guigui.prototype.remove = function() {
   this.$el.parentNode.removeChild(this.$el);
+  this.$closeButton.removeEventListener('click', this.toggle);
+  this.$resize.removeEventListener('mousedown', this.onResizeStartDrag);
+  window.removeEventListener('mouseup', this.onResizeStopDrag);
+  window.removeEventListener('mousemove', this.onResizeDrag);
 };
 
 module.exports = Guigui;

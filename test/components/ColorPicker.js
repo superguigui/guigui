@@ -1,5 +1,4 @@
 var expect = require('chai').expect;
-var classes = require('dom-classes');
 var offset = require('../../src/utils/dom/offset');
 var ColorPicker = require('../../src/components/ColorPicker');
 
@@ -30,16 +29,16 @@ describe('ColorPicker', function() {
 
   it('is clickable to open and close actual picker', function() {
     cp.onColorPickerClick();
-    expect(classes.has(cp.$picker, 'isOpened')).to.be.ok;
+    expect(cp.isOpened).to.be.ok;
     cp.onColorPickerClick();
-    expect(classes.has(cp.$picker, 'isOpened')).to.not.be.ok;
+    expect(cp.isOpened).to.not.be.ok;
   });
 
   it('will close when mouse gets out of colorpicker', function() {
     cp.onColorPickerClick();
-    expect(classes.has(cp.$picker, 'isOpened')).to.be.ok;
+    expect(cp.isOpened).to.be.ok;
     cp.onPickerMouseLeave();
-    expect(classes.has(cp.$picker, 'isOpened')).to.not.be.ok;
+    expect(cp.isOpened).to.not.be.ok;
     cp.onColorPickerClick();
   });
 
@@ -47,15 +46,30 @@ describe('ColorPicker', function() {
     var start = offset(cp.colorPicker.$saturation);
     cp.colorPicker._onSaturationMouseDown({clientX: start.left, clientY: start.top, preventDefault: function() {}});
     cp.onPickerMouseLeave();
-    expect(classes.has(cp.$picker, 'isOpened')).to.be.ok;
+    expect(cp.isOpened).to.be.ok;
     cp.colorPicker._onSaturationMouseUp();
     cp.onFinishedInteracting();
-    expect(classes.has(cp.$picker, 'isOpened')).to.not.be.ok;
+    expect(cp.isOpened).to.not.be.ok;
   });
 
   it('can be removed from dom', function() {
     cp.remove();
     expect(cp.$el.parentNode).to.not.be.ok;
+  });
+
+  it('can watch for value and update properly', function(done) {
+    var myObject = {color: 0xFF0000, colorString: '#0000FF'};
+    var cp1 = new ColorPicker(myObject, 'color', {watch: true});
+    var cp2 = new ColorPicker(myObject, 'colorString', {watch: true});
+    myObject.color = 0x00FF00;
+    myObject.colorString = '#00FFFF';
+    setTimeout(function() {
+      expect(cp1._value).to.equal(0x00FF00);
+      expect(cp2._value).to.equal('#00FFFF');
+      cp1.remove();
+      cp2.remove();
+      done();
+    });
   });
 
 });
