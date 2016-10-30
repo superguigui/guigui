@@ -1,9 +1,4 @@
-// Tools
-var raf = require('raf');
-
-// guigui
 var Guigui = require('../src/index.js');
-
 
 /* --------------------------
   Setup

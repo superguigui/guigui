@@ -1,6 +1,10 @@
 {
   "name": "guigui",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/superguigui/guigui.git"
+  },
   "description": "GUI tools in commonjs",
   "main": "./src/index.js",
   "scripts": {
@@ -25,7 +29,6 @@
     "chai": "*",
     "color": "*",
     "mochify": "*",
-    "raf": "*",
     "uglify-js": "*",
     "watchify": "*"
   },
