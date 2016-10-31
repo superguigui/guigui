@@ -6,5 +6,6 @@ module.exports = assign({
   width: 'calc(100% - 12px)',
   padding: '5px',
   background: variables.backgroundMainColor,
-  color: variables.textMainColor
+  color: variables.textMainColor,
+  boxSizing: 'content-box'
 }, defaults.shadow);

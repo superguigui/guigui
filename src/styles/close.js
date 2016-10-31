@@ -14,7 +14,8 @@ module.exports = {
     height: '30px',
     position: 'absolute',
     right: '0px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    boxSizing: 'content-box'
   }, defaults.shadow),
   content: {
     width: '60%',
