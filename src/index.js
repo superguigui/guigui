@@ -2,13 +2,16 @@ var ComponentContainer = require('./base/ComponentContainer');
 var Folder = require('./base/Folder');
 var css = require('./utils/styles/css');
 var guiguiStyle = require('./styles/guigui');
-var closeStyle = require('./styles/close');
+var computeCloseStyle = require('./styles/close');
 var resizeStyle = require('./styles/resize');
+var variables = require('./styles/variables');
 
 function Guigui(options) {
   ComponentContainer.call(this);
 
   options = options || {};
+  variables.theme = variables[options.theme] !== undefined ? options.theme : 'dark';
+  console.log(variables.theme);
 
   this.minWidth = 210;
 
@@ -39,6 +42,7 @@ function Guigui(options) {
   this.$content = this.$el.querySelector('.gg-maincontent');
   this.$resize = this.$el.querySelector('.gg-resizezone');
 
+  var closeStyle = computeCloseStyle();
   css(this.$el, guiguiStyle);
   css(this.$resize, resizeStyle);
   css(this.$el, '.gg-head', {height: '38px'});

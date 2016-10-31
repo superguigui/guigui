@@ -1,10 +1,12 @@
 var Component = require('../base/Component');
 var css = require('../utils/styles/css');
-var togglerStyle = require('../styles/components/toggler');
+var computeTogglerStyle = require('../styles/components/toggler');
 
 
 function Toggler(object, property, options) {
   Component.call(this, object, property, options);
+
+  togglerStyle = computeTogglerStyle();
 
   this.onTogglerClick = this.onTogglerClick.bind(this);
 

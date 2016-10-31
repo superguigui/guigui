@@ -1,11 +1,14 @@
 var Component = require('../base/Component');
 var css = require('../utils/styles/css');
-var launcherStyle = require('../styles/components/launcher');
-var variables = require('../styles/variables');
+var computeLauncherStyle = require('../styles/components/launcher');
+var variablesThemes = require('../styles/variables');
 
 
 function Launcher(object, property, options) {
   Component.call(this, object, property, options);
+
+  var launcherStyle = computeLauncherStyle();
+  this.variables = variablesThemes[variablesThemes.theme];
 
   this.onButtonClick = this.onButtonClick.bind(this);
   this.onMouseDown = this.onMouseDown.bind(this);
@@ -56,11 +59,11 @@ Launcher.prototype.onButtonClick = function(e) {
 };
 
 Launcher.prototype.onMouseDown = function(e) {
-  css(this.$el, {background: variables.lightColor});
+  css(this.$el, {background: this.variables.lightColor});
 };
 
 Launcher.prototype.onMouseUp = function(e) {
-  css(this.$el, {background: variables.backgroundMainColor});
+  css(this.$el, {background: this.variables.backgroundMainColor});
 };
 
 module.exports = Launcher;

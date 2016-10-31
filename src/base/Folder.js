@@ -1,9 +1,11 @@
 var ComponentContainer = require('./ComponentContainer');
 var css = require('../utils/styles/css');
-var folderStyle = require('../styles/folder');
+var computeFolderStyle = require('../styles/folder');
 
 function Folder(labelText, autoOpen) {
   ComponentContainer.call(this);
+
+  var folderStyle = computeFolderStyle();
 
   this.toggle = this.toggle.bind(this);
 

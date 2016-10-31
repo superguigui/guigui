@@ -21,7 +21,7 @@ document.body.style.background = '#121212';
 /* --------------------------
   Gui Config
 */
-var gui = new Guigui();
+var gui = new Guigui({theme: 'light'});
 
 gui.add(myObject, 'x', {min: -200, max: 200}).on('update', onUpdateScaleOrPosition);
 gui.add(myObject, 'y', {min: -200, max: 200, step: 1}).on('update', onUpdateScaleOrPosition);

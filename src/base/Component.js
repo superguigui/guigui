@@ -1,10 +1,12 @@
 var css = require('../utils/styles/css');
-var componentStyle = require('../styles/component');
+var computeComponentStyle = require('../styles/component');
 var Emitter = require('component-emitter');
 var loop = require('raf-loop');
 
 function Component(object, property, options) {
   options = options || {};
+
+  var componentStyle = computeComponentStyle();
 
   this.onWatch = this.onWatch.bind(this);
 
