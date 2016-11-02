@@ -1,54 +1,66 @@
-'use strict';
-
-var bindAll = require('lodash.bindall');
-var transform = require('dom-transform');
-var numeral = require('numeral');
-var classes = require('dom-classes');
-
 var Component = require('../base/Component');
 var offset = require('../utils/dom/offset');
 var clamp = require('../utils/maths/clamp');
 var toPrecision = require('../utils/maths/toPrecision');
-
+var format = require('../utils/maths/format');
+var css = require('../utils/styles/css');
+var computeSliderStyle = require('../styles/components/slider');
 
 function Slider(object, property, options) {
-  Component.call(this);
+  Component.call(this, object, property, options);
+
+  sliderStyle = computeSliderStyle();
+
+  this.onSliderStartDrag = this.onSliderStartDrag.bind(this);
+  this.onSliderStopDrag = this.onSliderStopDrag.bind(this);
+  this.onSliderDrag = this.onSliderDrag.bind(this);
+  this.onTextStartDrag = this.onTextStartDrag.bind(this);
+  this.onTextStopDrag = this.onTextStopDrag.bind(this);
+  this.onTextDrag = this.onTextDrag.bind(this);
+  this.onTextKeyDown = this.onTextKeyDown.bind(this);
+  this.onTextChange = this.onTextChange.bind(this);
 
   // options
   options = options || {};
-  this.targetObject = object;
-  this.targetProperty = property;
   this.min = options.min || 0;
   this.max = options.max || 100;
   this.step = options.step || 1;
   this.labelText = options.label || property;
+  this.isWatched = options.watch === true;
 
   // const (lol)
   this.textValueSlowingFactor = 0.1;
-
-  // bind methods to scope (only if needed)
-  bindAll(this, 'onSliderStartDrag', 'onSliderStopDrag', 'onSliderDrag', 'onTextStartDrag', 'onTextStopDrag', 'onTextDrag', 'onTextKeyDown', 'onTextChange');
+  this.sliderValue = 0;
 
   // dom template of the component
   this.template = [
-    '<div class="label">' + this.labelText + '</div>',
-    '<div class="container">',
-      '<div class="background"></div>',
-      '<div class="handle"></div>',
-      '<div class="indice min">' + this.min + '</div>',
-      '<div class="indice max">' + this.max + '</div>',
+    '<div class="gg-slider-label">' + this.labelText + '</div>',
+    '<div class="gg-slider-container">',
+      '<div class="gg-slider-background"></div>',
+      '<div class="gg-slider-handle"></div>',
+      '<div class="gg-slider-indice gg-slider-indice--min">' + this.min + '</div>',
+      '<div class="gg-slider-indice gg-slider-indice--max">' + this.max + '</div>',
     '</div>',
-    '<input type="text" class="value" value="0"/>'
+    '<input type="text" class="gg-slider-value" value="0"/>'
   ].join('\n');
 
   // manage dom
-  classes.add(this.$el, 'slider');
+  this.$el.className = 'gg-slider';
   this.$el.innerHTML = this.template;
 
-  this.$container = this.$el.querySelector('.container');
-  this.$handle = this.$el.querySelector('.handle');
-  this.$background = this.$el.querySelector('.background');
-  this.$value = this.$el.querySelector('.value');
+  this.$container = this.$el.querySelector('.gg-slider-container');
+  this.$handle = this.$el.querySelector('.gg-slider-handle');
+  this.$background = this.$el.querySelector('.gg-slider-background');
+  this.$value = this.$el.querySelector('.gg-slider-value');
+
+  css(this.$el, sliderStyle.main);
+  css(this.$el, '.gg-slider-label', sliderStyle.label);
+  css(this.$container, sliderStyle.container);
+  css(this.$value, sliderStyle.value);
+  css(this.$background, sliderStyle.background);
+  css(this.$container, '.gg-slider-handle', sliderStyle.handle);
+  css(this.$container, '.gg-slider-indice--min', sliderStyle.min);
+  css(this.$container, '.gg-slider-indice--max', sliderStyle.max);
 
   // create event listeners
   this.$container.addEventListener('mousedown', this.onSliderStartDrag);
@@ -57,7 +69,11 @@ function Slider(object, property, options) {
   this.$value.addEventListener('change', this.onTextChange);
 
   // set initial value
-  this.value = this.targetObject[this.targetProperty];
+  this.value = this._targetObject[this._targetProperty];
+
+  if (this.isWatched) {
+
+  }
 }
 
 Slider.prototype = Object.create(Component.prototype);
@@ -74,27 +90,29 @@ Slider.prototype.remove = function() {
   Component.prototype.remove.call(this);
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Slider Dragging
 ============================================================================= */
 Slider.prototype.onSliderStartDrag = function(e) {
+  this.onStartInteraction();
   this.onSliderDrag(e);
   window.addEventListener('mouseup', this.onSliderStopDrag);
   window.addEventListener('mousemove', this.onSliderDrag);
+  e.preventDefault();
 };
 
-Slider.prototype.onSliderStopDrag = function(e) {
+Slider.prototype.onSliderStopDrag = function() {
   window.removeEventListener('mouseup', this.onSliderStopDrag);
   window.removeEventListener('mousemove', this.onSliderDrag);
+  this.onEndInteraction();
 };
 
 Slider.prototype.onSliderDrag = function(e) {
   var ratio = (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth;
   this.value = this.min + (this.max - this.min) * ratio;
-  e.preventDefault();
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Text Dragging
 ============================================================================= */
 Slider.prototype.onTextStartDrag = function(e) {
@@ -102,10 +120,9 @@ Slider.prototype.onTextStartDrag = function(e) {
   this.startValue = this.value;
   window.addEventListener('mouseup', this.onTextStopDrag);
   window.addEventListener('mousemove', this.onTextDrag);
-  // e.preventDefault(); // necessary for firefox
 };
 
-Slider.prototype.onTextStopDrag = function(e) {
+Slider.prototype.onTextStopDrag = function() {
   window.removeEventListener('mouseup', this.onTextStopDrag);
   window.removeEventListener('mousemove', this.onTextDrag);
 };
@@ -117,20 +134,20 @@ Slider.prototype.onTextDrag = function(e) {
 };
 
 Slider.prototype.onTextKeyDown = function(e) {
-  if(e.keyCode === 38) {
+  if (e.keyCode === 38) {
     this.value += this.step;
   }
-  else if(e.keyCode === 40) {
+  else if (e.keyCode === 40) {
     this.value -= this.step;
   }
   else {
-    return
+    return;
   }
   e.preventDefault();
 };
 
-Slider.prototype.onTextChange = function(e) {
-  if(this.$value.value.match(/^[+-]?\d+(\.\d+)?$/g)) {
+Slider.prototype.onTextChange = function() {
+  if (this.$value.value.match(/^[+-]?\d+(\.\d+)?$/g)) {
     this.value = Number(this.$value.value);
   }
   else {
@@ -138,36 +155,42 @@ Slider.prototype.onTextChange = function(e) {
   }
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Updaters
 ============================================================================= */
 Slider.prototype.updateTarget = function() {
-  this.targetObject[this.targetProperty] = this.sliderValue;
+  this._targetObject[this._targetProperty] = this.sliderValue;
   return this;
 };
 
 Slider.prototype.updateText = function() {
-  this.$value.value = numeral(this.sliderValue).format(this.step.toString());
+  if (!isNaN(this.sliderValue)) {
+    this.$value.value = format(this.sliderValue, this.step.toString());
+  }
   return this;
 };
 
 Slider.prototype.updateSlider = function() {
-  transform(this.$handle, {
-    scaleX: (1 - (this.sliderValue - this.min) / (this.max - this.min))
-  });
+  css(this.$handle, {transform: 'scaleX(' + (1 - (this.sliderValue - this.min) / (this.max - this.min)) + ')'});
   return this;
 };
 
-/* ============================================================================= 
+Slider.prototype.invalidate = function() {
+  Component.prototype.invalidate.call(this);
+  this.value = this._value;
+};
+
+/* =============================================================================
   Getters Setters
 ============================================================================= */
 Object.defineProperties(Slider.prototype, {
   value: {
     get: function() {
-      return  this.sliderValue;
+      return this.sliderValue;
     },
     set: function(value) {
       this.sliderValue = clamp(toPrecision(value, this.step), this.min, this.max);
+      this._value = this.sliderValue;
       this.updateTarget().updateSlider().updateText();
       this.emit('update', this.sliderValue);
     }

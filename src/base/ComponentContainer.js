@@ -1,5 +1,3 @@
-'use strict';
-
 /* Components */
 var Slider = require('../components/Slider');
 var Launcher = require('../components/Launcher');
@@ -7,9 +5,9 @@ var Toggler = require('../components/Toggler');
 var ColorPicker = require('../components/ColorPicker');
 
 /* Type checkers */
-var isNumber = require('is-number');
-var isFunction = require('is-function');
-var isBoolean = require('is-boolean');
+var isNumber = require('../utils/is-number');
+var isFunction = require('../utils/is-function');
+var isBoolean = require('../utils/is-boolean');
 
 function ComponentContainer() {
   this.$el = document.createElement('div');
@@ -34,15 +32,15 @@ ComponentContainer.prototype.addSlider = function(object, property, options) {
 };
 
 ComponentContainer.prototype.addLauncher = function(object, property, options) {
-  var button = new Launcher(object, property, options);
-  this.addComponent(button);
-  return button;
+  var launcher = new Launcher(object, property, options);
+  this.addComponent(launcher);
+  return launcher;
 };
 
 ComponentContainer.prototype.addToggler = function(object, property, options) {
-  var toggle = new Toggler(object, property, options);
-  this.addComponent(toggle);
-  return toggle;
+  var toggler = new Toggler(object, property, options);
+  this.addComponent(toggler);
+  return toggler;
 };
 
 ComponentContainer.prototype.addColorPicker = function(object, property, options) {
@@ -60,6 +58,10 @@ ComponentContainer.prototype.remove = function() {
     this.$el.parentNode.removeChild(this.$el);
     this.$el = null;
   }
+};
+
+ComponentContainer.prototype.appendTo = function($element) {
+  $element.appendChild(this.$el);
 };
 
 module.exports = ComponentContainer;

@@ -1,15 +1,18 @@
-'use strict';
-
-var bindAll = require('lodash.bindall');
-var classes = require('dom-classes');
 var Component = require('../base/Component');
+var css = require('../utils/styles/css');
+var computeLauncherStyle = require('../styles/components/launcher');
+var variablesThemes = require('../styles/variables');
 
 
 function Launcher(object, property, options) {
-  Component.call(this);
+  Component.call(this, object, property, options);
 
+  var launcherStyle = computeLauncherStyle();
+  this.variables = variablesThemes[variablesThemes.theme];
 
-  // TODO check that object.property is a function
+  this.onButtonClick = this.onButtonClick.bind(this);
+  this.onMouseDown = this.onMouseDown.bind(this);
+  this.onMouseUp = this.onMouseUp.bind(this);
 
   // options
   options = options || {};
@@ -18,21 +21,23 @@ function Launcher(object, property, options) {
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
 
-
-  // bind methods to scope (only if needed)
-  bindAll(this, 'onButtonClick');
-
   // dom template of the component
   this.template = [
-    '<div class="label">' + this.labelText + '<span>()</span></div>'
+    '<div class="gg-launcher-label">' + this.labelText + '<span>()</span></div>'
   ].join('\n');
 
   // manage dom
-  classes.add(this.$el, 'launcher');
+  this.$el.className = 'gg-launcher';
   this.$el.innerHTML = this.template;
+
+  css(this.$el, launcherStyle.main);
+  css(this.$el, '.gg-launcher-label', launcherStyle.label);
+  css(this.$el, 'span', launcherStyle.span);
 
   // create event listeners
   this.$el.addEventListener('click', this.onButtonClick);
+  this.$el.addEventListener('mousedown', this.onMouseDown);
+  this.$el.addEventListener('mouseup', this.onMouseUp);
 }
 
 Launcher.prototype = Object.create(Component.prototype);
@@ -40,15 +45,25 @@ Launcher.prototype.constructor = Launcher;
 
 Launcher.prototype.remove = function() {
   this.$el.removeEventListener('click', this.onButtonClick);
+  this.$el.removeEventListener('mousedown', this.onMouseDown);
+  this.$el.removeEventListener('mouseup', this.onMouseUp);
 
   Component.prototype.remove.call(this);
 };
 
-/* ============================================================================= 
+/* =============================================================================
   Events
 ============================================================================= */
 Launcher.prototype.onButtonClick = function(e) {
   this.targetObject[this.targetProperty].call(this.callbackScope);
+};
+
+Launcher.prototype.onMouseDown = function(e) {
+  css(this.$el, {background: this.variables.lightColor});
+};
+
+Launcher.prototype.onMouseUp = function(e) {
+  css(this.$el, {background: this.variables.backgroundMainColor});
 };
 
 module.exports = Launcher;
