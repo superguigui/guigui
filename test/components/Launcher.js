@@ -1,10 +1,11 @@
 var expect = require('chai').expect;
 var Launcher = require('../../src/components/Launcher');
-var variables = require('../../src/styles/variables');
+var variablesThemes = require('../../src/styles/variables');
 var Color = require('color');
 
 
 describe('Launcher', function() {
+  var variables = variablesThemes[variablesThemes.theme];
   var myObject = {toggle: function() {}};
   var lc = new Launcher(myObject, 'toggle');
 

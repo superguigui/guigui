@@ -62,6 +62,11 @@ describe('Guigui', function() {
     gui.remove();
     expect(gui.$el.parentNode).to.not.be.ok;
   });
+
+  it('can change theme', function() {
+    var guiThemed = new Guigui({theme: 'light'});
+    expect(guiThemed).to.be.ok;
+  });
 });
 
 /* ================================================================================
