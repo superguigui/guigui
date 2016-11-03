@@ -10,8 +10,7 @@
   "scripts": {
     "start": "budo example/example.js:example/example-build.js --live --open",
     "build": "browserify example/example.js | uglifyjs -nm > example/example-build.js",
-    "test": "mochify --cover",
-    "docs": "jsdoc src/index.js -d ./docs -R README.md -t node_modules/minami"
+    "test": "mochify --cover"
   },
   "keywords": [
     "gui",
@@ -29,8 +28,6 @@
     "budo": "*",
     "chai": "*",
     "color": "*",
-    "jsdoc": "^3.4.2",
-    "minami": "^1.1.1",
     "mochify": "*",
     "uglify-js": "*",
     "watchify": "*"
