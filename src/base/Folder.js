@@ -2,16 +2,14 @@ var ComponentContainer = require('./ComponentContainer');
 var css = require('../utils/styles/css');
 var computeFolderStyle = require('../styles/folder');
 
-function Folder(labelText, autoOpen) {
+function Folder(labelText) {
   ComponentContainer.call(this);
-
-  var folderStyle = computeFolderStyle();
 
   this.toggle = this.toggle.bind(this);
 
   // options
   this.labelText = labelText;
-  this.isOpened = autoOpen === true;
+  this.isOpened = false;
 
   this.$el.className = 'gg-folder';
 
@@ -31,14 +29,6 @@ function Folder(labelText, autoOpen) {
   this.$head = this.$el.querySelector('.gg-folder-head');
   this.$content = this.$el.querySelector('.gg-folder-content');
   this.$vertical = this.$el.querySelector('.gg-folder-openindicator--vertical');
-
-  css(this.$el, folderStyle.main);
-  css(this.$content, folderStyle.content);
-  css(this.$head, folderStyle.head);
-  css(this.$head, '.gg-folder-title', folderStyle.title);
-  css(this.$el, '.gg-folder-openindicator', folderStyle.indicator);
-  css(this.$el, '.gg-folder-openindicator--vertical', folderStyle.vertical);
-  css(this.$el, '.gg-folder-openindicator--horizontal', folderStyle.horizontal);
 
   this.$head.addEventListener('click', this.toggle);
 }
@@ -61,6 +51,22 @@ Folder.prototype.close = function() {
   this.isOpened = false;
   css(this.$content, {display: 'none'});
   css(this.$vertical, {display: 'block'});
+};
+
+Folder.prototype._applyStyles = function(theme) {
+  this.theme = theme || 'dark';
+
+  var folderStyle = computeFolderStyle(this.theme);
+
+  css(this.$el, folderStyle.main);
+  css(this.$content, folderStyle.content);
+  css(this.$head, folderStyle.head);
+  css(this.$head, '.gg-folder-title', folderStyle.title);
+  css(this.$el, '.gg-folder-openindicator', folderStyle.indicator);
+  css(this.$el, '.gg-folder-openindicator--vertical', folderStyle.vertical);
+  css(this.$el, '.gg-folder-openindicator--horizontal', folderStyle.horizontal);
+
+  ComponentContainer.prototype._applyStyles.call(this);
 };
 
 Folder.prototype.remove = function() {

@@ -14,25 +14,31 @@ function Guigui(options) {
   ComponentContainer.call(this);
 
   options = options || {};
-  variables.theme = variables[options.theme] !== undefined ? options.theme : 'dark';
 
-  this.top = options.top || 10;
-  this.right = options.right || 10;
-  this.left = options.left || 'auto';
+  this.theme = variables[options.theme] !== undefined ? options.theme : 'dark';
+  this.topPosition = options.top || 10;
+  this.rightPosition = options.right || 10;
+  this.leftPosition = options.left || 'auto';
   this.closeButtonPosition = {right: 0, left: 'auto'};
+  this.resizePosition = {right: 'auto', left: '-5'};
+  this.alignedToLeft = false;
+  this.container = options.container || document.body;
 
-  if (isNumber(this.top)) {
-    this.top += 'px';
+  if (isNumber(this.topPosition)) {
+    this.topPosition += 'px';
   }
 
-  if (isNumber(this.right)) {
-    this.right += 'px';
+  if (isNumber(this.rightPosition)) {
+    this.rightPosition += 'px';
   }
 
-  if (isNumber(this.left)) {
-    this.left += 'px';
+  if (isNumber(this.leftPosition)) {
+    this.leftPosition += 'px';
     this.closeButtonPosition.right = 'auto';
     this.closeButtonPosition.left = 0;
+    this.resizePosition.left = 'auto';
+    this.resizePosition.right = '-5px';
+    this.alignedToLeft = true;
   }
 
   this.toggle = this.toggle.bind(this);
@@ -59,26 +65,17 @@ function Guigui(options) {
 
   this.$el.innerHTML = this.template;
   this.$el.className = 'gg';
-  this.appendTo(document.body);
+  this.appendTo(this.container);
 
   this.$closeButton = this.$el.querySelector('.gg-closebutton');
   this.$closeButtonCross = this.$el.querySelector('.gg-closebutton-content');
   this.$content = this.$el.querySelector('.gg-maincontent');
   this.$resize = this.$el.querySelector('.gg-resizezone');
 
-  var closeStyle = computeCloseStyle();
-  css(this.$el, guiguiStyle);
-  css(this.$el, {top: this.top, right: this.right, left: this.left});
-  css(this.$resize, resizeStyle);
-  css(this.$el, '.gg-head', {height: '38px'});
-  css(this.$closeButton, closeStyle.main);
-  css(this.$closeButton, this.closeButtonPosition);
-  css(this.$closeButton, '.gg-closebutton-content', closeStyle.content);
-  css(this.$closeButton, '.gg-closebutton-content--vertical', closeStyle.vertical);
-  css(this.$closeButton, '.gg-closebutton-content--horizontal', closeStyle.horizontal);
-
   this.$closeButton.addEventListener('click', this.toggle);
   this.$resize.addEventListener('mousedown', this._onResizeStartDrag);
+
+  this._applyStyles();
 
   this.open();
 }
@@ -93,9 +90,10 @@ Guigui.prototype.constructor = Guigui;
  * @memberof Guigui
  */
 Guigui.prototype.addFolder = function(name) {
-  var folder = new Folder(name);
+  var folder = new Folder(name, this.theme);
   folder.appendTo(this.$content);
   this.folders.push(folder);
+  folder._applyStyles(this.theme);
   return folder;
 };
 
@@ -142,6 +140,27 @@ Guigui.prototype.remove = function() {
 /* =============================================================================
   Events
 ============================================================================= */
+Guigui.prototype._applyStyles = function() {
+  var closeStyle = computeCloseStyle(this.theme);
+
+  css(this.$el, guiguiStyle);
+  css(this.$el, {top: this.topPosition, right: this.rightPosition, left: this.leftPosition});
+  css(this.$resize, resizeStyle);
+  css(this.$resize, this.resizePosition);
+  css(this.$el, '.gg-head', {height: '38px'});
+  css(this.$closeButton, closeStyle.main);
+  css(this.$closeButton, this.closeButtonPosition);
+  css(this.$closeButton, '.gg-closebutton-content', closeStyle.content);
+  css(this.$closeButton, '.gg-closebutton-content--vertical', closeStyle.vertical);
+  css(this.$closeButton, '.gg-closebutton-content--horizontal', closeStyle.horizontal);
+
+  for (var i = 0, l = this.folders.length; i < l; i++) {
+    this.folders[i]._applyStyles(this.theme);
+  }
+
+  ComponentContainer.prototype._applyStyles.call(this);
+};
+
 Guigui.prototype._onResizeStartDrag = function(e) {
   this.resizeStartX = e.clientX;
   this.resizeWidth = this.$el.offsetWidth;
@@ -157,7 +176,7 @@ Guigui.prototype._onResizeStopDrag = function() {
 
 Guigui.prototype._onResizeDrag = function(e) {
   var delta = this.resizeStartX - e.clientX;
-  var width = this.resizeWidth + delta;
+  var width = this.alignedToLeft ? this.resizeWidth - delta : this.resizeWidth + delta;
   this.$el.style.width = Math.max(this.minWidth, width) + 'px';
 };
 

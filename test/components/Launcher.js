@@ -5,7 +5,7 @@ var Color = require('color');
 
 
 describe('Launcher', function() {
-  var variables = variablesThemes[variablesThemes.theme];
+  var variables = variablesThemes['dark'];
   var myObject = {toggle: function() {}};
   var lc = new Launcher(myObject, 'toggle');
 

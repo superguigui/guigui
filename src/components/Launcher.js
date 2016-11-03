@@ -7,9 +7,6 @@ var variablesThemes = require('../styles/variables');
 function Launcher(object, property, options) {
   Component.call(this, object, property, options);
 
-  var launcherStyle = computeLauncherStyle();
-  this.variables = variablesThemes[variablesThemes.theme];
-
   this.onButtonClick = this.onButtonClick.bind(this);
   this.onMouseDown = this.onMouseDown.bind(this);
   this.onMouseUp = this.onMouseUp.bind(this);
@@ -29,10 +26,6 @@ function Launcher(object, property, options) {
   // manage dom
   this.$el.className = 'gg-launcher';
   this.$el.innerHTML = this.template;
-
-  css(this.$el, launcherStyle.main);
-  css(this.$el, '.gg-launcher-label', launcherStyle.label);
-  css(this.$el, 'span', launcherStyle.span);
 
   // create event listeners
   this.$el.addEventListener('click', this.onButtonClick);
@@ -59,11 +52,21 @@ Launcher.prototype.onButtonClick = function(e) {
 };
 
 Launcher.prototype.onMouseDown = function(e) {
-  css(this.$el, {background: this.variables.lightColor});
+  css(this.$el, {background: variablesThemes[this.theme].lightColor});
 };
 
 Launcher.prototype.onMouseUp = function(e) {
-  css(this.$el, {background: this.variables.backgroundMainColor});
+  css(this.$el, {background: variablesThemes[this.theme].backgroundMainColor});
+};
+
+Launcher.prototype._applyStyles = function(theme) {
+  var launcherStyle = computeLauncherStyle(theme);
+
+  css(this.$el, launcherStyle.main);
+  css(this.$el, '.gg-launcher-label', launcherStyle.label);
+  css(this.$el, 'span', launcherStyle.span);
+
+  Component.prototype._applyStyles.call(this, theme);
 };
 
 module.exports = Launcher;

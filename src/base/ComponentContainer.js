@@ -16,15 +16,18 @@ function ComponentContainer() {
 }
 
 ComponentContainer.prototype.add = function(object, property, options) {
+  var component = null;
   if(isBoolean(object[property])) {
-    return this.addToggler(object, property, options);
+    component = this.addToggler(object, property, options);
   }
   else if(isNumber(object[property])) {
-    return this.addSlider(object, property, options);
+    component = this.addSlider(object, property, options);
   }
   else if(isFunction(object[property])) {
-    return this.addLauncher(object, property, options);
+    component = this.addLauncher(object, property, options);
   }
+  component._applyStyles(this.theme);
+  return component;
 };
 
 ComponentContainer.prototype.addSlider = function(object, property, options) {
@@ -48,12 +51,19 @@ ComponentContainer.prototype.addToggler = function(object, property, options) {
 ComponentContainer.prototype.addColorPicker = function(object, property, options) {
   var colorPicker = new ColorPicker(object, property, options);
   this.addComponent(colorPicker);
+  colorPicker._applyStyles(this.theme);
   return colorPicker;
 };
 
 ComponentContainer.prototype.addComponent = function(component) {
   component.appendTo(this.$content);
   this.childComponents.push(component);
+};
+
+ComponentContainer.prototype._applyStyles = function() {
+  for (var i = 0, l = this.childComponents.length; i < l; i++) {
+    this.childComponents[i]._applyStyles(this.theme);
+  }
 };
 
 ComponentContainer.prototype.remove = function() {

@@ -2,9 +2,10 @@ var variablesThemes = require('../variables');
 var assign = require('object-assign');
 var computeDefaults = require('../extends');
 
-module.exports = function() {
-  var defaults = computeDefaults();
-  var variables = variablesThemes[variablesThemes.theme];
+module.exports = function(theme) {
+  var defaults = computeDefaults(theme);
+  var variables = variablesThemes[theme];
+
   return {
     main: {
       height: '24px',
@@ -35,8 +36,7 @@ module.exports = function() {
       height: '50%',
       top: '25%',
       left: '25%',
-      borderRadius: '3px',
-      display: 'none'
+      borderRadius: '3px'
     }
   };
 };

@@ -27,17 +27,17 @@ gui2.add(myObject, 'y', {min: -200, max: 200, step: 1, watch: true}).on('update'
 gui2.add(myObject, 'scale', {min: 0, max: 3, step: 0.1, watch: true}).on('update', onUpdateScaleOrPosition);
 gui2.addColorPicker(myObject, 'hexColor', {label: 'Hex Color', watch: true}).on('update', onUpdateSquareColor);
 
-var folder2 = gui2.addFolder('Some Folder');
-folder2.add(myObject, 'changeSquareColor');
-folder2.addColorPicker(document.body.style, 'background', {watch: true});
-folder2.add(myObject, 'a', {label: 'alpha', min: 0, max: 1, step: 0.01, watch: true}).on('update', onUpdateOpacity);
-folder2.add(myObject, 'visible', {watch: true}).on('update', onUpdateVisibility);
-
 var gui = new Guigui({theme: 'light', left: 10, right: 'auto'});
 gui.add(myObject, 'x', {min: -200, max: 200, watch: true}).on('update', onUpdateScaleOrPosition);
 gui.add(myObject, 'y', {min: -200, max: 200, step: 1, watch: true}).on('update', onUpdateScaleOrPosition);
 gui.add(myObject, 'scale', {min: 0, max: 3, step: 0.1, watch: true}).on('update', onUpdateScaleOrPosition);
 gui.addColorPicker(myObject, 'hexColor', {label: 'Hex Color', watch: true}).on('update', onUpdateSquareColor);
+
+var folder2 = gui2.addFolder('Some Folder');
+folder2.add(myObject, 'changeSquareColor');
+folder2.addColorPicker(document.body.style, 'background', {watch: true});
+folder2.add(myObject, 'a', {label: 'alpha', min: 0, max: 1, step: 0.01, watch: true}).on('update', onUpdateOpacity);
+folder2.add(myObject, 'visible', {watch: true}).on('update', onUpdateVisibility);
 
 var folder = gui.addFolder('Some Folder');
 folder.add(myObject, 'changeSquareColor');

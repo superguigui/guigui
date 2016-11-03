@@ -7,10 +7,12 @@ var Slider = require('../../src/components/Slider');
 
 describe('ComponentContainer', function() {
   var cc = new ComponentContainer();
+  cc.theme = 'dark';
 
   it('accepts sliders', function() {
     var myObject = {x: 0};
     var slider = cc.addSlider(myObject, 'x');
+    cc._applyStyles();
     expect(slider).to.be.ok;
   });
 

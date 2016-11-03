@@ -40,6 +40,7 @@ describe('Guigui', function() {
     var folder1 = gui.addFolder('my first folder');
     var folder2 = gui.addFolder('my second folder');
     var $folders = $el.querySelectorAll('.gg-folder');
+    gui._applyStyles();
     expect($folders[0]).to.equal(folder1.$el);
     expect($folders[1]).to.equal(folder2.$el);
   });
@@ -70,6 +71,7 @@ describe('Guigui', function() {
 
   it('can be docked to the left instead', function() {
     var guiThemed = new Guigui({theme: 'light', left: 10, right: 'auto'});
+    resizeX(guiThemed, [100, 90, 80]);
     expect(guiThemed).to.be.ok;
   });
 });

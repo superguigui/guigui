@@ -1,7 +1,7 @@
 var variablesThemes = require('./variables');
 
-module.exports = function() {
-  var variables = variablesThemes[variablesThemes.theme];
+module.exports = function(theme) {
+  var variables = variablesThemes[theme];
   return {
     shadow: {
       boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.06)',

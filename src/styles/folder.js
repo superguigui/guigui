@@ -3,9 +3,9 @@ var assign = require('object-assign');
 var computeComponentStyle = require('./component');
 
 
-module.exports = function() {
-  variables = variablesThemes[variablesThemes.theme];
-  componentStyle = computeComponentStyle();
+module.exports = function(theme) {
+  variables = variablesThemes[theme];
+  componentStyle = computeComponentStyle(theme);
 
   var verticalHorizontal = {
     background: variables.highlightColor,
@@ -27,7 +27,7 @@ module.exports = function() {
     title: {
       textAlign: 'center',
       fontSize: '0.9em',
-      color: variables.textMainColor
+      color: variables.folderTextColor
     },
     indicator: {
       position: 'absolute',
