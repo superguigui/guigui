@@ -34,6 +34,7 @@ folder.addColorPicker(document.body.style, 'background');
 folder.add(myObject, 'a', {label: 'alpha', min: 0, max: 1, step: 0.01}).on('update', onUpdateOpacity);
 folder.add(myObject, 'visible').on('update', onUpdateVisibility);
 
+// gui.remove();
 
 function onUpdateScaleOrPosition() {
   $marker.style.transform = 'translate(' + myObject.x + 'px, ' + myObject.y + 'px) scale(' + myObject.scale + ')';

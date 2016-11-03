@@ -60,7 +60,7 @@ describe('Guigui', function() {
 
   it('can be removed', function() {
     gui.remove();
-    expect(gui.$el.parentNode).to.not.be.ok;
+    expect(gui.$el).to.not.be.ok;
   });
 });
 
@@ -68,9 +68,9 @@ describe('Guigui', function() {
   Utils
 ================================================================================ */
 function resizeX(gui, deltas) {
-  gui.onResizeStartDrag({clientX: deltas[0], preventDefault: function() {}});
+  gui._onResizeStartDrag({clientX: deltas[0], preventDefault: function() {}});
   for (var i = 1, l = deltas.length; i < l; i++) {
-    gui.onResizeDrag({clientX: deltas[i]});
+    gui._onResizeDrag({clientX: deltas[i]});
   }
-  gui.onResizeStopDrag();
+  gui._onResizeStopDrag();
 }

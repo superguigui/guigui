@@ -57,6 +57,9 @@ ComponentContainer.prototype.addComponent = function(component) {
 };
 
 ComponentContainer.prototype.remove = function() {
+  for (var i = 0, l = this.childComponents.length; i < l; i++) {
+    this.childComponents[i].remove();
+  }
   if(this.$el.parentNode) {
     this.$el.parentNode.removeChild(this.$el);
     this.$el = null;

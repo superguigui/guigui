@@ -62,10 +62,10 @@ Folder.prototype.close = function() {
 };
 
 Folder.prototype.remove = function() {
+  ComponentContainer.prototype.remove.call(this);
   this.$head.removeEventListener('click', this.toggle);
   this.$head = null;
   this.$content = null;
-  ComponentContainer.prototype.remove.call(this);
 };
 
 module.exports = Folder;
