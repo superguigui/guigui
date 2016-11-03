@@ -15,7 +15,7 @@ module.exports = function() {
   return {
     main: assign({
       position: 'relative',
-      margin: '3px 0'
+      margin: '1px 0'
     }, componentStyle, {
       background: variables.backgroundDarkColor
     }),

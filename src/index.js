@@ -5,13 +5,32 @@ var guiguiStyle = require('./styles/guigui');
 var computeCloseStyle = require('./styles/close');
 var resizeStyle = require('./styles/resize');
 var variables = require('./styles/variables');
+var isNumber = require('./utils/is-number');
 
 function Guigui(options) {
   ComponentContainer.call(this);
 
   options = options || {};
   variables.theme = variables[options.theme] !== undefined ? options.theme : 'dark';
-  console.log(variables.theme);
+
+  this.top = options.top || 10;
+  this.right = options.right || 10;
+  this.left = options.left || 'auto';
+  this.closeButtonPosition = {right: 0, left: 'auto'};
+
+  if (isNumber(this.top)) {
+    this.top += 'px';
+  }
+
+  if (isNumber(this.right)) {
+    this.right += 'px';
+  }
+
+  if (isNumber(this.left)) {
+    this.left += 'px';
+    this.closeButtonPosition.right = 'auto';
+    this.closeButtonPosition.left = 0;
+  }
 
   this.minWidth = 210;
 
@@ -44,9 +63,11 @@ function Guigui(options) {
 
   var closeStyle = computeCloseStyle();
   css(this.$el, guiguiStyle);
+  css(this.$el, {top: this.top, right: this.right, left: this.left});
   css(this.$resize, resizeStyle);
   css(this.$el, '.gg-head', {height: '38px'});
   css(this.$closeButton, closeStyle.main);
+  css(this.$closeButton, this.closeButtonPosition);
   css(this.$closeButton, '.gg-closebutton-content', closeStyle.content);
   css(this.$closeButton, '.gg-closebutton-content--vertical', closeStyle.vertical);
   css(this.$closeButton, '.gg-closebutton-content--horizontal', closeStyle.horizontal);

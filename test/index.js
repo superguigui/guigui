@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var Guigui = require('../src');
 
-require('./utils/maths');
+// require('./utils/maths');
 require('./utils/css');
 require('./base/ComponentContainer');
 require('./base/Folder');
@@ -65,6 +65,11 @@ describe('Guigui', function() {
 
   it('can change theme', function() {
     var guiThemed = new Guigui({theme: 'light'});
+    expect(guiThemed).to.be.ok;
+  });
+
+  it('can be docked to the left instead', function() {
+    var guiThemed = new Guigui({theme: 'light', left: 10, right: 'auto'});
     expect(guiThemed).to.be.ok;
   });
 });
