@@ -2,10 +2,12 @@ var SimpleColorPicker = require('simple-color-picker');
 var Component = require('../base/Component');
 var isNumber = require('../utils/is-number');
 var css = require('../utils/styles/css');
-var colorpickerStyle = require('../styles/components/colorpicker');
+var computeColorpickerStyle = require('../styles/components/colorpicker');
 
 function ColorPicker(object, property, options) {
   Component.call(this, object, property, options);
+
+  var colorpickerStyle = computeColorpickerStyle();
 
   this.onColorPickerClick = this.onColorPickerClick.bind(this);
   this.onColorPickerUpdate = this.onColorPickerUpdate.bind(this);

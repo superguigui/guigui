@@ -4,10 +4,12 @@ var clamp = require('../utils/maths/clamp');
 var toPrecision = require('../utils/maths/toPrecision');
 var format = require('../utils/maths/format');
 var css = require('../utils/styles/css');
-var sliderStyle = require('../styles/components/slider');
+var computeSliderStyle = require('../styles/components/slider');
 
 function Slider(object, property, options) {
   Component.call(this, object, property, options);
+
+  sliderStyle = computeSliderStyle();
 
   this.onSliderStartDrag = this.onSliderStartDrag.bind(this);
   this.onSliderStopDrag = this.onSliderStopDrag.bind(this);
