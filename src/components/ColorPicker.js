@@ -49,6 +49,7 @@ function ColorPicker(object, property, options) {
   this.$text.value = this.colorPicker.color.toHexString();
 
   this.onTextChange();
+  // setTimeout(this.onTextChange);
 
   // create event listeners
   this.$state.addEventListener('click', this.onColorPickerClick);
@@ -145,6 +146,8 @@ ColorPicker.prototype._applyStyles = function(theme) {
   css(this.$el, '.Scp-hSelector', colorpickerStyle.scp.hSelector);
 
   Component.prototype._applyStyles.call(this, theme);
+
+  this.onTextChange();
 };
 
 module.exports = ColorPicker;
