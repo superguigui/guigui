@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var Guigui = require('../src');
 
-require('./utils/maths');
+// require('./utils/maths');
 require('./utils/css');
 require('./base/ComponentContainer');
 require('./base/Folder');
@@ -40,6 +40,7 @@ describe('Guigui', function() {
     var folder1 = gui.addFolder('my first folder');
     var folder2 = gui.addFolder('my second folder');
     var $folders = $el.querySelectorAll('.gg-folder');
+    gui._applyStyles();
     expect($folders[0]).to.equal(folder1.$el);
     expect($folders[1]).to.equal(folder2.$el);
   });
@@ -60,11 +61,17 @@ describe('Guigui', function() {
 
   it('can be removed', function() {
     gui.remove();
-    expect(gui.$el.parentNode).to.not.be.ok;
+    expect(gui.$el).to.not.be.ok;
   });
 
   it('can change theme', function() {
     var guiThemed = new Guigui({theme: 'light'});
+    expect(guiThemed).to.be.ok;
+  });
+
+  it('can be docked to the left instead', function() {
+    var guiThemed = new Guigui({theme: 'light', left: 10, right: 'auto'});
+    resizeX(guiThemed, [100, 90, 80]);
     expect(guiThemed).to.be.ok;
   });
 });
@@ -73,9 +80,9 @@ describe('Guigui', function() {
   Utils
 ================================================================================ */
 function resizeX(gui, deltas) {
-  gui.onResizeStartDrag({clientX: deltas[0], preventDefault: function() {}});
+  gui._onResizeStartDrag({clientX: deltas[0], preventDefault: function() {}});
   for (var i = 1, l = deltas.length; i < l; i++) {
-    gui.onResizeDrag({clientX: deltas[i]});
+    gui._onResizeDrag({clientX: deltas[i]});
   }
-  gui.onResizeStopDrag();
+  gui._onResizeStopDrag();
 }

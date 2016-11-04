@@ -3,6 +3,7 @@ var Folder = require('../../src/base/Folder');
 
 describe('Folder', function() {
   var fd = new Folder();
+  fd._applyStyles('dark');
 
   it('can be added to dom', function() {
     fd.appendTo(document.body);

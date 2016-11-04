@@ -21,19 +21,20 @@ document.body.style.background = '#121212';
 /* --------------------------
   Gui Config
 */
-var gui = new Guigui({theme: 'light'});
-
-gui.add(myObject, 'x', {min: -200, max: 200}).on('update', onUpdateScaleOrPosition);
-gui.add(myObject, 'y', {min: -200, max: 200, step: 1}).on('update', onUpdateScaleOrPosition);
-gui.add(myObject, 'scale', {min: 0, max: 3, step: 0.1}).on('update', onUpdateScaleOrPosition);
+var gui = new Guigui({theme: 'dark'});
+gui.add(myObject, 'x', {min: -200, max: 200, watch: true}).on('update', onUpdateScaleOrPosition);
+gui.add(myObject, 'y', {min: -200, max: 200, step: 1, watch: true}).on('update', onUpdateScaleOrPosition);
+gui.add(myObject, 'scale', {min: 0, max: 3, step: 0.1, watch: true}).on('update', onUpdateScaleOrPosition);
 gui.addColorPicker(myObject, 'hexColor', {label: 'Hex Color', watch: true}).on('update', onUpdateSquareColor);
 
 var folder = gui.addFolder('Some Folder');
 folder.add(myObject, 'changeSquareColor');
-folder.addColorPicker(document.body.style, 'background');
-folder.add(myObject, 'a', {label: 'alpha', min: 0, max: 1, step: 0.01}).on('update', onUpdateOpacity);
-folder.add(myObject, 'visible').on('update', onUpdateVisibility);
+folder.addColorPicker(document.body.style, 'background', {watch: true});
+folder.add(myObject, 'a', {label: 'alpha', min: 0, max: 1, step: 0.01, watch: true}).on('update', onUpdateOpacity);
+folder.add(myObject, 'visible', {watch: true}).on('update', onUpdateVisibility);
 
+
+// gui.remove();
 
 function onUpdateScaleOrPosition() {
   $marker.style.transform = 'translate(' + myObject.x + 'px, ' + myObject.y + 'px) scale(' + myObject.scale + ')';

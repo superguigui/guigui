@@ -9,8 +9,6 @@ var computeSliderStyle = require('../styles/components/slider');
 function Slider(object, property, options) {
   Component.call(this, object, property, options);
 
-  sliderStyle = computeSliderStyle();
-
   this.onSliderStartDrag = this.onSliderStartDrag.bind(this);
   this.onSliderStopDrag = this.onSliderStopDrag.bind(this);
   this.onSliderDrag = this.onSliderDrag.bind(this);
@@ -53,15 +51,6 @@ function Slider(object, property, options) {
   this.$background = this.$el.querySelector('.gg-slider-background');
   this.$value = this.$el.querySelector('.gg-slider-value');
 
-  css(this.$el, sliderStyle.main);
-  css(this.$el, '.gg-slider-label', sliderStyle.label);
-  css(this.$container, sliderStyle.container);
-  css(this.$value, sliderStyle.value);
-  css(this.$background, sliderStyle.background);
-  css(this.$container, '.gg-slider-handle', sliderStyle.handle);
-  css(this.$container, '.gg-slider-indice--min', sliderStyle.min);
-  css(this.$container, '.gg-slider-indice--max', sliderStyle.max);
-
   // create event listeners
   this.$container.addEventListener('mousedown', this.onSliderStartDrag);
   this.$value.addEventListener('mousedown', this.onTextStartDrag);
@@ -70,10 +59,6 @@ function Slider(object, property, options) {
 
   // set initial value
   this.value = this._targetObject[this._targetProperty];
-
-  if (this.isWatched) {
-
-  }
 }
 
 Slider.prototype = Object.create(Component.prototype);
@@ -178,6 +163,21 @@ Slider.prototype.updateSlider = function() {
 Slider.prototype.invalidate = function() {
   Component.prototype.invalidate.call(this);
   this.value = this._value;
+};
+
+Slider.prototype._applyStyles = function(theme) {
+  var sliderStyle = computeSliderStyle(theme);
+
+  css(this.$el, sliderStyle.main);
+  css(this.$el, '.gg-slider-label', sliderStyle.label);
+  css(this.$container, sliderStyle.container);
+  css(this.$value, sliderStyle.value);
+  css(this.$background, sliderStyle.background);
+  css(this.$container, '.gg-slider-handle', sliderStyle.handle);
+  css(this.$container, '.gg-slider-indice--min', sliderStyle.min);
+  css(this.$container, '.gg-slider-indice--max', sliderStyle.max);
+
+  Component.prototype._applyStyles.call(this, theme);
 };
 
 /* =============================================================================

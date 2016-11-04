@@ -7,8 +7,6 @@ var computeColorpickerStyle = require('../styles/components/colorpicker');
 function ColorPicker(object, property, options) {
   Component.call(this, object, property, options);
 
-  var colorpickerStyle = computeColorpickerStyle();
-
   this.onColorPickerClick = this.onColorPickerClick.bind(this);
   this.onColorPickerUpdate = this.onColorPickerUpdate.bind(this);
   this.onPickerMouseLeave = this.onPickerMouseLeave.bind(this);
@@ -49,18 +47,6 @@ function ColorPicker(object, property, options) {
   this.colorPicker.onChange(this.onColorPickerUpdate);
 
   this.$text.value = this.colorPicker.color.toHexString();
-
-
-  css(this.$el, colorpickerStyle.main);
-  css(this.$el, '.gg-ColorPicker-label', colorpickerStyle.label);
-  css(this.$state, colorpickerStyle.state);
-  css(this.$text, colorpickerStyle.text);
-  css(this.$el, '.Scp', colorpickerStyle.scp.main);
-  css(this.$el, '.Scp-saturation', colorpickerStyle.scp.saturation);
-  css(this.$el, '.Scp-brightness', colorpickerStyle.scp.brightness);
-  css(this.$el, '.Scp-sbSelector', colorpickerStyle.scp.sbSelector);
-  css(this.$el, '.Scp-hue', colorpickerStyle.scp.hue);
-  css(this.$el, '.Scp-hSelector', colorpickerStyle.scp.hSelector);
 
   this.onTextChange();
 
@@ -142,6 +128,23 @@ ColorPicker.prototype.onColorPickerUpdate = function() {
   this.$text.style.color = this.colorPicker.isDark() ? 'white' : 'black';
   this.targetObject[this.targetProperty] = formatedColor;
   this.emit('update', formatedColor);
+};
+
+ColorPicker.prototype._applyStyles = function(theme) {
+  var colorpickerStyle = computeColorpickerStyle(theme);
+
+  css(this.$el, colorpickerStyle.main);
+  css(this.$el, '.gg-ColorPicker-label', colorpickerStyle.label);
+  css(this.$state, colorpickerStyle.state);
+  css(this.$text, colorpickerStyle.text);
+  css(this.$el, '.Scp', colorpickerStyle.scp.main);
+  css(this.$el, '.Scp-saturation', colorpickerStyle.scp.saturation);
+  css(this.$el, '.Scp-brightness', colorpickerStyle.scp.brightness);
+  css(this.$el, '.Scp-sbSelector', colorpickerStyle.scp.sbSelector);
+  css(this.$el, '.Scp-hue', colorpickerStyle.scp.hue);
+  css(this.$el, '.Scp-hSelector', colorpickerStyle.scp.hSelector);
+
+  Component.prototype._applyStyles.call(this, theme);
 };
 
 module.exports = ColorPicker;

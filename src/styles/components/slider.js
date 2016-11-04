@@ -2,9 +2,9 @@ var variablesThemes = require('../variables');
 var assign = require('object-assign');
 var computeDefaults = require('../extends');
 
-module.exports = function() {
-  var defaults = computeDefaults();
-  var variables = variablesThemes[variablesThemes.theme];
+module.exports = function(theme) {
+  var defaults = computeDefaults(theme);
+  var variables = variablesThemes[theme];
 
   var backgroundHandleIndice = {
     position: 'absolute',
@@ -47,7 +47,7 @@ module.exports = function() {
       float: 'left',
       fontFamily: 'Courier New, Arial',
       background: variables.fieldBackgroundColor,
-      color: variables.textHighlightColor,
+      color: variables.fieldTextColor,
       height: '100%',
       lineHeight: '40px * 0.6',
       width: '20.5%',

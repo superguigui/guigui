@@ -6,18 +6,16 @@ var loop = require('raf-loop');
 function Component(object, property, options) {
   options = options || {};
 
-  var componentStyle = computeComponentStyle();
-
   this.onWatch = this.onWatch.bind(this);
+  this.theme = '';
 
+  this.theme = options.theme || 'dark';
   this.isWatched = options.watch === true;
 
   this.$el = document.createElement('div');
-  css(this.$el, componentStyle);
 
   this._targetObject = object;
   this._targetProperty = property;
-
   this._value = object[property];
 
   if (this.isWatched) {
@@ -55,6 +53,12 @@ Component.prototype.onEndInteraction = function() {
   if (this.isWatched) {
     this.engine.start();
   }
+};
+
+Component.prototype._applyStyles = function(theme) {
+  this.theme = theme;
+  var componentStyle = computeComponentStyle(theme);
+  css(this.$el, componentStyle);
 };
 
 Component.prototype.onWatch = function() {

@@ -6,8 +6,6 @@ var computeTogglerStyle = require('../styles/components/toggler');
 function Toggler(object, property, options) {
   Component.call(this, object, property, options);
 
-  togglerStyle = computeTogglerStyle();
-
   this.onTogglerClick = this.onTogglerClick.bind(this);
 
   // options
@@ -33,11 +31,6 @@ function Toggler(object, property, options) {
 
   this.$handle = this.$el.querySelector('.gg-toggler-handle');
 
-  css(this.$el, togglerStyle.main);
-  css(this.$el, '.gg-toggler-label', togglerStyle.label);
-  css(this.$el, '.gg-toggler-state', togglerStyle.state);
-  css(this.$handle, togglerStyle.handle);
-
   if(this.targetObject[this.targetProperty] === true) {
     this.isSelected = true;
     css(this.$handle, {display: 'block'});
@@ -53,6 +46,17 @@ Toggler.prototype.constructor = Toggler;
 Toggler.prototype.remove = function() {
   this.$el.removeEventListener('click', this.onTogglerClick);
   Component.prototype.remove.call(this);
+};
+
+Toggler.prototype._applyStyles = function(theme) {
+  var togglerStyle = computeTogglerStyle(theme);
+
+  css(this.$el, togglerStyle.main);
+  css(this.$el, '.gg-toggler-label', togglerStyle.label);
+  css(this.$el, '.gg-toggler-state', togglerStyle.state);
+  css(this.$handle, togglerStyle.handle);
+
+  Component.prototype._applyStyles.call(this, theme);
 };
 
 /* =============================================================================

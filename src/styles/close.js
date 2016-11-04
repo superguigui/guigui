@@ -2,9 +2,9 @@ var assign = require('object-assign');
 var variablesThemes = require('./variables');
 var computeDefaults = require('./extends');
 
-module.exports = function() {
-  var defaults = computeDefaults();
-  var variables = variablesThemes[variablesThemes.theme];
+module.exports = function(theme) {
+  var defaults = computeDefaults(theme);
+  var variables = variablesThemes[theme];
   const verticalHorizontal = {
     position: 'absolute',
     background: variables.highlightColor
