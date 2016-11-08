@@ -20,11 +20,14 @@ function Slider(object, property, options) {
 
   // options
   options = options || {};
+  this.step = options.step || 1;
   this.min = options.min || 0;
   this.max = options.max || 100;
-  this.step = options.step || 1;
   this.labelText = options.label || property;
   this.isWatched = options.watch === true;
+
+  this.minText = format(this.min, this.step.toString());
+  this.maxText = format(this.max, this.step.toString());
 
   // const (lol)
   this.textValueSlowingFactor = 0.1;
@@ -36,8 +39,8 @@ function Slider(object, property, options) {
     '<div class="gg-slider-container">',
       '<div class="gg-slider-background"></div>',
       '<div class="gg-slider-handle"></div>',
-      '<div class="gg-slider-indice gg-slider-indice--min">' + this.min + '</div>',
-      '<div class="gg-slider-indice gg-slider-indice--max">' + this.max + '</div>',
+      '<div class="gg-slider-indice gg-slider-indice--min">' + this.minText + '</div>',
+      '<div class="gg-slider-indice gg-slider-indice--max">' + this.maxText + '</div>',
     '</div>',
     '<input type="text" class="gg-slider-value" value="0"/>'
   ].join('\n');
