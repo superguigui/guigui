@@ -37,7 +37,7 @@ describe('Launcher', function() {
 
   it('changes color back to normal when mouseup', function() {
     lc.onMouseUp({});
-    expect(Color(lc.$el.style.background).hexString()).to.equal(variables.backgroundMainColor.toUpperCase());
+    expect(Color(lc.$el.style.background).hex()).to.equal(variables.backgroundMainColor.toUpperCase());
   });
 });
 
