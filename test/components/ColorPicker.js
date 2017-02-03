@@ -72,4 +72,17 @@ describe('ColorPicker', function() {
     });
   });
 
+  it('can handle three.js colors', function() {
+    var myColor = 0xFF0000;
+    var myObject = {
+      color: {
+        isColor: true,
+        getHex: function () { return myColor },
+        setHex: function (value) { myColor = value }
+      }
+    };
+    var cp1 = new ColorPicker(myObject, 'color');
+    expect(cp1._value).to.equal(0xFF0000);
+  });
+
 });
