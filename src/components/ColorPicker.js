@@ -20,6 +20,10 @@ function ColorPicker(object, property, options) {
   this.labelText = options.label || property;
   this.callbackScope = options.scope || this.targetObject;
   this.initialColorFormat = isNumber(this.targetObject[this.targetProperty]) ? 'number' : 'string';
+  this.isThreejsColor = this.targetObject[this.targetProperty].isColor && typeof this.targetObject[this.targetProperty].setHex === 'function' && typeof this.targetObject[this.targetProperty].getHex === 'function';
+  if (this.isThreejsColor) {
+    this.initialColorFormat = 'number';
+  }
 
   this.isOpened = false;
 
@@ -40,7 +44,7 @@ function ColorPicker(object, property, options) {
 
   this.colorPicker = new SimpleColorPicker({
     el: this.$el,
-    color: this.targetObject[this.targetProperty],
+    color: this.isThreejsColor ? this.targetObject[this.targetProperty].getHex() : this.targetObject[this.targetProperty],
     background: '#30343c'
   });
   this.$picker = this.colorPicker.$el;
@@ -127,7 +131,11 @@ ColorPicker.prototype.onColorPickerUpdate = function() {
   this.$state.style.background = hexString;
   this.$text.value = hexString;
   this.$text.style.color = this.colorPicker.isDark() ? 'white' : 'black';
-  this.targetObject[this.targetProperty] = formatedColor;
+  if (this.isThreejsColor) {
+    this.targetObject[this.targetProperty].setHex(formatedColor);
+  } else {
+    this.targetObject[this.targetProperty] = formatedColor;
+  }
   this.emit('update', formatedColor);
 };
 

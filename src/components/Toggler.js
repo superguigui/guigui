@@ -31,7 +31,6 @@ function Toggler(object, property, options) {
 
   this.$handle = this.$el.querySelector('.gg-toggler-handle');
 
-  console.log('Togglet', this.targetProperty, this.targetObject[this.targetProperty]);
   if(this.targetObject[this.targetProperty] === true) {
     this.isSelected = true;
     css(this.$handle, {display: 'block'});
