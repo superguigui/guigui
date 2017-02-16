@@ -6,8 +6,7 @@ module.exports = {
     filename: 'guigui.js',
     path: './lib',
     library: 'guigui',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
