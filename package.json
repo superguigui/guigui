@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --open",
     "builded": "webpack-dev-server -d --config webpack.builded.config.js --open",
-    "build": "webpack --config webpack.prod.config.js",
+    "build": "webpack --config webpack.prod.config.js -p",
     "test": "NODE_PATH=app ava"
   },
   "keywords": [],
