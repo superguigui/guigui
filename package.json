@@ -1,6 +1,6 @@
 {
-  "name": "guigui-2",
-  "version": "1.0.0",
+  "name": "guigui",
+  "version": "2.0.0",
   "description": "",
   "main": "dist/bundle.js",
   "scripts": {
