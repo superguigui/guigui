@@ -26,9 +26,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "browser-env": "^2.0.19",
-    "css-loader": "^0.26.1",
     "ignore-styles": "^5.0.1",
-    "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
@@ -36,6 +34,8 @@
   },
   "dependencies": {
     "component-emitter": "^1.2.1",
+    "css-loader": "^0.26.1",
+    "postcss-loader": "^1.2.2",
     "simple-color-picker": "^0.1.2"
   }
 }
