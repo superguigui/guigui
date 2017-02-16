@@ -1,0 +1,41 @@
+@import '../extends.css';
+
+.guigui-toggler {
+  cursor: pointer;
+  user-select: none;
+}
+
+.guigui-toggler-label {
+  @extend label;
+  float: left;
+  width: calc(90% - 10px);
+  padding: 0px 5px;
+}
+
+.guigui-toggler-state, .guigui-toggler-handle {
+  border-radius: 2px;
+}
+
+.guigui-toggler-state {
+  position: relative;
+  background: #1D1F24;
+  height: 100%;
+  width: 17px;
+  float: left;
+  margin: 0px 0px 0px 10px;
+  box-shadow: rgba(255, 255, 255, 0.0470588) 0px 2px 1px;
+}
+
+.guigui-toggler-handle {
+  position: absolute;
+  background: #3D77EB;
+  width: 54%;
+  height: 50%;
+  top: 25%;
+  left: 23%;
+  display: none;
+}
+
+.guigui-toggler--selected .guigui-toggler-handle {
+  display: block;
+}
