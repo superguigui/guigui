@@ -2,10 +2,11 @@
   "name": "guigui",
   "version": "2.0.0",
   "description": "",
-  "main": "dist/bundle.js",
+  "main": "lib/guigui.js",
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --open",
-    "build": "webpack --config webpack.prod.config.js -p",
+    "builded": "webpack-dev-server -d --config webpack.builded.config.js --open",
+    "build": "webpack --config webpack.prod.config.js",
     "test": "NODE_PATH=app ava"
   },
   "keywords": [],

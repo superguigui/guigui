@@ -3,13 +3,11 @@ var path = require('path');
 module.exports = {
   entry: './app/index.js',
   output: {
-    filename: 'bundle.js',
-    path: './dist'
-  },
-  devServer: {
-    compress: false,
-    port: 9000,
-    inline: true
+    filename: 'guigui.js',
+    path: './lib',
+    library: 'guigui',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   module: {
     rules: [
