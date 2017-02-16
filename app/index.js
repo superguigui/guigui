@@ -53,8 +53,6 @@ appendElement($el);
 appendElement($content, $el);
 closeButton.appendTo($el);
 
-console.log('addPanel', addPanel);
-
 module.exports = {
   addPanel,
   addFolder,
