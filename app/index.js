@@ -55,7 +55,7 @@ closeButton.appendTo($el);
 
 console.log('addPanel', addPanel);
 
-export default {
+module.exports = {
   addPanel,
   addFolder,
   add,
