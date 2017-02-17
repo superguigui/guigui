@@ -58,6 +58,10 @@ export default class Folder extends Renderable {
     return component;
   }
 
+  addColorPicker(...args) {
+    return this.addColor(...args);
+  }
+
   addColor(object, property, options) {
     const component = new ColorPicker(object, property, options);
     this.components.push(component);
