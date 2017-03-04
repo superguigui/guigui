@@ -121,7 +121,7 @@ export default class Slider extends Component {
     e.preventDefault();
   }
 
-  onTextStopDrag() {
+  onTextStopDrag(e) {
     window.removeEventListener('mouseup', this.onTextStopDrag);
     window.removeEventListener('mousemove', this.onTextDrag);
     e.preventDefault();
