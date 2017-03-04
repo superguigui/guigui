@@ -97,15 +97,17 @@ export default class Slider extends Component {
     e.preventDefault();
   }
 
-  onSliderStopDrag() {
+  onSliderStopDrag(e) {
     window.removeEventListener('mouseup', this.onSliderStopDrag);
     window.removeEventListener('mousemove', this.onSliderDrag);
     this.onEndInteraction();
+    e.preventDefault();
   }
 
   onSliderDrag(e) {
     var ratio = (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth;
     this.value = this.min + (this.max - this.min) * ratio;
+    e.preventDefault();
   }
 
   /* =============================================================================
@@ -116,11 +118,13 @@ export default class Slider extends Component {
     this.startValue = this.value;
     window.addEventListener('mouseup', this.onTextStopDrag);
     window.addEventListener('mousemove', this.onTextDrag);
+    e.preventDefault();
   }
 
   onTextStopDrag() {
     window.removeEventListener('mouseup', this.onTextStopDrag);
     window.removeEventListener('mousemove', this.onTextDrag);
+    e.preventDefault();
   }
 
   onTextDrag(e) {
