@@ -19,6 +19,7 @@ export default class Toggler extends Component {
 
     this.labelText = label;
     this.isSelected = false;
+    this.isToggler = true;
 
     this.value = this._targetObject[this._targetProperty] === true;
 

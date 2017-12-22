@@ -40,6 +40,17 @@ test('clamp', t => {
   t.is(c, 0);
   t.is(d, -1);
 });
-// test('toPrecision', t => {
-//   const a = toPrecision();
-// });
+
+test('toPrecision', t => {
+  const a = toPrecision(1, 0.1);
+  const b = toPrecision(1.1, 0.1);
+  const c = toPrecision(1.1, 0.5);
+  const d = toPrecision(2.89, 0.9);
+  const e = toPrecision(2.889, 0.01);
+
+  t.is(a, 1.0);
+  t.is(b, 1.1);
+  t.is(c, 1.0);
+  t.is(d, 2.7);
+  t.is(e, 2.89);
+});

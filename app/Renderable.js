@@ -1,24 +1,22 @@
-import isValidDomParent from './utils/isValidDomParent';
 import {createElement, appendElement} from './utils/dom';
-import {warn} from './utils/log';
+import {isValidDomParent} from './utils/types';
 
 export default class Renderable {
-  constructor(options, domString = '') {
+  constructor(options = {}, domString = '') {
     this.classNames = options.classNames || [];
     this.$el = createElement('div', ...this.classNames);
     this.parent = null;
     this.$el.innerHTML = domString;
   }
 
-  render() {
-  }
+  render() {}
 
   appendTo(parent) {
     if (isValidDomParent(parent)) {
       this.parent = parent;
       parent.appendChild(this.$el);
     } else {
-      warn(parent + ' is not a valid dom element');
+      throw new Error('Renderable cannot be added to ' + parent);
     }
   }
 

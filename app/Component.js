@@ -6,6 +6,10 @@ export default class Component extends Renderable {
     options.classNames = options.classNames || [];
     options.classNames.push('guigui-component');
 
+    if (!object) {
+      throw new Error('Cannot create a component around a non object');
+    }
+
     super(options, domString);
 
     emitter(this);

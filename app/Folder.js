@@ -1,4 +1,4 @@
-import createComponent from './utils/createComponent';
+import createComponent from './createComponent';
 import Renderable from './Renderable';
 import {toggleClass, addClass, removeClass} from './utils/dom';
 import ColorPicker from './components/Colorpicker';

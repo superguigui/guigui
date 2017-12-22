@@ -11,9 +11,10 @@ export default class Slider extends Component {
       max = 100,
       watch = false,
       label = property,
-      minText = format(min, step.toString()),
-      maxText = format(max, step.toString())
     } = options;
+
+    let minText = format(min, step.toString())
+    let maxText = format(max, step.toString())
 
     const domString = `
       <div class="guigui-slider-label">${label}</div>
@@ -38,10 +39,11 @@ export default class Slider extends Component {
     this.onTextKeyDown = this.onTextKeyDown.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
 
+    this.isSlider = true;
     this.step = step;
     this.min = min;
     this.max = max;
-    this.labelText = label || property;
+    this.labelText = label;
     this.isWatched = watch === true;
     this.minText = minText;
     this.maxText = maxText;
@@ -70,10 +72,12 @@ export default class Slider extends Component {
   }
 
   set value(value) {
-    this.sliderValue = clamp(toPrecision(value, this.step), this.min, this.max);
-    this._value = this.sliderValue;
-    this.updateTarget().updateSlider().updateText();
-    this.emit('update', this.sliderValue);
+    if (!isNaN(value)) {
+      this.sliderValue = clamp(toPrecision(value, this.step), this.min, this.max);
+      this._value = this.sliderValue;
+      this.updateTarget().updateSlider().updateText();
+      this.emit('update', this.sliderValue);
+    }
   }
 
   remove() {
@@ -137,7 +141,6 @@ export default class Slider extends Component {
     } else {
       return;
     }
-    e.preventDefault();
   }
 
   onTextChange() {
@@ -157,9 +160,7 @@ export default class Slider extends Component {
   }
 
   updateText() {
-    if (!isNaN(this.sliderValue)) {
-      this.$value.value = format(this.sliderValue, this.step.toString());
-    }
+    this.$value.value = format(this.sliderValue, this.step.toString());
     return this;
   }
 

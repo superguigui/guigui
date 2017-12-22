@@ -5,9 +5,10 @@
   "main": "lib/guigui.js",
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --open",
-    "builded": "webpack-dev-server -d --config webpack.builded.config.js --open",
     "build": "webpack --config webpack.prod.config.js -p",
-    "test": "NODE_PATH=app ava"
+    "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
+    "cover:watch": "cross-env NODE_ENV=test NODE_PATH=app nyc ava --watch",
+    "test": "cross-env NODE_PATH=app ava"
   },
   "keywords": [],
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
@@ -19,14 +20,24 @@
       "./test/helpers/setup-browser-env.js"
     ]
   },
+  "nyc": {
+    "sourceMap": false,
+    "instrument": false,
+    "require": [
+      "babel-core/register"
+    ]
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "ava": "^0.18.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.22.0",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-env": "^1.6.1",
     "browser-env": "^2.0.19",
+    "cross-env": "^5.1.3",
     "ignore-styles": "^5.0.1",
+    "nyc": "^10.1.2",
     "precss": "^1.4.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",

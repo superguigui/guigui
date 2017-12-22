@@ -18,14 +18,14 @@ export default class Text extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
 
+    this.isText = true;
     this.$input = this.$el.querySelector('input');
     this.value = currentValue;
     this.$input.addEventListener('input', this.onInputChange);
   }
 
-  onInputChange(e) {
+  onInputChange() {
     this.value = this.$input.value;
-    console.log('onInputChange', this.value);
   }
 
   get value() {
@@ -37,10 +37,5 @@ export default class Text extends Component {
     this._value = value;
     this._targetObject[this._targetProperty] = value;
     this.emit('update', this.sliderValue);
-  }
-
-  invalidate() {
-    super.invalidate();
-    this.value = this._value;
   }
 }

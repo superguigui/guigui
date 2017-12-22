@@ -19,6 +19,7 @@ export default class Launcher extends Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 
+    this.isLauncher = true;
     this.labelText = label;
     this.callbackScope = scope;
 
@@ -33,16 +34,16 @@ export default class Launcher extends Component {
     super.remove();
   }
 
-  onButtonClick(e) {
+  onButtonClick() {
     this._targetObject[this._targetProperty].call(this.callbackScope);
   }
 
-  onMouseDown(e) {
+  onMouseDown() {
     addClass(this.$el, 'guigui-launcher--pressed');
     window.addEventListener('mouseup', this.onMouseUp);
   }
 
-  onMouseUp(e) {
+  onMouseUp() {
     window.removeEventListener('mouseup', this.onMouseUp);
     removeClass(this.$el, 'guigui-launcher--pressed');
   }

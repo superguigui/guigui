@@ -32,12 +32,18 @@ guigui.addPanel();
 const p2 = guigui.addPanel();
 const f3 = p2.addFolder('Test folder');
 f3.add(object, 'foo4');
+f3.add(object, 'bar');
 
 guigui.add(object, 'wiz');
 guigui.add(object, 'bar');
+guigui.add(object, 'bar');
+guigui.add(object, 'bar');
+guigui.add(object, 'bar');
 guigui.add(object, 'some');
 guigui.addColor(object, 'someColor');
-guigui.add(object, 'bubu', ['foo', 'bar', 'zaz']);
+guigui.add(object, 'bubu', ['foo', 'bar', 'zaz']).on('update', () => {
+  console.log(object.bubu);
+});
 guigui.add(object, 'bibi', [
   {name: 'foo', value: 'foo'},
   {name: 'bar', value: 'bar'},
