@@ -22,10 +22,7 @@
   },
   "nyc": {
     "sourceMap": false,
-    "instrument": false,
-    "require": [
-      "babel-core/register"
-    ]
+    "instrument": false
   },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
