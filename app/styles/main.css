@@ -1,0 +1,91 @@
+@import 'extends.css';
+
+.guigui {
+  position: absolute;
+  z-index: 999;
+  top: 10px;
+  right: 10px;
+  width: calc(100% - 20px);
+  color: white;
+}
+
+.guigui-container {
+  margin-top: 30px;
+  display: none;
+}
+
+.guigui-container--opened {
+  display: block;
+}
+
+.guigui-panel, .guigui-folder, .guigui-component {
+  @extend block;
+  box-sizing: border-box;
+  padding: 5px;
+  position: relative;
+}
+
+.guigui-panel, .guigui-folder {
+  background: linear-gradient(rgba(255, 255, 255, 0.0196078), rgba(255, 255, 255, 0)) rgb(34, 37, 43);
+}
+
+.guigui-panel {
+  width: 300px;
+  float: right;
+  margin: 10px 0 0 10px;
+
+  &-label {
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    user-select: none;
+  }
+
+  > .guigui-panel-content {
+    display: none;
+  }
+
+  &--opened {
+    > .guigui-panel-content {
+      display: block;
+    }
+  }
+}
+
+.guigui-folder {
+  margin: 5px 0;
+
+  &-head {
+    padding: 1px 0;
+  }
+
+  &-label {
+    margin: 0;
+    text-align: center;
+    user-select: none;
+  }
+
+  > .guigui-folder-content {
+    margin-top: 5px;
+    display: none;
+  }
+
+  &--opened {
+    > .guigui-folder-content {
+      display: block;
+    }
+  }
+}
+
+.guigui-component {
+  margin-top: 3px;
+  height: 17px;
+  box-sizing: content-box;
+}
+
+.guigui-component + .guigui-component {
+  margin-top: -1px;
+}
+
+@import 'texts.css';
+@import 'buttons.css';

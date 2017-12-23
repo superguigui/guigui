@@ -1,0 +1,22 @@
+@import '../extends.css';
+
+.guigui-launcher {
+  cursor: pointer;
+  user-select: none;
+}
+
+.guigui .guigui-launcher--pressed {
+  background: #36383F;
+}
+
+.guigui-launcher-label {
+  @extend label;
+  text-transform: capitalize;
+}
+
+.guigui-launcher-label span {
+  position: relative;
+  top: -1px;
+  left: 4px;
+  color: #3D77EB;
+}

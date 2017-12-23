@@ -1,42 +1,56 @@
 {
   "name": "guigui",
-  "version": "0.0.9",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/superguigui/guigui.git"
-  },
-  "description": "GUI tools in commonjs",
-  "main": "./src/index.js",
+  "version": "2.0.0",
+  "description": "",
+  "main": "lib/guigui.js",
   "scripts": {
-    "start": "budo example/example.js:example/example-build.js --live --open",
-    "build": "browserify example/example.js | uglifyjs -nm > example/example-build.js",
-    "test": "mochify --cover"
+    "start": "webpack-dev-server -d --config webpack.dev.config.js --open",
+    "build": "webpack --config webpack.prod.config.js -p",
+    "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
+    "cover:watch": "cross-env NODE_ENV=test NODE_PATH=app nyc ava --watch",
+    "test": "npm run lint && cross-env NODE_PATH=app ava",
+    "lint": "standard"
   },
-  "keywords": [
-    "gui",
-    "guigui",
-    "ui",
-    "interface",
-    "kit",
-    "slider",
-    "knobs"
-  ],
-  "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com>",
-  "license": "MIT",
+  "keywords": [],
+  "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
+  "license": "ISC",
+  "ava": {
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "./test/helpers/setup-browser-env.js"
+    ]
+  },
+  "nyc": {
+    "sourceMap": false,
+    "instrument": false
+  },
+  "standard": {
+    "ignore": [
+      "lib/"
+    ]
+  },
   "devDependencies": {
-    "browserify": "*",
-    "budo": "*",
-    "chai": "*",
-    "color": "*",
-    "mochify": "*",
-    "uglify-js": "*",
-    "watchify": "*"
+    "autoprefixer": "^6.7.0",
+    "ava": "^0.18.0",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-env": "^1.6.1",
+    "browser-env": "^2.0.19",
+    "cross-env": "^5.1.3",
+    "ignore-styles": "^5.0.1",
+    "nyc": "^10.1.2",
+    "precss": "^1.4.0",
+    "standard": "^10.0.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "component-emitter": "^1.2.0",
-    "inline-style-prefixer": "^2.0.4",
-    "object-assign": "^4.1.0",
-    "raf-loop": "^1.1.3",
-    "simple-color-picker": "0.0.6"
+    "component-emitter": "^1.2.1",
+    "css-loader": "^0.26.1",
+    "postcss-loader": "^1.2.2",
+    "simple-color-picker": "^0.1.2"
   }
 }

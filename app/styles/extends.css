@@ -1,0 +1,37 @@
+@define-extend block {
+  border: 1px solid #111;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  background: linear-gradient(rgba(255, 255, 255, 0.0196078), rgba(255, 255, 255, 0)) rgb(41, 44, 51);
+}
+
+@define-extend label {
+  font-size: 12px;
+  line-height: 18px;
+  font-style: italic;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+
+@define-extend labelInputs {
+  font-size: 12px;
+  line-height: 18px;
+  font-style: italic;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  float: left;
+  width: calc(31.5% - 20px);
+  padding: 0px 5px;
+  margin-right: 10px;
+}
+
+@define-extend inputs {
+  width: calc(68.5% - 10px);
+  background: #22252B;
+  color: #3D77EB;
+  line-height: 12px;
+  box-sizing: content-box;
+}
