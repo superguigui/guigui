@@ -106,3 +106,27 @@ test('removing a Slider', t => {
   s1.remove()
   t.falsy(s1.$el.parentNode)
 })
+
+test('Slider with out of range initial value (less)', t => {
+  const obj = {a: 0}
+  const s1 = new Slider(obj, 'a', {min: 1, max: 2})
+  t.is(s1.value, 1)
+})
+
+test('Slider with out of range initial value (more)', t => {
+  const obj = {a: 3}
+  const s1 = new Slider(obj, 'a', {min: 1, max: 2})
+  t.is(s1.value, 2)
+})
+
+test('Slider precision different than step param (more precise)', t => {
+  const obj = {a: 3.4}
+  const s1 = new Slider(obj, 'a', {step: 1})
+  t.is(s1.value, 3)
+})
+
+test('Slider precision different than step param (less precise)', t => {
+  const obj = {a: 3}
+  const s1 = new Slider(obj, 'a', {step: 0.1})
+  t.is(s1.value, 3)
+})
