@@ -99,7 +99,7 @@ export default class Slider extends Component {
     window.removeEventListener('mouseup', this.onSliderStopDrag)
     window.removeEventListener('mousemove', this.onSliderDrag)
     this.onEndInteraction()
-    e.preventDefault()
+    if (e) e.preventDefault()
   }
 
   onSliderDrag (e) {
@@ -122,7 +122,7 @@ export default class Slider extends Component {
   onTextStopDrag (e) {
     window.removeEventListener('mouseup', this.onTextStopDrag)
     window.removeEventListener('mousemove', this.onTextDrag)
-    e.preventDefault()
+    if (e) e.preventDefault()
   }
 
   onTextDrag (e) {

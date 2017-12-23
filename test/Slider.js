@@ -106,32 +106,3 @@ test('removing a Slider', t => {
   s1.remove()
   t.falsy(s1.$el.parentNode)
 })
-
-// test('create Select without array', t => {
-//   const obj = {a: 0};
-//   const error = t.throws(
-//     () => {
-//       const s1 = new Select(obj, 'a');
-//     },
-//     Error
-//   );
-//   t.is(error.message, 'Select cannot work without an array');
-// });
-
-// test('create Select with name value object', t => {
-//   const obj = {a: 0};
-//   const s1 = new Select(obj, 'a', [{name: 'zero', value: 0}, {name: 'one', value: 1}]);
-//   s1.$select.value = 1;
-//   s1.onSelectChange();
-//   t.is(obj.a, '1');
-//   t.is(s1.value, '1');
-// });
-
-// test('changes Select value', t => {
-//   const obj = {a: 0};
-//   const s1 = new Select(obj, 'a', [0, 1, 2]);
-//   s1.$select.value = 1;
-//   s1.onSelectChange();
-//   t.is(obj.a, '1');
-//   t.is(s1.value, '1');
-// });
