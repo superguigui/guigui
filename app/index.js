@@ -28,6 +28,10 @@ function addFolder (...args) {
   return getFirstPanel().addFolder(...args)
 }
 
+function addColorPicker(...args) {
+  return getFirstPanel().addColor(...args)
+}
+
 function getPanel (index) {
   if (index < panels.length) {
     return panels[index]
@@ -53,4 +57,10 @@ module.exports = {
   addFolder,
   add,
   addColor,
+<<<<<<< HEAD
   getPanel}
+=======
+  addColorPicker,
+  getPanel
+};
+>>>>>>> 2f0062152f6e4f25f3b91d137981d2b2796f635b

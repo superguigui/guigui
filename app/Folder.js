@@ -64,4 +64,8 @@ export default class Folder extends Renderable {
     component.appendTo(this.$content)
     return component
   }
+
+  addColorPicker (...args) {
+    return this.addColor(...args)
+  }
 }

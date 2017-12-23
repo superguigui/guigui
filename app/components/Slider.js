@@ -5,7 +5,7 @@ import '../styles/components/slider.css'
 
 export default class Slider extends Component {
   constructor (object, property, options = {}) {
-    let {step = 1, min = 0, max = 100, watch = false, label = property} = options
+    let { step = 1, min = 0, max = 100, watch = false, label = property } = options
 
     let minText = format(min, step.toString())
     let maxText = format(max, step.toString())
@@ -95,15 +95,17 @@ export default class Slider extends Component {
     e.preventDefault()
   }
 
-  onSliderStopDrag () {
+  onSliderStopDrag (e) {
     window.removeEventListener('mouseup', this.onSliderStopDrag)
     window.removeEventListener('mousemove', this.onSliderDrag)
     this.onEndInteraction()
+    e.preventDefault()
   }
 
   onSliderDrag (e) {
     var ratio = (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth
     this.value = this.min + (this.max - this.min) * ratio
+    e.preventDefault()
   }
 
   /* =============================================================================
@@ -114,11 +116,13 @@ export default class Slider extends Component {
     this.startValue = this.value
     window.addEventListener('mouseup', this.onTextStopDrag)
     window.addEventListener('mousemove', this.onTextDrag)
+    e.preventDefault()
   }
 
-  onTextStopDrag () {
+  onTextStopDrag (e) {
     window.removeEventListener('mouseup', this.onTextStopDrag)
     window.removeEventListener('mousemove', this.onTextDrag)
+    e.preventDefault()
   }
 
   onTextDrag (e) {
