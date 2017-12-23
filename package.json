@@ -8,7 +8,8 @@
     "build": "webpack --config webpack.prod.config.js -p",
     "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
     "cover:watch": "cross-env NODE_ENV=test NODE_PATH=app nyc ava --watch",
-    "test": "cross-env NODE_PATH=app ava"
+    "test": "npm run lint && cross-env NODE_PATH=app ava",
+    "lint": "standard"
   },
   "keywords": [],
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
@@ -24,6 +25,11 @@
     "sourceMap": false,
     "instrument": false
   },
+  "standard": {
+    "ignore": [
+      "lib/"
+    ]
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "ava": "^0.18.0",
@@ -36,6 +42,7 @@
     "ignore-styles": "^5.0.1",
     "nyc": "^10.1.2",
     "precss": "^1.4.0",
+    "standard": "^10.0.3",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^1.16.2"

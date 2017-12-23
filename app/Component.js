@@ -1,48 +1,48 @@
-import Renderable from './Renderable';
-import emitter from 'component-emitter';
+import Renderable from './Renderable'
+import emitter from 'component-emitter'
 
 export default class Component extends Renderable {
-  constructor(object, property, options = {}, domString = '') {
-    options.classNames = options.classNames || [];
-    options.classNames.push('guigui-component');
+  constructor (object, property, options = {}, domString = '') {
+    options.classNames = options.classNames || []
+    options.classNames.push('guigui-component')
 
     if (!object) {
-      throw new Error('Cannot create a component around a non object');
+      throw new Error('Cannot create a component around a non object')
     }
 
-    super(options, domString);
+    super(options, domString)
 
-    emitter(this);
+    emitter(this)
 
-    this.onWatch = this.onWatch.bind(this);
-    this.isWatched = options.watch === true;
+    this.onWatch = this.onWatch.bind(this)
+    this.isWatched = options.watch === true
 
-    this._targetObject = object;
-    this._targetProperty = property;
-    this._value = object[property];
+    this._targetObject = object
+    this._targetProperty = property
+    this._value = object[property]
 
-    this.onEndInteraction();
+    this.onEndInteraction()
   }
 
-  invalidate() {
-    this._value = this._targetObject[this._targetProperty];
+  invalidate () {
+    this._value = this._targetObject[this._targetProperty]
   }
 
-  onWatch() {
+  onWatch () {
     if (this._targetObject[this._targetProperty] !== this._value) {
-      this.invalidate();
+      this.invalidate()
     }
   }
 
-  onStartInteraction() {
+  onStartInteraction () {
     if (this.isWatched) {
-      clearInterval(this._watchInterval);
+      clearInterval(this._watchInterval)
     }
   }
 
-  onEndInteraction() {
+  onEndInteraction () {
     if (this.isWatched) {
-      this._watchInterval = setInterval(this.onWatch, 100);
+      this._watchInterval = setInterval(this.onWatch, 100)
     }
   }
 }
