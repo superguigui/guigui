@@ -2,7 +2,7 @@ module.exports = {
   entry: './app/index.js',
   output: {
     filename: 'guigui.js',
-    path: './lib',
+    path: __dirname + '/lib',
     library: 'guigui',
     libraryTarget: 'commonjs2'
   },
