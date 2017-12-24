@@ -2,7 +2,7 @@ module.exports = {
   entry: './demo/index.js',
   output: {
     filename: 'bundle.js',
-    path: './demo'
+    path: path: path.join(__dirname, '/demo')
   },
   devtool: 'cheap-eval-source-map',
   devServer: {

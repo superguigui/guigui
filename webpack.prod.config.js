@@ -1,8 +1,10 @@
+var path = require('path')
+
 module.exports = {
   entry: './app/index.js',
   output: {
     filename: 'guigui.js',
-    path: __dirname + '/lib',
+    path: path.join(__dirname, '/lib'),
     library: 'guigui',
     libraryTarget: 'commonjs2'
   },
