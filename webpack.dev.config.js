@@ -8,6 +8,7 @@ module.exports = {
   },
   devtool: 'cheap-eval-source-map',
   devServer: {
+    contentBase: './demo',
     compress: false,
     port: 9000,
     inline: true
