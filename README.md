@@ -204,3 +204,19 @@ I also encountered various annoying behaviors with dat.GUI that i wished to avoi
 - [ ] Drag and drop
 - [ ] Themes
 
+
+## Contributing
+
+```bash
+npm install
+npm start
+```
+
+### Demo
+To work on demo in local you will want to link your local version of guigui to the one used in the demo folder.
+```bash
+npm link
+cd demo
+npm link guigui
+npm start
+```

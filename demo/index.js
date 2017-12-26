@@ -1,4 +1,6 @@
-import guigui from '../app'
+import guigui from 'guigui'
+
+console.log('guigui demo')
 
 const $title = document.querySelector('h1')
 const $subject = document.querySelector('.subject')

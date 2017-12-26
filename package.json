@@ -4,12 +4,11 @@
   "description": "",
   "main": "lib/guigui.js",
   "scripts": {
-    "start": "webpack-dev-server -d --config webpack.dev.config.js --open",
-    "build": "webpack --config webpack.prod.config.js -p",
-    "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
-    "cover:watch": "cross-env NODE_ENV=test NODE_PATH=app nyc ava --watch",
+    "start": "cross-env NODE_PATH=app ava --watch",
     "test": "npm run lint && cross-env NODE_PATH=app ava",
-    "lint": "standard"
+    "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
+    "lint": "standard",
+    "build": "webpack -p"
   },
   "keywords": [],
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
@@ -45,12 +44,11 @@
     "standard": "^10.0.3",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^1.16.2"
+    "css-loader": "^0.26.1",
+    "postcss-loader": "^1.2.2"
   },
   "dependencies": {
     "component-emitter": "^1.2.1",
-    "css-loader": "^0.26.1",
-    "postcss-loader": "^1.2.2",
     "simple-color-picker": "^0.1.2"
   }
 }
