@@ -48,6 +48,8 @@ const $el = createElement('div', 'guigui')
 const $content = createElement('div', 'guigui-container')
 const closeButton = new CloseButton($content, 'guigui-container')
 
+console.log('GUIGUI')
+
 appendElement($el)
 appendElement($content, $el)
 closeButton.appendTo($el)
