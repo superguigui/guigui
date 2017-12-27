@@ -3,15 +3,20 @@ import precss from 'precss'
 import autoprefixer from 'autoprefixer'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
+import buble from 'rollup-plugin-buble'
 
 export default {
   input: 'app/index.js',
-  output: {
-    file: 'lib/guigui.js',
-    format: 'cjs'
-  },
+  output: [
+    {
+      file: 'lib/guigui.js',
+      format: 'cjs'
+    }, {
+      file: 'demo/guigui.js',
+      format: 'cjs'
+    }
+  ],
+  external: ['simple-color-picker'],
   plugins: [
     resolve(),
     commonjs(),
@@ -21,7 +26,6 @@ export default {
         autoprefixer()
       ]
     }),
-    babel(),
-    uglify()
+    buble()
   ]
 }

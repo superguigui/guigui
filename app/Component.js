@@ -1,5 +1,4 @@
 import Renderable from './Renderable'
-import emitter from 'component-emitter'
 
 export default class Component extends Renderable {
   constructor (object, property, options = {}, domString = '') {
@@ -12,16 +11,34 @@ export default class Component extends Renderable {
 
     super(options, domString)
 
-    emitter(this)
-
     this.onWatch = this.onWatch.bind(this)
     this.isWatched = options.watch === true
 
     this._targetObject = object
     this._targetProperty = property
     this._value = object[property]
+    this._events = []
 
     this.onEndInteraction()
+  }
+
+  on (type, handler) {
+    if (!this._events[type]) {
+      this._events[type] = []
+    }
+    this._events[type].push(handler)
+  }
+
+  off (type, handler) {
+    if (this._events[type]) {
+      this._events[type].splice(this._events[type].indexOf(handler) >>> 0, 1)
+    }
+  }
+
+  emit (type, evt) {
+    (this._events[type] || []).slice().map(handler => {
+      handler(evt)
+    })
   }
 
   invalidate () {

@@ -1,13 +1,10 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "modules": false
-      }
-    ]
+    ["env"]
   ],
-  "plugins": [
-    "external-helpers"
-  ]
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ]
+    }
+  }
 }
