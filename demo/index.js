@@ -1,68 +1,35 @@
-import guigui from '../app'
+import guigui from 'guigui'
 
-const p = guigui.addPanel('ColorPicker')
-const o = {css: '#DA5137', hex: '#84AF52', three: 0x97C4E9}
+console.log('guigui demo')
 
-p.addColorPicker(o, 'css', {
-  label: 'foo' // default to target property's name (here "css")
-})
-p.addColorPicker(o, 'hex')
-p.addColorPicker(o, 'three')
+const $title = document.querySelector('h1')
+const $subject = document.querySelector('.subject')
+$subject.x = 0
+$subject.y = 0
+$subject.visible = true
+$subject.shape = 'square'
 
-// const panel1 = guigui.addPanel('Panel1')
-// const panel2 = guigui.addPanel('Panel2')
+function moveSubject () {
+  $subject.style.transform = `translate(${$subject.x}px, ${$subject.y}px)`
+}
 
-// const o = {a: 0, b: 1, c: 2}
-// panel1.add(o, 'a')
-// panel1.add(o, 'b')
-// panel2.add(o, 'c')
+function toggleVisible (visible) {
+  $subject.style.display = visible ? 'block' : 'none'
+}
 
-// const object = {
-//   foo0: 0.5,
-//   foo1: 0.5,
-//   foo2: 0.5,
-//   foo3: 0.5,
-//   foo4: 0.5,
-//   oof: 0.5,
-//   bar: false,
-//   someColor: 0x00ff00,
-//   bubu: 'bar',
-//   bibi: 'zaz',
-//   some: 'text',
-//   wiz: () => {
-//     console.log('wiz')
-//   }
-// }
-// const f1 = guigui.addFolder('Some folder')
-// guigui.add(object, 'foo0', {label: 'foooooowwwwwwww', max: 1, step: 0.01})
-// f1.add(object, 'foo1', {step: 0.1})
-// f1.add(object, 'oof')
-// f1.add(object, 'foo2')
-// const f2 = f1.addFolder('Some other folder')
-// f1.addFolder('Some other folder')
-// f1.addFolder('Some other folder')
-// f2.add(object, 'foo3')
-// guigui.getPanel(0)
+function changeShape () {
+  $subject.style.borderRadius = $subject.shape === 'circle' ? '50px' : '0px'
+}
 
-// guigui.addPanel()
+$subject.wizz = () => {
+  $subject.style.top = `${(Math.random() * 80 + 10)}%`
+  $subject.style.left = `${(Math.random() * 80 + 10)}%`
+}
 
-// const p2 = guigui.addPanel()
-// const f3 = p2.addFolder('Test folder')
-// f3.add(object, 'foo4')
-// f3.add(object, 'bar')
-
-// guigui.add(object, 'wiz')
-// guigui.add(object, 'bar')
-// guigui.add(object, 'bar')
-// guigui.add(object, 'bar')
-// guigui.add(object, 'bar')
-// guigui.add(object, 'some')
-// guigui.addColor(object, 'someColor')
-// guigui.add(object, 'bubu', ['foo', 'bar', 'zaz']).on('update', () => {
-//   console.log(object.bubu)
-// })
-// guigui.add(object, 'bibi', [
-//   {name: 'foo', value: 'foo'},
-//   {name: 'bar', value: 'bar'},
-//   {name: 'zaz', value: 'zaz'}
-// ])
+guigui.add($title, 'innerHTML', {label: 'title'})
+guigui.add($subject, 'x', {min: -200, max: 200, step: 1}).on('update', moveSubject)
+guigui.add($subject, 'y', {min: -200, max: 200, step: 1}).on('update', moveSubject)
+guigui.add($subject, 'shape', ['square', 'circle']).on('update', changeShape)
+guigui.addColorPicker($subject.style, 'background', {label: 'color'})
+guigui.add($subject, 'visible').on('update', toggleVisible)
+guigui.add($subject, 'wizz')
