@@ -1,0 +1,22 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "rollup": "^0.53.0",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "simple-color-picker": "^0.1.2"
+  },
+  "scripts": {
+    "start": "rollup -c"
+  },
+  "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
+  "license": "ISC"
+}
