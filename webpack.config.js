@@ -9,7 +9,6 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   externals: {
-    'component-emitter': 'component-emitter',
     'simple-color-picker': 'simple-color-picker'
   },
   module: {

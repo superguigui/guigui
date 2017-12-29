@@ -24,11 +24,12 @@ $subject.wizz = () => {
   $subject.style.left = `${(Math.random() * 80 + 10)}%`
 }
 
-const folder = guigui.addFolder('position')
-folder.add($subject, 'x', {min: -200, max: 200, step: 1}).on('update', moveSubject)
-folder.add($subject, 'y', {min: -200, max: 200, step: 1}).on('update', moveSubject)
+guigui.add($subject, 'x', {min: -200, max: 200, step: 1}).on('update', moveSubject)
+guigui.add($subject, 'y', {min: -200, max: 200, step: 1}).on('update', moveSubject)
 guigui.add($title, 'innerHTML', {label: 'title'})
 guigui.add($subject, 'shape', ['square', 'circle']).on('update', changeShape)
 guigui.addColorPicker($subject.style, 'background', {label: 'color'})
 guigui.add($subject, 'visible').on('update', toggleVisible)
-guigui.add($subject, 'wizz')
+
+const folder = guigui.addFolder('a folder')
+folder.add($subject, 'wizz')
