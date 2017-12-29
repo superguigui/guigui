@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>gui-gui</title>
-  <style type="text/css">
+  <title>guigui-2</title>
+  <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: Helvetica, Arial, sans-serif;
+      background: #121212;
     }
-
-    .marker {
+    h1 {
+      font-family: Courier New, Courier, monospace;
+      color: #444;
+      font-weight: normal;
+    }
+    .subject {
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 50px;
       height: 50px;
-      position: absolute;
-      top: calc(50% - 25px);
-      left: calc(50% - 25px);
-    }
-
-    h1 {
-      color: white;
-      font-weight: normal;
-      margin: 10px 0 0 20px;
-      text-align: center;
-    }
-
-    a {
-      color: #434343;
-      text-decoration: none;
+      transition: top 0.5s, left 0.5s, border-radius 0.5s;
     }
   </style>
 </head>
 <body>
-  <h1>
-    <a href="https://github.com/superguigui/gui-gui">gui-gui</a>
-  </h1>
-  <div class="marker"></div>
-  <script src="example/example-build.js"></script>
+  <h1>guigui</h1>
+  <div class="subject" style="background: #E27F57;"></div>
+  <script type="text/javascript" src="/bundle.js"></script>
 </body>
 </html>

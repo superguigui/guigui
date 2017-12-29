@@ -1,0 +1,67 @@
+.guigui-toggle {
+  @extend block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  
+  &-line {
+    transition: transform 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000);
+  }
+
+  &--opened .guigui-toggle-line {
+    transform: translate3d(-50%, -50%, 1px) rotate(45deg);
+    &:first-child {
+      transform: translate3d(-50%, -50%, 1px) rotate(135deg);
+    }
+  }
+}
+
+.guigui-toggle, .guigui-panel-head, .guigui-folder-head {
+  cursor: pointer;
+}
+
+.guigui-folder-toggle, .guigui-panel-toggle {
+  position: absolute;
+}
+
+.guigui-panel-toggle {
+  top: 11px;
+  right: 11px;
+  width: 14px;
+  height: 14px;
+}
+
+.guigui-folder-toggle {
+  top: 7px;
+  right: 7px;
+  width: 12px;
+  height: 12px;
+}
+
+.guigui-toggle-line, .guigui-folder-toggle-line, .guigui-panel-toggle-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 1px);
+  width: 2px;
+  height: 100%;
+  background: rgb(61, 119, 235);
+
+  &:first-child {
+    transform: translate3d(-50%, -50%, 1px) rotate(90deg);
+  }
+}
+
+.guigui-toggle-line {
+  height: 60%;
+}
+
+.guigui-folder > .guigui-folder-head .guigui-folder-toggle-line:last-child{
+  display: block;
+}
+
+.guigui-folder--opened > .guigui-folder-head .guigui-folder-toggle-line:last-child{
+  display: none;
+}

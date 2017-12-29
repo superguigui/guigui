@@ -1,0 +1,17 @@
+.guigui {
+  font-family: Arial, sans-serif;
+  color: rgb(187, 189, 192);
+
+  &-folder-label, &-panel-label {   
+    font-weight: normal;
+  }
+
+  &-folder-label {
+    font-size: 13px;
+  }
+
+  &-panel-label {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
