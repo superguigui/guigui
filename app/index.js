@@ -3,6 +3,9 @@ import CloseButton from './CloseButton'
 import { createElement, appendElement } from './utils/dom'
 import './styles/main.css'
 
+// TODO USE BUBLE ISTEAD OF BABEL
+// TODO USE MIT instead of component/emitter ?
+
 function addPanel (name = '') {
   if (name === '') {
     name = 'Settings'

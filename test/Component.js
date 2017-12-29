@@ -76,3 +76,24 @@ test.cb('update value of non watchable Component during interaction', t => {
     200
   )
 })
+
+test('event management', t => {
+  const obj = {foo: 'bar'}
+  const c1 = new Component(obj, 'foo')
+  const f1 = () => {}
+  const f2 = () => {}
+  c1.on('update', f1)
+  t.truthy(c1._events.update)
+  t.is(c1._events.update.length, 1)
+  c1.on('update', f2)
+  t.is(c1._events.update.length, 2)
+  c1.emit('update', 'coucou')
+  c1.off('update', f1)
+  t.is(c1._events.update.length, 1)
+  c1.off('update', f2)
+  t.is(c1._events.update.length, 0)
+  c1.off('update', f1)
+  t.is(c1._events.update.length, 0)
+  c1.off('foo', f1)
+  t.is(c1._events.update.length, 0)
+})

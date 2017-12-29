@@ -1,13 +1,12 @@
-var path = require('path')
-
 module.exports = {
-  entry: './demo/index.js',
+  entry: './index.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/demo')
+    path: __dirname
   },
   devtool: 'cheap-eval-source-map',
   devServer: {
+    contentBase: __dirname,
     compress: false,
     port: 9000,
     inline: true
@@ -18,14 +17,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
       }
     ]
   }

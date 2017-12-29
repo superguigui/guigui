@@ -1,0 +1,22 @@
+{
+  "name": "guigui-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack -p"
+  },
+  "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "guigui": "^2.0.0"
+  }
+}

@@ -8,6 +8,9 @@ module.exports = {
     library: 'guigui',
     libraryTarget: 'commonjs2'
   },
+  externals: {
+    'simple-color-picker': 'simple-color-picker'
+  },
   module: {
     rules: [
       {
