@@ -12,6 +12,7 @@
 .guigui-launcher-label {
   @extend label;
   text-transform: capitalize;
+  width: 100%;
 }
 
 .guigui-launcher-label span {

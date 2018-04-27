@@ -79,8 +79,13 @@
 
 .guigui-component {
   margin-top: 3px;
-  height: 17px;
+  min-height: 17px;
   box-sizing: content-box;
+  display: flex;
+}
+
+.guigui-component div[class$="-label"] {
+  height: auto;
 }
 
 .guigui-component + .guigui-component {
