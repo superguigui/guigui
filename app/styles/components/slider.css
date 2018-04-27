@@ -10,8 +10,8 @@
 .guigui-slider-container {
   float: left;
   width: calc(50% - 20px);
+  height: 17px;
   margin: 0px 10px;
-  height: 100%;
   position: relative;
   cursor: ew-resize;
 }
@@ -58,9 +58,9 @@
   font-family: "Courier New", Arial;
   background: #22252B;
   color: #3D77EB;
-  height: 100%;
   line-height: 1;
   width: 20.5%;
+  height: 17px;
   font-size: 10px;
   text-align: center;
   margin: 0px;
