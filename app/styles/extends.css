@@ -4,6 +4,10 @@
   background: linear-gradient(rgba(255, 255, 255, 0.0196078), rgba(255, 255, 255, 0)) rgb(41, 44, 51);
 }
 
+@define-extend scrolledHead {
+  border-bottom: 1px solid #111;
+}
+
 @define-extend label {
   font-size: 12px;
   line-height: 18px;
