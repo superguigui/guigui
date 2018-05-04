@@ -34,6 +34,7 @@
   float: right;
   margin: 10px 0 0 10px;
 
+
   &-label {
     margin: 0;
     text-align: center;
@@ -43,12 +44,26 @@
 
   > .guigui-panel-content {
     display: none;
+    max-height: calc(100vh - 98px);
+    overflow-y: scroll;
   }
 
   &--opened {
     > .guigui-panel-content {
       display: block;
+      > .guigui-folder {
+        margin: 0px 0 5px 0;
+        &:first-child {
+          border-top: 0;
+        }
+      }
     }
+
+    .guigui-panel-head {
+      @extend scrolledHead;
+      padding-bottom: 5px;
+    }
+
   }
 }
 
