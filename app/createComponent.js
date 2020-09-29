@@ -7,7 +7,7 @@ import Launcher from './components/Launcher'
 import Text from './components/Text'
 import Select from './components/Select'
 
-export default function createComponent (object, property, array, options) {
+export default function createComponent(object, property, array, options) {
   const target = object[property]
 
   if (array && isArray(array)) {

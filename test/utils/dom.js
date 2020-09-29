@@ -8,11 +8,11 @@ import {
   hasClass,
   removeClass,
   toggleClass
-} from 'utils/dom'
+} from '../../app/utils/dom'
 
 const a = createElement('div', 'foo')
 const b = createElement('div', 'foo', 'bar')
-const c = {className: 'foo bar'}
+const c = { className: 'foo bar' }
 const d = createElement('div')
 const e = createElement('div')
 appendElement(a, b)
@@ -36,7 +36,14 @@ test('appendElement with no parent provided should add element to body', t => {
 test('offset', t => {
   t.is(offset(b).top, 0)
   t.is(offset(b).left, 0)
-  t.is(offset({offsetTop: 30, offsetLeft: 0, offsetParent: {offsetTop: 10, offsetLeft: 0}}).top, 40)
+  t.is(
+    offset({
+      offsetTop: 30,
+      offsetLeft: 0,
+      offsetParent: { offsetTop: 10, offsetLeft: 0 }
+    }).top,
+    40
+  )
 })
 
 test('addClasses', t => {

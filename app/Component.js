@@ -1,7 +1,7 @@
 import Renderable from './Renderable'
 
 export default class Component extends Renderable {
-  constructor (object, property, options = {}, domString = '') {
+  constructor(object, property, options = {}, domString = '') {
     options.classNames = options.classNames || []
     options.classNames.push('guigui-component')
 
@@ -22,42 +22,42 @@ export default class Component extends Renderable {
     this.onEndInteraction()
   }
 
-  on (type, handler) {
+  on(type, handler) {
     if (!this._events[type]) {
       this._events[type] = []
     }
     this._events[type].push(handler)
   }
 
-  off (type, handler) {
+  off(type, handler) {
     if (this._events[type]) {
       this._events[type].splice(this._events[type].indexOf(handler) >>> 0, 1)
     }
   }
 
-  emit (type, evt) {
-    (this._events[type] || []).slice().map(handler => {
+  emit(type, evt) {
+    ;(this._events[type] || []).slice().map(handler => {
       handler(evt)
     })
   }
 
-  invalidate () {
+  invalidate() {
     this._value = this._targetObject[this._targetProperty]
   }
 
-  onWatch () {
+  onWatch() {
     if (this._targetObject[this._targetProperty] !== this._value) {
       this.invalidate()
     }
   }
 
-  onStartInteraction () {
+  onStartInteraction() {
     if (this.isWatched) {
       clearInterval(this._watchInterval)
     }
   }
 
-  onEndInteraction () {
+  onEndInteraction() {
     if (this.isWatched) {
       this._watchInterval = setInterval(this.onWatch, 100)
     }

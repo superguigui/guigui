@@ -4,8 +4,14 @@ import { offset } from '../utils/dom'
 import '../styles/components/slider.css'
 
 export default class Slider extends Component {
-  constructor (object, property, options = {}) {
-    let { step = 1, min = 0, max = 100, watch = false, label = property } = options
+  constructor(object, property, options = {}) {
+    let {
+      step = 1,
+      min = 0,
+      max = 100,
+      watch = false,
+      label = property
+    } = options
 
     let minText = format(min, step.toString())
     let maxText = format(max, step.toString())
@@ -22,7 +28,7 @@ export default class Slider extends Component {
       </div>
     `
 
-    super(object, property, {watch, classNames: ['guigui-slider']}, domString)
+    super(object, property, { watch, classNames: ['guigui-slider'] }, domString)
 
     this.onSliderStartDrag = this.onSliderStartDrag.bind(this)
     this.onSliderStopDrag = this.onSliderStopDrag.bind(this)
@@ -61,20 +67,24 @@ export default class Slider extends Component {
     this.value = this._targetObject[this._targetProperty]
   }
 
-  get value () {
+  get value() {
     return this.sliderValue
   }
 
-  set value (value) {
+  set value(value) {
     if (!isNaN(value)) {
-      this.sliderValue = clamp(toPrecision(value, this.step), this.min, this.max)
+      this.sliderValue = clamp(
+        toPrecision(value, this.step),
+        this.min,
+        this.max
+      )
       this._value = this.sliderValue
       this.updateTarget().updateSlider().updateText()
       this.emit('update', this.sliderValue)
     }
   }
 
-  remove () {
+  remove() {
     this.$container.removeEventListener('mousedown', this.onSliderStartDrag)
     this.$value.removeEventListener('mousedown', this.onTextStartDrag)
     this.$value.removeEventListener('keydown', this.onTextKeyDown)
@@ -87,7 +97,7 @@ export default class Slider extends Component {
   /* =============================================================================
     Slider Dragging
   ============================================================================= */
-  onSliderStartDrag (e) {
+  onSliderStartDrag(e) {
     this.onStartInteraction()
     this.onSliderDrag(e)
     window.addEventListener('mouseup', this.onSliderStopDrag)
@@ -95,15 +105,16 @@ export default class Slider extends Component {
     e.preventDefault()
   }
 
-  onSliderStopDrag (e) {
+  onSliderStopDrag(e) {
     window.removeEventListener('mouseup', this.onSliderStopDrag)
     window.removeEventListener('mousemove', this.onSliderDrag)
     this.onEndInteraction()
     if (e) e.preventDefault()
   }
 
-  onSliderDrag (e) {
-    var ratio = (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth
+  onSliderDrag(e) {
+    var ratio =
+      (e.clientX - offset(this.$handle).left) / this.$background.offsetWidth
     this.value = this.min + (this.max - this.min) * ratio
     e.preventDefault()
   }
@@ -111,7 +122,7 @@ export default class Slider extends Component {
   /* =============================================================================
     Text Dragging
   ============================================================================= */
-  onTextStartDrag (e) {
+  onTextStartDrag(e) {
     this.startY = e.clientY
     this.startValue = this.value
     window.addEventListener('mouseup', this.onTextStopDrag)
@@ -119,19 +130,20 @@ export default class Slider extends Component {
     e.preventDefault()
   }
 
-  onTextStopDrag (e) {
+  onTextStopDrag(e) {
     window.removeEventListener('mouseup', this.onTextStopDrag)
     window.removeEventListener('mousemove', this.onTextDrag)
     if (e) e.preventDefault()
   }
 
-  onTextDrag (e) {
+  onTextDrag(e) {
     var delta = this.startY - e.clientY
-    this.value = this.startValue + delta * this.step * this.textValueSlowingFactor
+    this.value =
+      this.startValue + delta * this.step * this.textValueSlowingFactor
     e.preventDefault()
   }
 
-  onTextKeyDown (e) {
+  onTextKeyDown(e) {
     if (e.keyCode === 38) {
       this.value += this.step
     } else if (e.keyCode === 40) {
@@ -139,7 +151,7 @@ export default class Slider extends Component {
     }
   }
 
-  onTextChange () {
+  onTextChange() {
     if (this.$value.value.match(/^[+-]?\d+(\.\d+)?$/g)) {
       this.value = Number(this.$value.value)
     } else {
@@ -150,24 +162,25 @@ export default class Slider extends Component {
   /* =============================================================================
     Updaters
   ============================================================================= */
-  updateTarget () {
+  updateTarget() {
     this._targetObject[this._targetProperty] = this.sliderValue
     return this
   }
 
-  updateText () {
+  updateText() {
     this.$value.value = format(this.sliderValue, this.step.toString())
     return this
   }
 
-  updateSlider () {
-    this.$handle.style.transform = 'scaleX(' +
+  updateSlider() {
+    this.$handle.style.transform =
+      'scaleX(' +
       (1 - (this.sliderValue - this.min) / (this.max - this.min)) +
       ')'
     return this
   }
 
-  invalidate () {
+  invalidate() {
     super.invalidate()
     this.value = this._value
   }

@@ -1,15 +1,15 @@
-export function createElement (tagName, ...classes) {
+export function createElement(tagName, ...classes) {
   const $el = document.createElement(tagName)
   addClasses($el, ...classes)
   return $el
 }
 
-export function appendElement (element, parent = document.body) {
+export function appendElement(element, parent = document.body) {
   parent.appendChild(element)
 }
 
-export function offset (elem) {
-  var result = {left: 0, top: 0}
+export function offset(elem) {
+  var result = { left: 0, top: 0 }
   while (elem && !isNaN(elem.offsetTop) && !isNaN(elem.offsetLeft)) {
     result.left += elem.offsetLeft
     result.top += elem.offsetTop
@@ -21,11 +21,11 @@ export function offset (elem) {
 /* ---------------------------------------------------------------------------------
   CLASSES STUFF
 --------------------------------------------------------------------------------- */
-export function addClasses (element, ...classNames) {
+export function addClasses(element, ...classNames) {
   classNames.forEach(className => addClass(element, className))
 }
 
-export function addClass (element, className) {
+export function addClass(element, className) {
   if (hasClass(element, className)) return
   if (element.classList) {
     element.classList.add(className)
@@ -34,15 +34,17 @@ export function addClass (element, className) {
   }
 }
 
-export function hasClass (element, className) {
+export function hasClass(element, className) {
   if (element.classList) {
     return element.classList.contains(className)
   } else {
-    return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className)
+    return new RegExp('(^| )' + className + '( |$)', 'gi').test(
+      element.className
+    )
   }
 }
 
-export function removeClass (element, className) {
+export function removeClass(element, className) {
   if (!hasClass(element, className)) return
   if (element.classList) {
     element.classList.remove(className)
@@ -54,7 +56,7 @@ export function removeClass (element, className) {
   }
 }
 
-export function toggleClass (element, className) {
+export function toggleClass(element, className) {
   if (hasClass(element, className)) {
     removeClass(element, className)
   } else {

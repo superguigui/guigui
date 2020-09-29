@@ -2,16 +2,16 @@ import { createElement } from './utils/dom'
 import { isValidDomParent } from './utils/types'
 
 export default class Renderable {
-  constructor (options = {}, domString = '') {
+  constructor(options = {}, domString = '') {
     this.classNames = options.classNames || []
     this.$el = createElement('div', ...this.classNames)
     this.parent = null
     this.$el.innerHTML = domString
   }
 
-  render () {}
+  render() {}
 
-  appendTo (parent) {
+  appendTo(parent) {
     if (isValidDomParent(parent)) {
       this.parent = parent
       parent.appendChild(this.$el)
@@ -20,7 +20,7 @@ export default class Renderable {
     }
   }
 
-  remove () {
+  remove() {
     if (this.parent) {
       this.parent.removeChild(this.$el)
       this.parent = null

@@ -7,8 +7,8 @@ import {
   isObject,
   isThreejsColor,
   isValidDomParent
-} from 'utils/types'
-import {createElement} from 'utils/dom'
+} from '../../app/utils/types'
+import { createElement } from '../../app/utils/dom'
 
 const booleanTrue = true
 const booleanFalse = false
@@ -17,9 +17,9 @@ const positiveNumber = 1
 const negativeNumber = -1
 const decimalNumber = 0.57
 const someArray = ['a', 1, true]
-const someObject = {a: 0, b: 'toto'}
+const someObject = { a: 0, b: 'toto' }
 const string = 'string'
-const threeColor = {setHex: () => {}, getHex: () => {}, isColor: true}
+const threeColor = { setHex: () => {}, getHex: () => {}, isColor: true }
 const someDomNode = createElement('div')
 const aFunction = () => {}
 

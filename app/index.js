@@ -6,7 +6,7 @@ import './styles/main.css'
 // TODO USE BUBLE ISTEAD OF BABEL
 // TODO USE MIT instead of component/emitter ?
 
-function addPanel (name = '') {
+function addPanel(name = '') {
   if (name === '') {
     name = 'Settings'
     if (panels.length > 0) {
@@ -19,30 +19,30 @@ function addPanel (name = '') {
   return panel
 }
 
-function add (...args) {
+function add(...args) {
   return getFirstPanel().add(...args)
 }
 
-function addColor (...args) {
+function addColor(...args) {
   return getFirstPanel().addColor(...args)
 }
 
-function addFolder (...args) {
+function addFolder(...args) {
   return getFirstPanel().addFolder(...args)
 }
 
-function addColorPicker (...args) {
+function addColorPicker(...args) {
   return getFirstPanel().addColor(...args)
 }
 
-function getPanel (index) {
+function getPanel(index) {
   if (index < panels.length) {
     return panels[index]
   }
   return null
 }
 
-function getFirstPanel () {
+function getFirstPanel() {
   return getPanel(0) || addPanel()
 }
 

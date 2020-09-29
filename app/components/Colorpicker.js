@@ -5,8 +5,8 @@ import SimpleColorPicker from 'simple-color-picker'
 import '../styles/components/colorpicker.css'
 
 export default class Colorpicker extends Component {
-  constructor (object, property, options = {}) {
-    let {label = property} = options
+  constructor(object, property, options = {}) {
+    let { label = property } = options
 
     const domString = `
       <div class="guigui-colorpicker-label">${label}</div>
@@ -15,7 +15,7 @@ export default class Colorpicker extends Component {
       </div>
     `
 
-    super(object, property, {classNames: ['guigui-colorpicker']}, domString)
+    super(object, property, { classNames: ['guigui-colorpicker'] }, domString)
 
     this.onColorPickerClick = this.onColorPickerClick.bind(this)
     this.onColorPickerUpdate = this.onColorPickerUpdate.bind(this)
@@ -26,7 +26,8 @@ export default class Colorpicker extends Component {
     const value = object[property]
 
     this.isThreejsColor = isThreejsColor(value)
-    this.initialColorFormat = isNumber(value) || this.isThreejsColor ? 'number' : 'string'
+    this.initialColorFormat =
+      isNumber(value) || this.isThreejsColor ? 'number' : 'string'
     this.isOpened = false
 
     this.$text = this.$el.querySelector('.guigui-colorpicker-text')
@@ -34,11 +35,9 @@ export default class Colorpicker extends Component {
 
     this.colorPicker = new SimpleColorPicker({
       el: this.$el,
-      color: (
-      this.isThreejsColor
+      color: this.isThreejsColor
         ? this._targetObject[this._targetProperty].getHex()
-        : this._targetObject[this._targetProperty]
-      ),
+        : this._targetObject[this._targetProperty],
       background: '#30343c'
     })
     this.$picker = this.colorPicker.$el
@@ -52,27 +51,27 @@ export default class Colorpicker extends Component {
     this.$text.addEventListener('change', this.onTextChange)
   }
 
-  remove () {
+  remove() {
     this.$state.removeEventListener('click', this.onColorPickerClick)
     this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave)
     window.removeEventListener('mouseup', this.onFinishedInteracting)
     super.remove()
   }
 
-  getColor () {
+  getColor() {
     if (this.initialColorFormat === 'number') {
       return this.colorPicker.getHexNumber()
     }
     return this.colorPicker.getHexString()
   }
 
-  _closePicker () {
+  _closePicker() {
     this.isOpened = false
     removeClass(this.$el, 'guigui-colorpicker--opened')
     this.onEndInteraction()
   }
 
-  invalidate () {
+  invalidate() {
     this.colorPicker.setColor(this._value)
     this.onColorPickerUpdate()
   }
@@ -80,11 +79,11 @@ export default class Colorpicker extends Component {
   /* =============================================================================
     Events
   ============================================================================= */
-  onTextChange () {
+  onTextChange() {
     this.colorPicker.setColor(this.$text.value)
   }
 
-  onColorPickerClick () {
+  onColorPickerClick() {
     this.isOpened = !this.isOpened
     if (this.isOpened) {
       this.onStartInteraction()
@@ -95,7 +94,7 @@ export default class Colorpicker extends Component {
     }
   }
 
-  onPickerMouseLeave () {
+  onPickerMouseLeave() {
     this.$picker.removeEventListener('mouseleave', this.onPickerMouseLeave)
     if (this.colorPicker.choosing) {
       window.addEventListener('mouseup', this.onFinishedInteracting)
@@ -104,12 +103,12 @@ export default class Colorpicker extends Component {
     }
   }
 
-  onFinishedInteracting () {
+  onFinishedInteracting() {
     window.removeEventListener('mouseup', this.onFinishedInteracting)
     this._closePicker()
   }
 
-  onColorPickerUpdate () {
+  onColorPickerUpdate() {
     const hexString = this.colorPicker.getHexString()
     const formatedColor = this.getColor()
     this._value = formatedColor

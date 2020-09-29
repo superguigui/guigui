@@ -1,5 +1,5 @@
 import test from 'ava'
-import createComponent from 'createComponent'
+import createComponent from '../app/createComponent'
 
 const obj = {
   bool: true,

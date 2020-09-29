@@ -1,8 +1,8 @@
 import test from 'ava'
-import Renderable from 'Renderable'
+import Renderable from '../app/Renderable'
 
-function createRenderable (domString = `<span>bar</span>`, className = 'foo') {
-  return new Renderable({classNames: [className]}, domString)
+function createRenderable(domString = `<span>bar</span>`, className = 'foo') {
+  return new Renderable({ classNames: [className] }, domString)
 }
 
 test('create simple renderable', t => {
@@ -41,12 +41,9 @@ test('append renderable to element', t => {
 
 test('append renderable to nothing should not be possible', t => {
   const r1 = createRenderable()
-  const error = t.throws(
-    () => {
-      r1.appendTo()
-    },
-    Error
-  )
+  const error = t.throws(() => {
+    r1.appendTo()
+  }, null)
 
   t.is(error.message, 'Renderable cannot be added to undefined')
 })

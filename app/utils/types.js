@@ -8,16 +8,23 @@ export const isNumber = num => typeof num === 'number' && !isNaN(num)
 
 export const isArray = arr => Array.isArray(arr)
 
-export const isObject = obj => obj !== null && typeof obj === 'object' && !isArray(obj)
+export const isObject = obj =>
+  obj !== null && typeof obj === 'object' && !isArray(obj)
 
 export const isThreejsColor = obj => {
-  return isObject(obj) &&
+  return (
+    isObject(obj) &&
     isBoolean(obj.isColor) &&
     isFunction(obj.setHex) &&
     isFunction(obj.getHex)
+  )
 }
 
-export function isValidDomParent (element) {
+export function isValidDomParent(element) {
   if (!element) return false
-  return isObject(element) && isNumber(element.nodeType) && isString(element.nodeName)
+  return (
+    isObject(element) &&
+    isNumber(element.nodeType) &&
+    isString(element.nodeName)
+  )
 }

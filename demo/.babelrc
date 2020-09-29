@@ -1,10 +1,9 @@
 {
-  "presets": [
-    ["env"]
-  ],
+  "presets": [["@babel/preset-env"]],
+  "plugins": ["@babel/plugin-transform-runtime"],
   "env": {
     "test": {
-      "plugins": [ "istanbul" ]
+      "plugins": ["istanbul"]
     }
   }
 }

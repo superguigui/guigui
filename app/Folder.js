@@ -4,10 +4,11 @@ import { toggleClass, addClass, removeClass } from './utils/dom'
 import ColorPicker from './components/Colorpicker'
 
 export default class Folder extends Renderable {
-  constructor (folderName, options, domString = undefined) {
+  constructor(folderName, options, domString = undefined) {
     options.classNames = options.classNames || ['guigui-folder']
 
-    domString = domString ||
+    domString =
+      domString ||
       `
       <div class="guigui-folder-head">
         <h2 class="guigui-folder-label">${folderName}</h2>
@@ -27,45 +28,47 @@ export default class Folder extends Renderable {
     this.components = []
     this.folders = []
 
-    this.$content = this.$el.querySelector('.' + options.classNames[0] + '-content')
+    this.$content = this.$el.querySelector(
+      '.' + options.classNames[0] + '-content'
+    )
     this.$head = this.$el.querySelector('.' + options.classNames[0] + '-head')
     this.$head.addEventListener('click', this.toggle)
   }
 
-  toggle () {
+  toggle() {
     toggleClass(this.$el, this.classNames[0] + '--opened')
   }
 
-  close () {
+  close() {
     removeClass(this.$el, this.classNames[0] + '--opened')
   }
 
-  open () {
+  open() {
     addClass(this.$el, this.classNames[0] + '--opened')
   }
 
-  addFolder (name, options = {}) {
+  addFolder(name, options = {}) {
     const folder = new Folder(name, options)
     this.folders.push(folder)
     folder.appendTo(this.$content)
     return folder
   }
 
-  add (object, property, array, options) {
+  add(object, property, array, options) {
     const component = createComponent(object, property, array, options)
     this.components.push(component)
     component.appendTo(this.$content)
     return component
   }
 
-  addColor (object, property, options) {
+  addColor(object, property, options) {
     const component = new ColorPicker(object, property, options)
     this.components.push(component)
     component.appendTo(this.$content)
     return component
   }
 
-  addColorPicker (...args) {
+  addColorPicker(...args) {
     return this.addColor(...args)
   }
 }

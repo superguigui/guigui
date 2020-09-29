@@ -1,9 +1,9 @@
 import test from 'ava'
-import {toFixed, format, clamp, toPrecision} from 'utils/maths'
+import { toFixed, format, clamp, toPrecision } from '../../app/utils/maths'
 
 test('toFixed', t => {
   const decimal1a = toFixed(0.89, 1)
-  const decimal1b = toFixed(0.80, 1)
+  const decimal1b = toFixed(0.8, 1)
   const decimal2a = toFixed(0.891, 2)
   const decimal2b = toFixed(0.899, 2)
   const pi = toFixed(Math.PI, 3)
@@ -17,7 +17,7 @@ test('toFixed', t => {
 
 test('format', t => {
   const a = format(0.89, 0.1)
-  const b = format(0.80, 0.01)
+  const b = format(0.8, 0.01)
   const c = format(0.891, 0.2)
   const d = format(0.899, 1)
   const e = format(0.89, '0.1')

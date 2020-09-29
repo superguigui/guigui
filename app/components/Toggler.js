@@ -3,7 +3,7 @@ import { addClass, removeClass } from '../utils/dom'
 import '../styles/components/toggler.css'
 
 export default class Toggler extends Component {
-  constructor (object, property, options = {}) {
+  constructor(object, property, options = {}) {
     let { label = property } = options
 
     const domString = `
@@ -13,7 +13,7 @@ export default class Toggler extends Component {
       </div>
     `
 
-    super(object, property, {classNames: ['guigui-toggler']}, domString)
+    super(object, property, { classNames: ['guigui-toggler'] }, domString)
 
     this.onTogglerClick = this.onTogglerClick.bind(this)
 
@@ -26,17 +26,17 @@ export default class Toggler extends Component {
     this.$el.addEventListener('click', this.onTogglerClick)
   }
 
-  onTogglerClick (e) {
+  onTogglerClick(e) {
     this.onStartInteraction()
     this.value = !this.value
     this.onEndInteraction()
   }
 
-  get value () {
+  get value() {
     return this.isSelected
   }
 
-  set value (value) {
+  set value(value) {
     if (value) {
       this.isSelected = true
       addClass(this.$el, 'guigui-toggler--selected')

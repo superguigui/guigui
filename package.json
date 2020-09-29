@@ -1,13 +1,12 @@
 {
   "name": "guigui",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "",
   "main": "lib/guigui.js",
   "scripts": {
-    "start": "cross-env NODE_PATH=app ava --watch",
-    "test": "npm run lint && cross-env NODE_PATH=app ava",
-    "cover": "cross-env NODE_ENV=test NODE_PATH=app nyc ava",
-    "lint": "standard",
+    "start": "ava --watch",
+    "test": "ava",
+    "cover": "nyc ava",
     "build": "webpack -p",
     "deploy": "gh-pages -d demo"
   },
@@ -15,8 +14,13 @@
   "author": "Guillaume Gouessan <guillaume.gouessan@gmail.com> (http://guilaumegouessan.com/)",
   "license": "ISC",
   "ava": {
+    "babel": {
+      "extensions": [
+        "js"
+      ]
+    },
     "require": [
-      "babel-register",
+      "./test/helpers/_register.js",
       "ignore-styles",
       "./test/helpers/setup-browser-env.js"
     ]
@@ -25,29 +29,28 @@
     "sourceMap": false,
     "instrument": false
   },
-  "standard": {
-    "ignore": [
-      "lib/"
-    ]
-  },
   "devDependencies": {
-    "autoprefixer": "^6.7.0",
-    "ava": "^0.18.0",
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-istanbul": "^4.1.5",
-    "babel-preset-env": "^1.6.1",
-    "browser-env": "^2.0.19",
-    "cross-env": "^5.1.3",
-    "css-loader": "^0.26.1",
-    "gh-pages": "^1.1.0",
+    "@ava/babel": "^1.0.1",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "autoprefixer": "^10.0.1",
+    "ava": "^3.13.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "browser-env": "^3.3.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.3.0",
+    "gh-pages": "^3.1.0",
     "ignore-styles": "^5.0.1",
-    "nyc": "^10.1.2",
-    "postcss-loader": "^1.2.2",
-    "precss": "^1.4.0",
-    "standard": "^10.0.3",
-    "style-loader": "^0.13.1",
-    "webpack": "^2.2.0"
+    "nyc": "^15.1.0",
+    "postcss": "^8.1.1",
+    "postcss-loader": "^4.0.2",
+    "precss": "^4.0.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "simple-color-picker": "^0.1.2"
